@@ -251,7 +251,7 @@ def evaluate(tag: str, run: str, force: bool = False):
 def analyze_build(tag: str):
     link_data(); vol.reload()
     P = paths(tag)
-    if not os.path.exists(f"{P['results']}/test_behaviour.json"):
+    if not os.path.exists(f"{P['results']}/test_behaviour_anon.json"):   # name-free test vectors (old name-bearing file is ignored)
         sh(f"python eval/analyze.py build-test --results {P['results']}")
         vol.commit()
     return "test behaviour ready"

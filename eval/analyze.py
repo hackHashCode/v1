@@ -1,6 +1,6 @@
 """Behaviour metrics beyond pass@1, on the 224 MBPP+ test tasks (run on Linux: uses cache/behaviour.py's sandbox).
 
-  python eval/analyze.py build-test --results R            # canonical behaviour of every test task -> R/test_behaviour.json
+  python eval/analyze.py build-test --results R            # canonical behaviour of every test task -> R/test_behaviour_anon.json
   python eval/analyze.py run --run sft_s42 --samples S --results R      # -> R/metrics/sft_s42.json
   python eval/analyze.py figure --run precodefull_aux_s42 --samples S --results R   # -> R/tsne_<run>.png
 
@@ -73,7 +73,7 @@ def build_test(results):
     for t in res:
         res[t]["entry"] = entry[t]
     os.makedirs(results, exist_ok=True)
-    json.dump(res, open(os.path.join(results, "test_behaviour.json"), "w"))
+    json.dump(res, open(os.path.join(results, "test_behaviour_anon.json"), "w"))
     ok = sum(1 for v in res.values() if v["z"] is not None)
     print(f"[test] behaviour vectors for {ok}/{len(ids)} test tasks, mean probes {sum(len(v['probes']) for v in res.values()) / len(res):.1f}")
 
@@ -90,7 +90,7 @@ def _one(args):
 def analyze_run(run, samples, results):
     import torch
     import torch.nn.functional as F
-    tb = json.load(open(os.path.join(results, "test_behaviour.json")))
+    tb = json.load(open(os.path.join(results, "test_behaviour_anon.json")))
     sol = {}
     for l in open(os.path.join(samples, run, "mbpp.jsonl")):
         r = json.loads(l); sol[r["task_id"]] = r["solution"]
@@ -99,7 +99,7 @@ def analyze_run(run, samples, results):
         rows = pool.map(_one, [(t, sol[t], tb[t]) for t in ids])
     match = {t: m for t, m, _ in rows}
     zgen = {t: z for t, _, z in rows}
-    out = {"run": run, "n_tasks": len(ids),
+    out = {"run": run, "n_tasks": len(ids), "name_free": True,
            "behaviour_match": round(sum(match.values()) / len(match), 4),
            "exact_behaviour": round(sum(1 for m in match.values() if m == 1.0) / len(match), 4)}
     zp_path = os.path.join(samples, run, "mbpp_z.json")
@@ -132,7 +132,7 @@ def figure(run, samples, results):
     import matplotlib.pyplot as plt
     import numpy as np
     from sklearn.manifold import TSNE
-    tb = json.load(open(os.path.join(results, "test_behaviour.json")))
+    tb = json.load(open(os.path.join(results, "test_behaviour_anon.json")))
     zp = json.load(open(os.path.join(samples, run, "mbpp_z.json")))
     ids = [t for t in tb if tb[t]["z"] is not None and t in zp]
     Zt = np.array([tb[t]["z"] for t in ids]); Zp = np.array([zp[t] for t in ids])

@@ -158,9 +158,12 @@ if metrics:
             continue
         cp, cf = magg(m, "cos_own_pass"), magg(m, "cos_own_fail")
         split = "—" if not cp else f"{cp[0]:.3f} / {cf[0]:.3f}"
-        lines.append(f"| {NAMES.get(m, m)} | {fm(magg(m, 'behaviour_match'))} | {fm(magg(m, 'exact_behaviour'))} | "
+        old = any(r.rsplit("_s", 1)[0] == m and not d.get("name_free") for r, d in metrics.items())
+        lines.append(f"| {NAMES.get(m, m)}{' †' if old else ''} | {fm(magg(m, 'behaviour_match'))} | {fm(magg(m, 'exact_behaviour'))} | "
                      f"{fm(magg(m, 'recall@1'))} | {fm(magg(m, 'recall@5'))} | {fm(magg(m, 'cos_own'), False)} | "
                      f"{fm(magg(m, 'cos_generated'), False)} | {split} |")
+    if any(not d.get("name_free") for d in metrics.values()):
+        lines.append("\n† measured against name-bearing test vectors (older analysis); recall/cos for these rows can be inflated by reading the function name.")
     r1 = next((d["random@1"] for d in metrics.values() if "random@1" in d), None)
     if r1:
         lines.append(f"\nRandom recall@1 = {100 * r1:.2f}%, recall@5 = {100 * min(1.0, 5 * r1):.2f}%.")
