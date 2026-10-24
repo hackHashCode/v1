@@ -95,7 +95,10 @@ def train(method: str, seed: int, epochs: float = 2, force: bool = False, extra:
         return f"{run}: already trained (DONE), skipped"
     t0 = time.time()
     if method in FINETUNE_METHODS:
-        sh(f"bash train/run_all.sh {method} {seed}", env={"EPOCHS": str(epochs), "EXTRA": extra})
+        # strip Windows CRLF first: a repo checked out on Windows uploads run_all.sh with \r\n, and bash then
+        # dies on line 1 ("set: pipefail\r: invalid option") before writing any log
+        sh("tr -d '\\r' < train/run_all.sh > /tmp/run_all.sh")
+        sh(f"bash /tmp/run_all.sh {method} {seed}", env={"EPOCHS": str(epochs), "EXTRA": extra})
     elif method in FULL_METHODS:
         sh(f"python train/precode_full.py --mode {FULL_METHODS[method]} --seed {seed} --epochs {epochs} "
            f"--model {BASE_MODEL} --out {out} {extra} 2>&1 | tee /data/precode/models/{run}.log",

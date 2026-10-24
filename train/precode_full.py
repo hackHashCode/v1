@@ -54,7 +54,10 @@ ap.add_argument("--warmup", type=float, default=0.05)
 ap.add_argument("--lora_rank", type=int, default=16)
 ap.add_argument("--beh_loss", choices=["infonce", "cosine"], default="infonce")
 ap.add_argument("--tau", type=float, default=0.07)
-ap.add_argument("--lbd", type=float, default=None, help="default 0.1 for infonce (loss ~log 470), 1.0 for cosine")
+ap.add_argument("--lbd", type=float, default=None, help="default 0.5 for infonce, 1.0 for cosine")
+ap.add_argument("--head_warmup_epochs", type=int, default=40,
+                help="before LoRA training, fit pred_head alone on frozen base-model prompt states (cheap). Without it the "
+                     "head is still near-random when the prefix turns on (smoke run: top-1 0.9%%, cos 0.04 after 60 steps)")
 ap.add_argument("--head", choices=["linear", "mlp"], default="mlp")
 ap.add_argument("--n_prefix", type=int, default=4)
 ap.add_argument("--prefix_start", type=float, default=0.34, help="fraction of steps before prefix turns on")
@@ -63,7 +66,7 @@ ap.add_argument("--no_detach_prefix", action="store_true", help="let NTP gradien
 ap.add_argument("--log_every", type=int, default=10)
 a = ap.parse_args()
 if a.lbd is None:
-    a.lbd = 0.1 if a.beh_loss == "infonce" else 1.0
+    a.lbd = 0.5 if a.beh_loss == "infonce" else 1.0
 USE_PREFIX = a.mode in ("prefix", "full")
 USE_WEIGHT = a.mode == "full"
 
@@ -147,6 +150,47 @@ class PrefixInjector(nn.Module):
 
 
 prefix_inj = PrefixInjector(Z.shape[1], H, a.n_prefix, emb.weight).to(dev, torch.float32) if USE_PREFIX else None
+
+
+
+def beh_loss_fn(zh, tgt_idx):
+    if a.beh_loss == "infonce":
+        return F.cross_entropy(zh @ Z.T / a.tau, tgt_idx)
+    return 1 - (zh * Z[tgt_idx]).sum(-1).mean()
+
+
+if a.head_warmup_epochs > 0:
+    # Stage 0: prompt states from the frozen base model (LoRA adapters start at zero, so this IS the base model),
+    # then train pred_head alone. ~474 forward passes + a few hundred tiny head steps: about a minute.
+    model.eval()
+    hs, idx = [], []
+    with torch.no_grad():
+        for s in range(0, len(examples), 16):
+            chunk = [e for e in examples[s:s + 16] if e["task_id"] in Z_pos]
+            if not chunk:
+                continue
+            ids_c, _, att_c, plen_c, tids_c = collate(chunk)
+            Lp = int(plen_c.max())
+            with torch.autocast(dev, dtype=amp):
+                o = model(input_ids=ids_c[:, :Lp].to(dev), attention_mask=att_c[:, :Lp].to(dev), output_hidden_states=True)
+            hs.append(o.hidden_states[-1][torch.arange(len(chunk), device=dev), plen_c.to(dev) - 1].float())
+            idx += [Z_pos[t] for t in tids_c]
+    Hc, Ic = torch.cat(hs), torch.tensor(idx, device=dev)
+    hopt = torch.optim.AdamW(pred_head.parameters(), lr=a.head_lr, weight_decay=0.0)
+    pred_head.train()
+    for ep in range(a.head_warmup_epochs):
+        perm = torch.randperm(len(Hc), device=dev)
+        for s in range(0, len(Hc), 64):
+            b = perm[s:s + 64]
+            l = beh_loss_fn(F.normalize(pred_head(Hc[b]), dim=-1), Ic[b])
+            hopt.zero_grad(); l.backward(); hopt.step()
+    with torch.no_grad():
+        zh = F.normalize(pred_head(Hc), dim=-1)
+        print(json.dumps({"head_warmup": a.head_warmup_epochs, "n": len(Hc), "loss": round(beh_loss_fn(zh, Ic).item(), 4),
+                          "cos_own": round((zh * Z[Ic]).sum(-1).mean().item(), 4),
+                          "top1": round((zh @ Z.T).argmax(-1).eq(Ic).float().mean().item(), 4)}), flush=True)
+    del hopt, Hc, hs
+    model.train()
 
 lora_params = [p for p in model.parameters() if p.requires_grad]
 groups = [{"params": lora_params, "lr": a.lr}, {"params": list(pred_head.parameters()), "lr": a.head_lr}]
