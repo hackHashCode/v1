@@ -3,7 +3,7 @@ base_s0,base,0,mbppplus224,0.4196,0.3884,224,1792849246
 base_s0,base,0,humanevalplus,0.2561,0.2317,164,1792849246
 sft_s42,sft,42,mbppplus224,0.4107,0.3661,224,1792852560
 sft_s42,sft,42,humanevalplus,0.1951,0.1707,164,1792852560
-jepa_s42,jepa,42,mbppplus224,0.4152,0.3795,224,1792853038
-jepa_s42,jepa,42,humanevalplus,0.2256,0.1951,164,1792853038
-precode_s42,precode,42,mbppplus224,0.4018,0.3705,224,1792853535
-precode_s42,precode,42,humanevalplus,0.2073,0.1829,164,1792853535
+jepa_s42_prefix,jepa,42,mbppplus224,0.4152,0.3795,224,1792853038
+jepa_s42_prefix,jepa,42,humanevalplus,0.2256,0.1951,164,1792853038
+precode_s42_prefix,precode,42,mbppplus224,0.4018,0.3705,224,1792853535
+precode_s42_prefix,precode,42,humanevalplus,0.2073,0.1829,164,1792853535

@@ -10,3 +10,22 @@
 16:42	sweep_sft_s7	sft 7 	26/90	-
 16:45	sweep_pc_l1_h3e-3_s7	precode 7 LBD=1 HEAD_LR=3e-3	28/90	0.234
 16:48	sweep_pc_l1_h3e-3	precode 42 LBD=1 HEAD_LR=3e-3	26/90	0.229
+16:52	sweep_pc_l1_h3e-3_decay	precode 42 LBD=1 HEAD_LR=3e-3 EXTRA="--lbd_schedule decay"	26/90	0.227
+16:55	sweep_pc_l1_h3e-3_mean	precode 42 LBD=1 HEAD_LR=3e-3 EXTRA="--h_pool mean"	26/90	0.197
+16:58	sweep_pc_l1_h3e-3_L8	precode 42 LBD=1 HEAD_LR=3e-3 EXTRA="--h_layer 8"	26/90	0.192
+17:01	sweep_pc_l1_h3e-3_mlp	precode 42 LBD=1 HEAD_LR=3e-3 EXTRA="--pred_mlp"	25/90	0.206
+17:05	sweep_pc_l1_h3e-3_L8_s7	precode 7 LBD=1 HEAD_LR=3e-3 EXTRA="--h_layer 8"	25/90	0.179
+17:08	sweep_pc_l1_h1e-2	precode 42 LBD=1 HEAD_LR=1e-2	28/90	0.213
+17:12	sweep_pc_l1_h3e-3_mean_s7	precode 7 LBD=1 HEAD_LR=3e-3 EXTRA="--h_pool mean"	25/90	0.185
+17:17	sweep_jepa_l1	jepa 42 	22/90	-
+17:22	sweep_jepa_l1_s7	jepa 7 	24/90	-
+17:26	sweep_pc_l1_h3e-3_hyb	precode 42 LBD=1 HEAD_LR=3e-3 CACHE=cache/behaviour_cache_hybrid.pt	26/90	0.391
+17:30	sweep_pc_l1_h3e-3_hyb_s7	precode 7 LBD=1 HEAD_LR=3e-3 CACHE=cache/behaviour_cache_hybrid.pt	25/90	0.399
+17:33	sweep_pc_l3_h3e-3_L8	precode 42 LBD=3 HEAD_LR=3e-3 EXTRA="--h_layer 8"	26/90	0.198
+17:36	sweep_pc_l0.3_h3e-3	precode 42 LBD=0.3 HEAD_LR=3e-3	24/90	0.220
+17:40	sweep_pcnce_l0.1_h3e-3_t0.1	precodence 42 LBD=0.1 HEAD_LR=3e-3 TEMP=0.1	26/90	0.005
+17:43	sweep_sft_s1234	sft 1234 	25/90	-
+17:47	sweep_pc_l1_h3e-3_L8_s1234	precode 1234 LBD=1 HEAD_LR=3e-3 EXTRA="--h_layer 8"	25/90	0.197
+17:50	sweep_pc_l1_h3e-3_mean_s1234	precode 1234 LBD=1 HEAD_LR=3e-3 EXTRA="--h_pool mean"	27/90	0.190
+17:55	sweep_jepa_l1_s1234	jepa 1234 	25/90	-
+17:59	sweep_pc_l1_h3e-3_L8mean	precode 42 LBD=1 HEAD_LR=3e-3 EXTRA="--h_layer 8 --h_pool mean"	26/90	0.206

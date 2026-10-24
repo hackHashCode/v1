@@ -1,0 +1,13 @@
+{
+ "encoder": "hybrid",
+ "cached": 470,
+ "failed": [
+  601,
+  912,
+  927,
+  533
+ ],
+ "mean_probes": 17.2,
+ "mean_offdiag_cos": 0.1668,
+ "seconds": 251
+}

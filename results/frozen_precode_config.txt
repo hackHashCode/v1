@@ -1,0 +1,1 @@
+LBD=1 HEAD_LR=3e-3 EXTRA="--h_layer 8"
