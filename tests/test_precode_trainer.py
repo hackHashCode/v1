@@ -94,4 +94,26 @@ def top1(m, trn):
 b1 = top1(model2, tr2); tr2.train(); a1 = top1(model2, tr2)
 print(f"infonce top-1 retrieval before {b1:.2f} after {a1:.2f}")
 assert a1 >= 0.85, a1
+
+# 6) new knobs: head_lr param group, lambda schedules, mean pool / middle layer, MLP head, GA fix
+torch.manual_seed(2)
+model3 = get_peft_model(LlamaForCausalLM(cfg), LoraConfig(task_type=TaskType.CAUSAL_LM, r=4, lora_alpha=8,
+                        target_modules=["q_proj", "v_proj"]))
+model3.pred_head = torch.nn.Sequential(torch.nn.Linear(H, H // 2, bias=False), torch.nn.GELU(), torch.nn.Linear(H // 2, D, bias=False))
+args3 = TrainingArguments(output_dir=tmp, per_device_train_batch_size=4, num_train_epochs=2, learning_rate=1e-4,
+                          report_to="none", remove_unused_columns=False, logging_steps=1000, save_strategy="no", use_cpu=True)
+tr3 = PreCodeTrainer(model=model3, args=args3, train_dataset=ds, data_collator=default_data_collator, lbd=1.0,
+                     cache_path=f"{tmp}/cache.pt", head_lr=1e-2, lbd_schedule="decay", h_pool="mean", h_layer=1)
+assert tr3.model_accepts_loss_kwargs is False
+opt = tr3.create_optimizer()
+lrs = sorted(g["lr"] for g in opt.param_groups)
+assert lrs == [1e-4, 1e-2], lrs
+assert sum(p.numel() for p in opt.param_groups[1]["params"]) == sum(p.numel() for p in model3.pred_head.parameters())
+assert torch.isfinite(tr3.compute_loss(model3, {k: v.clone() for k, v in batch.items()}))
+tr3.state.max_steps = 100
+for t, want in [(0, 1.0), (49, 1.0), (75, 0.5), (100, 0.0)]:
+    tr3.state.global_step = t; assert abs(tr3._lbd_now() - want) < 1e-6, (t, tr3._lbd_now())
+tr3.lbd_schedule = "linear"; tr3.state.global_step = 25; assert abs(tr3._lbd_now() - 0.75) < 1e-6
+tr3.state.global_step = 0; tr3.lbd_schedule = "decay"
+tr3.train()
 print("ALL PRECODE TRAINER TESTS PASSED")

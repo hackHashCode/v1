@@ -538,7 +538,11 @@ class RepresentationTrainer(Trainer):
         self.infonce = kwargs.pop('infonce', False)
         self.jepa_ratio = kwargs.pop('jepa_ratio', -1.0)
         assert self.jepa_l2 + self.jepa_mse <= 1, "Only one of jepa_l2 and jepa_mse can be True."
+        ga_fix = kwargs.pop('ga_fix', True)
         super().__init__(*args, **kwargs)
+        # compute_loss returns a per-micro-batch mean, so let Trainer divide by grad_accum (as it does for SFT).
+        if ga_fix:
+            self.model_accepts_loss_kwargs = False
     
     def _last_token_index(self, input_ids, labels, attention_mask):
         index = []
@@ -765,9 +769,16 @@ class PreCodeTrainer(Trainer):
     behaviour on probe inputs (cache/behaviour_cache.pt).
     """
 
-    def __init__(self, *args, lbd=1.0, cache_path=None, precode_loss="cosine", infonce_temp=0.07, **kwargs):
+    def __init__(self, *args, lbd=1.0, cache_path=None, precode_loss="cosine", infonce_temp=0.07,
+                 head_lr=None, lbd_schedule="constant", h_pool="last", h_layer=-1, ga_fix=True, **kwargs):
         super().__init__(*args, **kwargs)
+        if ga_fix:  # compute_loss returns a per-micro-batch mean; let Trainer divide by grad_accum like SFT
+            self.model_accepts_loss_kwargs = False
         self.lbd = lbd
+        self.head_lr = head_lr
+        self.lbd_schedule = lbd_schedule
+        self.h_pool = h_pool
+        self.h_layer = h_layer
         self.precode_loss = precode_loss
         self.infonce_temp = infonce_temp
         cache = torch.load(cache_path)
@@ -778,6 +789,32 @@ class PreCodeTrainer(Trainer):
         self.Z = torch.stack([self.z[t] for t in self.z_ids])  # [N_tasks, dim]
         self._missing_logged = False
 
+    def create_optimizer(self):
+        """pred_head gets its own AdamW param group (lr = head_lr, no weight decay)."""
+        if self.optimizer is None and self.head_lr is not None:
+            head = self.accelerator.unwrap_model(self.model).pred_head
+            head_ids = {id(p) for p in head.parameters()}
+            rest = [p for p in self.model.parameters() if p.requires_grad and id(p) not in head_ids]
+            groups = [{"params": rest, "weight_decay": self.args.weight_decay},
+                      {"params": list(head.parameters()), "lr": self.head_lr, "weight_decay": 0.0}]
+            cls, kw = Trainer.get_optimizer_cls_and_kwargs(self.args, self.model)
+            kw.pop("lr", None)
+            self.optimizer = cls(groups, lr=self.args.learning_rate, **kw)
+            return self.optimizer
+        return super().create_optimizer()
+
+    def _lbd_now(self):
+        """lambda schedule. constant | decay: linear 1->0 over the last epoch | linear: 1->0 over training."""
+        if self.lbd_schedule == "constant":
+            return self.lbd
+        T = max(self.state.max_steps, 1); t = self.state.global_step
+        if self.lbd_schedule == "linear":
+            return self.lbd * max(0.0, 1.0 - t / T)
+        if self.lbd_schedule == "decay":
+            E = max(int(round(self.args.num_train_epochs)), 1); start = T * (E - 1) / E
+            return self.lbd if t < start else self.lbd * max(0.0, 1.0 - (t - start) / max(T - start, 1))
+        raise ValueError(self.lbd_schedule)
+
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         task_ids = inputs.pop("task_id")
         out = model(**inputs, output_hidden_states=True)
@@ -785,8 +822,13 @@ class PreCodeTrainer(Trainer):
         labels = inputs["labels"]
         first_code = (labels != -100).int().argmax(dim=1)   # first assistant (code) token
         idx = (first_code - 1).clamp(min=0)                  # last prompt token
-        h_last = out.hidden_states[-1]
-        h = h_last[torch.arange(h_last.size(0), device=h_last.device), idx].float()
+        h_all = out.hidden_states[self.h_layer]
+        if self.h_pool == "mean":   # mean over prompt tokens (positions < first_code, attention_mask = 1)
+            pos = torch.arange(h_all.size(1), device=h_all.device)[None, :]
+            m = ((pos < first_code[:, None]) & (inputs["attention_mask"] > 0)).float()
+            h = ((h_all.float() * m[..., None]).sum(1) / m.sum(1, keepdim=True).clamp(min=1))
+        else:
+            h = h_all[torch.arange(h_all.size(0), device=h_all.device), idx].float()
         head = self.accelerator.unwrap_model(model).pred_head
         z_hat = head(h)
         keep = [i for i, t in enumerate(task_ids.tolist()) if int(t) in self.z]
@@ -806,9 +848,10 @@ class PreCodeTrainer(Trainer):
         if len(keep) < len(task_ids) and not self._missing_logged:
             print(f"[precode] {len(task_ids) - len(keep)} task(s) in batch missing from cache; JEPA term skipped for them", flush=True)
             self._missing_logged = True
-        loss = ntp + self.lbd * jepa
+        lbd = self._lbd_now()
+        loss = ntp + lbd * jepa
         if self.state.global_step % 10 == 0:
-            print(f"[precode] step {self.state.global_step} ntp {ntp.item():.4f} jepa {float(jepa):.4f} cos {cos.mean().item():.4f}", flush=True)
+            print(f"[precode] step {self.state.global_step} ntp {ntp.item():.4f} jepa {float(jepa):.4f} cos {cos.mean().item():.4f} lbd {lbd:.3f}", flush=True)
         return (loss, out) if return_outputs else loss
 
 
@@ -882,6 +925,13 @@ def main():
     parser.add_argument("--precode_loss", type=str, default="cosine", choices=["cosine", "infonce"],
                         help="PreCode JEPA term: 1-cos to own z, or InfoNCE against all cached z.")
     parser.add_argument("--infonce_temp", type=float, default=0.07, help="InfoNCE temperature (PreCode).")
+    parser.add_argument("--head_lr", type=float, default=None, help="PreCode: separate lr for pred_head (default: same as --learning_rate).")
+    parser.add_argument("--lbd_schedule", type=str, default="constant", choices=["constant", "decay", "linear"],
+                        help="PreCode lambda schedule: constant | decay (linear to 0 over last epoch) | linear (to 0 over training).")
+    parser.add_argument("--h_pool", type=str, default="last", choices=["last", "mean"], help="PreCode: last prompt token or mean over prompt tokens.")
+    parser.add_argument("--h_layer", type=int, default=-1, help="PreCode: hidden_states index for h (-1 = final layer, 8 = middle of 16).")
+    parser.add_argument("--pred_mlp", action="store_true", help="PreCode: 2-layer MLP predictor instead of linear.")
+    parser.add_argument("--no_ga_fix", action="store_true", help="Old behaviour: do not divide PreCode/JEPA loss by grad_accum.")
     parser.add_argument("--unmask_assistant_special_tokens", action="store_true", help="When set, unmask assistant special tokens.")
 
     args = parser.parse_args()
@@ -931,8 +981,13 @@ def main():
     if args.precode:
         assert args.behaviour_cache, "--precode needs --behaviour_cache"
         assert args.regular, "--precode uses the --regular data path; pass --regular"
-        model.pred_head = torch.nn.Linear(model.config.hidden_size, args.behaviour_dim, bias=False).to(
-            next(model.parameters()).device, torch.float32)
+        if args.pred_mlp:  # 2-layer MLP predictor (LLM-JEPA style); saved state_dict keys are 0.weight/2.weight
+            hd = model.config.hidden_size
+            model.pred_head = torch.nn.Sequential(torch.nn.Linear(hd, hd // 2, bias=False), torch.nn.GELU(),
+                                                  torch.nn.Linear(hd // 2, args.behaviour_dim, bias=False))
+        else:
+            model.pred_head = torch.nn.Linear(model.config.hidden_size, args.behaviour_dim, bias=False)
+        model.pred_head = model.pred_head.to(next(model.parameters()).device, torch.float32)
     
     # Load and prepare dataset
     if torch.cuda.current_device() == 0:
@@ -1099,6 +1154,11 @@ def main():
             cache_path=args.behaviour_cache,
             precode_loss=args.precode_loss,
             infonce_temp=args.infonce_temp,
+            head_lr=args.head_lr,
+            lbd_schedule=args.lbd_schedule,
+            h_pool=args.h_pool,
+            h_layer=args.h_layer,
+            ga_fix=not args.no_ga_fix,
         )
     elif args.regular:
         if torch.cuda.current_device() == 0:
@@ -1132,6 +1192,7 @@ def main():
             jepa_mse=args.jepa_mse,
             infonce=args.infonce,
             jepa_ratio=args.jepa_ratio,
+            ga_fix=not args.no_ga_fix,
         )
     
     if torch.cuda.current_device() == 0 and args.lora:
