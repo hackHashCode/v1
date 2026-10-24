@@ -2,7 +2,7 @@
 # usage: bash eval/run_eval.sh <run>   [WS, env evalv, tmux eval, ~/nikhita/precode-jepa]
 set -euo pipefail
 RUN=$1; MODEL=/data/precode/models/$RUN
-[ "$RUN" = base_s0 ] && MODEL=meta-llama/Llama-3.2-1B-Instruct
+[ "$RUN" = base_s0 ] && MODEL=unsloth/Llama-3.2-1B-Instruct
 [ "$RUN" = base_s0 ] || [ -f "$MODEL/DONE" ] || { echo "$RUN not DONE"; exit 1; }
 OUT=/data/precode/samples/$RUN; mkdir -p $OUT
 

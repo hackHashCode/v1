@@ -2,7 +2,7 @@
 # Attempts-to-green: 5 independent samples at T=0.8; first passing attempt (base AND plus), 6 if none.
 import glob, json, os, subprocess, sys
 run = sys.argv[1]; out = f"/data/precode/samples/{run}"; os.makedirs(out, exist_ok=True)
-model = "meta-llama/Llama-3.2-1B-Instruct" if run == "base_s0" else f"/data/precode/models/{run}"
+model = "unsloth/Llama-3.2-1B-Instruct" if run == "base_s0" else f"/data/precode/models/{run}"
 samples = f"{out}/mbpp_n5.jsonl"
 for f in glob.glob(f"{out}/mbpp_n5*eval_results.json"): os.remove(f)
 subprocess.run(["python", "eval/generate.py", "--model", model, "--dataset", "mbpp", "--n", "5",

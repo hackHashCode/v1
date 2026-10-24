@@ -450,6 +450,7 @@ def setup_model_and_tokenizer(model_name, use_lora=True, lora_rank=16, pretrain=
         if torch.cuda.current_device() == 0:
             print(f"Added {len(new_tokens)} new special tokens")
     
+    tokenizer.padding_side = "right"  # LLM-JEPA additive mask assumes right padding (unsloth defaults to left)
     # Set pad token
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
@@ -843,7 +844,7 @@ def main():
     parser.add_argument("--train_file", type=str, help="Path to training JSONL file")
     parser.add_argument("--eval_file", type=str, help="Path to evaluation JSONL file")
     parser.add_argument("--data_file", type=str, help="Path to single JSONL file (will be split)")
-    parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.2-1B-Instruct", help="Model name/path")
+    parser.add_argument("--model_name", type=str, default="unsloth/Llama-3.2-1B-Instruct", help="Model name/path")
     parser.add_argument("--output_dir", type=str, default="./llama3-1b-fted", help="Output directory")
     parser.add_argument("--max_length", type=int, default=512, help="Maximum sequence length")
     parser.add_argument("--batch_size", type=int, default=4, help="Per device batch size")
