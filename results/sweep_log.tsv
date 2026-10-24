@@ -1,0 +1,12 @@
+16:13	sweep_jepa_l1	(val-only rescore)	23/90	-
+16:17	sweep_pc_l1	precode 42 LBD=1	25/90	0.146
+16:20	sweep_pc_l1_h1e-3	precode 42 LBD=1 HEAD_LR=1e-3	25/90	0.232
+16:23	sweep_pc_l1_h3e-3	precode 42 LBD=1 HEAD_LR=3e-3	28/90	0.226
+16:26	sweep_pc_l0.3_h1e-3	precode 42 LBD=0.3 HEAD_LR=1e-3	28/90	0.222
+16:29	sweep_pc_l3_h1e-3	precode 42 LBD=3 HEAD_LR=1e-3	25/90	0.255
+16:33	sweep_pcnce_l0.1_h1e-3	precodence 42 LBD=0.1 HEAD_LR=1e-3	26/90	0.014
+16:35	sweep_pc_l1_h3e-3_s7	precode 7 LBD=1 HEAD_LR=3e-3		0.233
+16:39	sweep_sft_s42	sft 42 	27/90	-
+16:42	sweep_sft_s7	sft 7 	26/90	-
+16:45	sweep_pc_l1_h3e-3_s7	precode 7 LBD=1 HEAD_LR=3e-3	28/90	0.234
+16:48	sweep_pc_l1_h3e-3	precode 42 LBD=1 HEAD_LR=3e-3	26/90	0.229
