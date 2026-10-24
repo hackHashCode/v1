@@ -1,11 +1,14 @@
-"""Demo backend (contract C12). [WS, env train] from repo root:
+"""Demo backend (contract C12) + UI. [WS, env train] from repo root:
     uvicorn demo.server:app --host 0.0.0.0 --port 8000
-Laptop: ssh -N -L 8000:localhost:8000 <ws-host>
+Laptop: ssh -N -L 8000:localhost:8000 <ws-host>, then open http://localhost:8000
+Serves: /  (demo UI), /specs.json (10 judge specs), /hero_tasks.json (eval/pick_heroes.py), POST /solve
+Env: DEMO_SEED (default 42) picks which checkpoints to load.
 """
 import os, subprocess, sys, tempfile
 import torch
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 SYSTEM = "You are an expert Python programmer. Write a correct Python function for the task. Output only code."
@@ -30,6 +33,21 @@ def score(code, tests):
     except subprocess.TimeoutExpired:
         out = ""
     return sum(l == "@P" for l in out.splitlines())
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+@app.get("/")
+def ui():
+    return FileResponse(os.path.join(HERE, "ui", "index.html"))
+
+@app.get("/specs.json")
+def specs():
+    return FileResponse(os.path.join(HERE, "specs.json"))
+
+@app.get("/hero_tasks.json")
+def heroes():
+    p = os.path.join(HERE, "ui", "hero_tasks.json")
+    return FileResponse(p) if os.path.exists(p) else JSONResponse([])
 
 @app.get("/health")
 def health():

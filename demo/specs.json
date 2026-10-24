@@ -1,0 +1,162 @@
+[
+ {
+  "label": "Second largest",
+  "task": "Write a function to find the second largest distinct number in a list.",
+  "tests": [
+   "assert second_largest([1, 3, 2]) == 2",
+   "assert second_largest([5, 5, 4]) == 4",
+   "assert second_largest([9, 1, 9, 1]) == 1",
+   "assert second_largest([-1, -2, -3]) == -2",
+   "assert second_largest([2, 2, 2, 1]) == 1",
+   "assert second_largest([10, 9]) == 9",
+   "assert second_largest([0, 0, 1]) == 0",
+   "assert second_largest([3, 1, 2, 3]) == 2"
+  ],
+  "reference": "def second_largest(xs):\n    return sorted(set(xs))[-2]",
+  "plausible_bug": "def second_largest(xs):\n    return sorted(xs)[-2]"
+ },
+ {
+  "label": "Dedupe keep order",
+  "task": "Write a function to remove duplicates from a list while keeping the first occurrence order.",
+  "tests": [
+   "assert dedupe([1, 2, 1, 3]) == [1, 2, 3]",
+   "assert dedupe([]) == []",
+   "assert dedupe([3, 3, 3]) == [3]",
+   "assert dedupe([5, 4, 5, 4]) == [5, 4]",
+   "assert dedupe(['b', 'a', 'b']) == ['b', 'a']",
+   "assert dedupe([10, 2, 30, 2, 10]) == [10, 2, 30]",
+   "assert dedupe([1]) == [1]",
+   "assert dedupe([9, 8, 7, 8, 9]) == [9, 8, 7]"
+  ],
+  "reference": "def dedupe(xs):\n    seen = set(); out = []\n    for x in xs:\n        if x not in seen:\n            seen.add(x); out.append(x)\n    return out",
+  "plausible_bug": "def dedupe(xs):\n    return list(set(xs))"
+ },
+ {
+  "label": "Palindrome",
+  "task": "Write a function to check whether a string is a palindrome, ignoring case and non-alphanumeric characters.",
+  "tests": [
+   "assert is_pal('racecar') == True",
+   "assert is_pal('Racecar') == True",
+   "assert is_pal('A man, a plan, a canal: Panama') == True",
+   "assert is_pal('') == True",
+   "assert is_pal('ab') == False",
+   "assert is_pal('No lemon, no melon') == True",
+   "assert is_pal('abca') == False",
+   "assert is_pal('Was it a car or a cat I saw?') == True"
+  ],
+  "reference": "def is_pal(s):\n    t = [c.lower() for c in s if c.isalnum()]\n    return t == t[::-1]",
+  "plausible_bug": "def is_pal(s):\n    return s == s[::-1]"
+ },
+ {
+  "label": "Running max",
+  "task": "Write a function that returns the running maximum of a list of numbers.",
+  "tests": [
+   "assert running_max([1, 3, 2, 5]) == [1, 3, 3, 5]",
+   "assert running_max([]) == []",
+   "assert running_max([-3, -1, -2]) == [-3, -1, -1]",
+   "assert running_max([5]) == [5]",
+   "assert running_max([2, 2, 1]) == [2, 2, 2]",
+   "assert running_max([-5, -6]) == [-5, -5]",
+   "assert running_max([0, -1, 4]) == [0, 0, 4]",
+   "assert running_max([1, 2, 3]) == [1, 2, 3]"
+  ],
+  "reference": "def running_max(xs):\n    out = []; m = None\n    for x in xs:\n        m = x if m is None or x > m else m\n        out.append(m)\n    return out",
+  "plausible_bug": "def running_max(xs):\n    out = []; m = 0\n    for x in xs:\n        m = max(m, x); out.append(m)\n    return out"
+ },
+ {
+  "label": "Merge sorted",
+  "task": "Write a function to merge two sorted lists into one sorted list.",
+  "tests": [
+   "assert merge_sorted([1, 3], [2, 4]) == [1, 2, 3, 4]",
+   "assert merge_sorted([], [1, 2]) == [1, 2]",
+   "assert merge_sorted([1, 2, 3], []) == [1, 2, 3]",
+   "assert merge_sorted([1, 1], [1]) == [1, 1, 1]",
+   "assert merge_sorted([5, 6], [1, 2]) == [1, 2, 5, 6]",
+   "assert merge_sorted([1, 4, 9], [2, 3]) == [1, 2, 3, 4, 9]",
+   "assert merge_sorted([-2, 0], [-1]) == [-2, -1, 0]",
+   "assert merge_sorted([], []) == []"
+  ],
+  "reference": "def merge_sorted(a, b):\n    i = j = 0; out = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]: out.append(a[i]); i += 1\n        else: out.append(b[j]); j += 1\n    return out + a[i:] + b[j:]",
+  "plausible_bug": "def merge_sorted(a, b):\n    out = []\n    for x, y in zip(a, b):\n        out += sorted([x, y])\n    return out"
+ },
+ {
+  "label": "Nth Fibonacci",
+  "task": "Write a function to return the nth Fibonacci number, where fib(0) = 0 and fib(1) = 1.",
+  "tests": [
+   "assert fib(5) == 5",
+   "assert fib(0) == 0",
+   "assert fib(1) == 1",
+   "assert fib(2) == 1",
+   "assert fib(10) == 55",
+   "assert fib(3) == 2",
+   "assert fib(20) == 6765",
+   "assert fib(7) == 13"
+  ],
+  "reference": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a",
+  "plausible_bug": "def fib(n):\n    a, b = 1, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return a"
+ },
+ {
+  "label": "Count vowels",
+  "task": "Write a function to count the vowels in a string, ignoring case.",
+  "tests": [
+   "assert count_vowels('hello') == 2",
+   "assert count_vowels('') == 0",
+   "assert count_vowels('HELLO') == 2",
+   "assert count_vowels('xyz') == 0",
+   "assert count_vowels('AEIOU') == 5",
+   "assert count_vowels('Programming') == 3",
+   "assert count_vowels('aAa') == 3",
+   "assert count_vowels('rhythm') == 0"
+  ],
+  "reference": "def count_vowels(s):\n    return sum(c in 'aeiou' for c in s.lower())",
+  "plausible_bug": "def count_vowels(s):\n    return sum(c in 'aeiou' for c in s)"
+ },
+ {
+  "label": "Rotate list",
+  "task": "Write a function to rotate a list to the right by k positions.",
+  "tests": [
+   "assert rotate([1, 2, 3, 4], 1) == [4, 1, 2, 3]",
+   "assert rotate([], 3) == []",
+   "assert rotate([1, 2, 3], 3) == [1, 2, 3]",
+   "assert rotate([1, 2, 3], 4) == [3, 1, 2]",
+   "assert rotate([1, 2, 3], 0) == [1, 2, 3]",
+   "assert rotate([5], 2) == [5]",
+   "assert rotate([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]",
+   "assert rotate([1, 2], 5) == [2, 1]"
+  ],
+  "reference": "def rotate(xs, k):\n    if not xs: return []\n    k %= len(xs)\n    return xs[-k:] + xs[:-k] if k else xs[:]",
+  "plausible_bug": "def rotate(xs, k):\n    return xs[-k:] + xs[:-k]"
+ },
+ {
+  "label": "Longest word",
+  "task": "Write a function to return the longest word in a sentence; if several have the same length, return the first.",
+  "tests": [
+   "assert longest_word('I love programming') == 'programming'",
+   "assert longest_word('') == ''",
+   "assert longest_word('cat dog') == 'cat'",
+   "assert longest_word('a bb cc') == 'bb'",
+   "assert longest_word('hello') == 'hello'",
+   "assert longest_word('one three five') == 'three'",
+   "assert longest_word('  spaced   out  ') == 'spaced'",
+   "assert longest_word('ab cd ef') == 'ab'"
+  ],
+  "reference": "def longest_word(s):\n    best = ''\n    for w in s.split():\n        if len(w) > len(best): best = w\n    return best",
+  "plausible_bug": "def longest_word(s):\n    return max(s.split(), key=len)"
+ },
+ {
+  "label": "Flatten one level",
+  "task": "Write a function to flatten a list of lists by one level.",
+  "tests": [
+   "assert flatten([[1, 2], [3]]) == [1, 2, 3]",
+   "assert flatten([]) == []",
+   "assert flatten([[]]) == []",
+   "assert flatten([[1], [], [2, 3]]) == [1, 2, 3]",
+   "assert flatten([[[1]], [2]]) == [[1], 2]",
+   "assert flatten([['a'], ['b', 'c']]) == ['a', 'b', 'c']",
+   "assert flatten([[1, 2, 3]]) == [1, 2, 3]",
+   "assert flatten([[0], [0]]) == [0, 0]"
+  ],
+  "reference": "def flatten(xss):\n    return [x for xs in xss for x in xs]",
+  "plausible_bug": "def flatten(xss):\n    return sum(xss[1:], xss[0])"
+ }
+]

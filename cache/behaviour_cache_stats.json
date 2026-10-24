@@ -1,0 +1,13 @@
+{
+ "encoder": "features",
+ "cached": 470,
+ "failed": [
+  533,
+  601,
+  912,
+  927
+ ],
+ "mean_probes": 17.2,
+ "mean_offdiag_cos": 0.0656,
+ "seconds": 136
+}
