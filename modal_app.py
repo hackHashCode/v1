@@ -18,7 +18,7 @@ Methods:
     base                zero-shot Llama-3.2-1B-Instruct (eval only)
     sft, jepa, precode, precodence          train/finetune.py via train/run_all.sh (Gagan's recipe, unchanged)
     precodefull_aux, precodefull_prefix, precodefull   train/precode_full.py --mode aux | prefix | full
-Everything lands on the Modal volume "precode-data", mounted at /data:
+Everything lands on the Modal volume "precode-data" (mounted at /vol, linked as /data/precode):
     /data/precode/models/<run>/   (contract C4)   /data/precode/samples/<run>/   /data/precode/results/
 """
 import json, os, subprocess, sys, time
@@ -40,11 +40,22 @@ image = (
     .apt_install("git")
     .pip_install("torch==2.6.0", "transformers==4.55.0", "peft==0.17.0", "accelerate>=1.0", "datasets>=3.0",
                  "evalplus>=0.3.1", "scipy", "pandas", "tabulate", "huggingface_hub>=0.30", "scikit-learn", "numpy<2.3")
-    .env({"HF_HOME": "/data/hf", "XDG_CACHE_HOME": "/data/cache", "TOKENIZERS_PARALLELISM": "false",
+    .env({"HF_HOME": "/vol/hf", "XDG_CACHE_HOME": "/vol/cache", "TOKENIZERS_PARALLELISM": "false",
           "PYTHONUNBUFFERED": "1"})
     .add_local_dir(HERE, REPO, ignore=[".git", "**/__pycache__", "results_modal", "**/*.pyc", "demo/studio/map_cache.json"])
 )
 SECRETS = [modal.Secret.from_name("huggingface")]
+
+
+def link_data():
+    """The volume is mounted at /vol (Modal refuses /data: it already exists in the base image). Link
+    /data/precode -> /vol/precode so every path in CONTRACTS.md and train/run_all.sh keeps working."""
+    os.makedirs("/vol/precode", exist_ok=True)
+    os.makedirs("/data", exist_ok=True)
+    if not os.path.islink("/data/precode"):
+        if os.path.isdir("/data/precode") and not os.listdir("/data/precode"):
+            os.rmdir("/data/precode")
+        os.symlink("/vol/precode", "/data/precode")
 
 
 def sh(cmd, env=None, cwd=REPO):
@@ -58,10 +69,11 @@ def run_name(method, seed):
     return "base_s0" if method == "base" else f"{method}_s{seed}"
 
 
-@app.function(image=image, volumes={"/data": vol}, secrets=SECRETS, timeout=1800)
+@app.function(image=image, volumes={"/vol": vol}, secrets=SECRETS, timeout=1800)
 def prefetch():
     """Download the base model into the volume's HF cache once, so training can run with HF_HUB_OFFLINE=1
     exactly as train/run_all.sh expects, and EvalPlus datasets so eval doesn't race on the download."""
+    link_data()
     from huggingface_hub import snapshot_download
     snapshot_download(BASE_MODEL)
     sh("python -c \"from evalplus.data import get_mbpp_plus, get_human_eval_plus; get_mbpp_plus(); get_human_eval_plus()\"")
@@ -70,8 +82,9 @@ def prefetch():
     return "ok"
 
 
-@app.function(image=image, gpu=GPU, volumes={"/data": vol}, secrets=SECRETS, timeout=6 * 3600)
+@app.function(image=image, gpu=GPU, volumes={"/vol": vol}, secrets=SECRETS, timeout=6 * 3600)
 def train(method: str, seed: int, epochs: float = 2, force: bool = False, extra: str = ""):
+    link_data()
     run = run_name(method, seed)
     out = f"/data/precode/models/{run}"
     vol.reload()
@@ -110,8 +123,9 @@ def _score(eval_json, run, dataset, ids):
     return row
 
 
-@app.function(image=image, gpu=GPU, volumes={"/data": vol}, secrets=SECRETS, timeout=3 * 3600)
+@app.function(image=image, gpu=GPU, volumes={"/vol": vol}, secrets=SECRETS, timeout=3 * 3600)
 def evaluate(run: str):
+    link_data()
     vol.reload()
     model = BASE_MODEL if run == "base_s0" else f"/data/precode/models/{run}"
     if run != "base_s0" and not os.path.exists(f"{model}/DONE"):
@@ -134,17 +148,19 @@ def evaluate(run: str):
     return {"run": run, "rows": rows}
 
 
-@app.function(image=image, volumes={"/data": vol}, timeout=900)
+@app.function(image=image, volumes={"/vol": vol}, timeout=900)
 def compare():
+    link_data()
     vol.reload()
     sh("python eval/compare.py --results /data/precode/results --models /data/precode/models")
     vol.commit()
     return open("/data/precode/results/COMPARISON.md").read()
 
 
-@app.function(image=image, volumes={"/data": vol}, timeout=600)
+@app.function(image=image, volumes={"/vol": vol}, timeout=600)
 def fetch_results():
     """Return every small results file so the laptop can save them (models stay on the volume)."""
+    link_data()
     vol.reload()
     files = {}
     root = "/data/precode/results"
@@ -159,9 +175,10 @@ def fetch_results():
     return files
 
 
-@app.function(image=image, volumes={"/data": vol}, secrets=SECRETS, timeout=3 * 3600)
+@app.function(image=image, volumes={"/vol": vol}, secrets=SECRETS, timeout=3 * 3600)
 def upload(run: str, repo: str):
     """Back up one run to a private HF repo (needs a write token in the 'huggingface' secret)."""
+    link_data()
     vol.reload()
     sh(f"python train/save_to_hub.py {run} --repo {repo}")
     return f"{run} -> {repo}"

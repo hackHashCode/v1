@@ -1,7 +1,7 @@
 # Running everything on Modal
 
 One command trains every method on every seed in parallel, evaluates each run on MBPP+ and HumanEval+, and
-writes the comparison. Models, samples and results live on the Modal volume `precode-data` (mounted at `/data`,
+writes the comparison. Models, samples and results live on the Modal volume `precode-data` (mounted at `/vol` and linked as `/data/precode`,
 so every path in `CONTRACTS.md` still holds).
 
 ## 1. One-time setup (your laptop, repo root)
