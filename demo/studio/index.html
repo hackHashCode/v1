@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PreCode Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument console. Composer on top, one column per method, then the evidence
+   (probe grid, behaviour map) underneath. PreCode always carries the amber accent. */
+:root {
+  --bg: #f3f2ee; --panel: #ffffff; --panel-2: #f7f6f2; --line: #dcd9d0; --ink: #1b1d22; --muted: #646872;
+  --ours: #b26a00; --ours-bg: #fff3dc; --ok: #1f8a4c; --ok-bg: #e5f5ec; --bad: #c4352b; --bad-bg: #fbe9e7;
+  --warn: #9a6400; --warn-bg: #fff4d6; --dot: #b9b6ac;
+  --c-base: #7a7f8a; --c-sft: #2f6fd6; --c-jepa: #8a4fd0; --c-precode: #d98a00; --c-precodence: #d0532a;
+  --sans: "Instrument Sans", "Segoe UI", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317; --panel: #191c22; --panel-2: #1f232a; --line: #2e333c; --ink: #e8eaee; --muted: #9aa0ab;
+    --ours: #f0a830; --ours-bg: #2c2312; --ok: #4cc283; --ok-bg: #15281e; --bad: #f2776c; --bad-bg: #2e1a19;
+    --warn: #f0c060; --warn-bg: #2b2414; --dot: #4a505b;
+    --c-base: #9aa0ab; --c-sft: #6ea2ff; --c-jepa: #b88cff; --c-precode: #f0a830; --c-precodence: #ff8a5c;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--sans); }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 max(16px, 2.5vw) 48px; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 18px 0 14px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+.brand { font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+.brand span { color: var(--ours); }
+.status { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+.status.mock { color: var(--warn); border-color: var(--warn); }
+nav.tabs { display: flex; gap: 4px; margin-left: auto; }
+nav.tabs button { background: none; border: 0; color: var(--muted); font: 500 14px var(--sans); padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+nav.tabs button[aria-selected="true"] { background: var(--panel); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--ours); outline-offset: 2px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; }
+h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+h3 { font-size: 16px; font-weight: 600; margin: 0; }
+.sub { color: var(--muted); font-size: 13px; }
+
+/* composer */
+.composer { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.chips button { background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font: 13px var(--sans); cursor: pointer; }
+.chips button:hover { border-color: var(--ours); }
+.chips button.on { border-color: var(--ours); background: var(--ours-bg); color: var(--ours); }
+label.lab { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+textarea { width: 100%; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: 13px/1.5 var(--mono); resize: vertical; }
+.hint { font-size: 12px; color: var(--muted); margin: 4px 0 0; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+.toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; cursor: pointer; user-select: none; background: var(--panel-2); }
+.toggle input { accent-color: var(--ours); margin: 0; }
+.sw { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.go { margin-left: auto; background: var(--ink); color: var(--bg); border: 0; border-radius: 9px; padding: 10px 20px; font: 600 15px var(--sans); cursor: pointer; }
+.go:disabled { opacity: 0.5; cursor: progress; }
+#runmsg { font-size: 13px; color: var(--muted); }
+
+/* imagined */
+.imagined { margin-top: 16px; border-color: var(--ours); background: var(--ours-bg); }
+.imagined .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.nb { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.nb .top { display: flex; justify-content: space-between; gap: 8px; font: 12px var(--mono); color: var(--muted); }
+.nb .top b { color: var(--ours); font-weight: 500; }
+.nb p { margin: 4px 0 6px; font-size: 13px; line-height: 1.4; }
+.nb pre { margin: 0; font: 11.5px/1.5 var(--mono); color: var(--muted); white-space: pre-wrap; word-break: break-word; max-height: 92px; overflow: hidden; }
+
+/* method columns */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 16px; }
+.col { display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--c); }
+.col.ours { box-shadow: 0 0 0 1px var(--ours); }
+.col .hd { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.col .state { font: 12px var(--mono); color: var(--muted); white-space: nowrap; }
+.col pre.code { margin: 0; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font: 12px/1.5 var(--mono); white-space: pre; overflow: auto; min-height: 150px; max-height: 300px; }
+.verdict { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+.bar { flex: 1; height: 7px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.tlist { display: flex; flex-wrap: wrap; gap: 4px; }
+.tlist span { width: 14px; height: 14px; border-radius: 3px; background: var(--ok); cursor: help; }
+.tlist span.f { background: var(--bad); }
+.meta-line { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.meta-line b { color: var(--ink); font-weight: 600; }
+.ok { color: var(--ok); } .bad { color: var(--bad); }
+.cursor::after { content: "▍"; color: var(--c); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor::after { animation: none; } }
+
+/* evidence */
+.evidence { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.gridwrap { overflow: auto; max-height: 520px; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font: 12px/1.4 var(--mono); }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--panel); font: 600 12px var(--sans); z-index: 1; }
+td.call { color: var(--muted); max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+td.good { background: var(--ok-bg); color: var(--ok); }
+td.wrong { background: var(--bad-bg); color: var(--bad); }
+td.odd { background: var(--warn-bg); color: var(--warn); }
+tr.split td.call { color: var(--ink); font-weight: 500; }
+.summary { font-size: 14px; margin: 0 0 10px; }
+.summary b { color: var(--ours); }
+#map { width: 100%; aspect-ratio: 1 / 1; max-width: 100%; display: block; border-radius: 8px; background: var(--panel-2); cursor: crosshair; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+#tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12px; padding: 5px 8px; border-radius: 6px; max-width: 300px; display: none; z-index: 5; }
+.empty { color: var(--muted); font-size: 14px; padding: 24px 4px; text-align: center; }
+
+/* results */
+.rgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.rgrid .span { grid-column: 1 / -1; }
+.num { font-variant-numeric: tabular-nums; }
+#mutantChart { width: 100%; aspect-ratio: 1 / 1; display: block; }
+.prose { max-width: 70ch; font-size: 15px; }
+.prose code { font: 13px var(--mono); background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+.prose pre { font: 13px/1.5 var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; }
+@media (max-width: 960px) {
+  .composer, .evidence, .rgrid { grid-template-columns: minmax(0, 1fr); }
+  .imagined .row { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">PreCode <span>Studio</span></div>
+  <span class="status" id="status">connecting…</span>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="play" id="tab-play">Playground</button>
+    <button role="tab" aria-selected="false" data-tab="results" id="tab-results">Results</button>
+    <button role="tab" aria-selected="false" data-tab="how" id="tab-how">How it works</button>
+  </nav>
+</header>
+
+<section id="play">
+  <div class="composer">
+    <div class="card">
+      <h2>Task</h2>
+      <div class="chips" id="examples"></div>
+      <label class="lab" for="task">Describe the function</label>
+      <textarea id="task" rows="3" placeholder="Write a function to find the second largest distinct number in a list."></textarea>
+    </div>
+    <div class="card">
+      <h2>Checks (optional)</h2>
+      <label class="lab" for="tests">One assert per line</label>
+      <textarea id="tests" rows="5" placeholder="assert second_largest([5, 5, 4]) == 4"></textarea>
+      <p class="hint">The first assert is shown to the models (it tells them the function name). All of them are run. With no asserts, the models are compared on shared probe inputs.</p>
+    </div>
+  </div>
+  <div class="controls">
+    <span class="sub">Methods:</span>
+    <span id="toggles" style="display:contents"></span>
+    <span id="runmsg"></span>
+    <button class="go" id="go">Run all methods</button>
+  </div>
+
+  <div class="card imagined" id="imagined" hidden>
+    <h2 style="color:var(--ours)">What PreCode imagined before writing</h2>
+    <div class="sub">pred_head(prompt state) lands nearest these training tasks in behaviour space. Cosine shown; the trace is how that task's reference code behaves.</div>
+    <div class="row" id="nbrs"></div>
+  </div>
+
+  <div class="cols" id="cols"><div class="empty card" style="grid-column:1/-1">Pick an example or write a task, then run all methods.</div></div>
+
+  <div class="evidence">
+    <div class="card">
+      <h2>Same inputs, every program</h2>
+      <p class="summary" id="psum">Run a task to compare behaviour.</p>
+      <div class="gridwrap" id="grid"></div>
+      <p class="hint" id="pnote"></p>
+    </div>
+    <div class="card">
+      <h2>Behaviour map</h2>
+      <canvas id="map" width="900" height="900" aria-label="Behaviour map of training tasks with this run's programs placed on it"></canvas>
+      <div class="legend" id="legend"></div>
+      <p class="hint">Grey dots are the training tasks, laid out by their cached behaviour vectors (t-SNE). The star is where PreCode predicted this task's behaviour; filled circles are where each program actually landed after running it on the probes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="results" hidden>
+  <div class="rgrid">
+    <div class="card span">
+      <h2>pass@1 by run</h2>
+      <div id="runsTable"></div>
+      <p class="hint">Greedy decoding. MBPP+ = 224 MBPP test-split tasks with EvalPlus's extra tests; HumanEval+ = 164 tasks. "base" scores the original tests, "plus" the extended ones.</p>
+    </div>
+    <div class="card">
+      <h2>Paired comparison (same tasks)</h2>
+      <div id="pairedTable"></div>
+      <p class="hint">Counts of tasks only one model solves, with the exact McNemar p-value. Differences are real only if p is small and they hold across seeds.</p>
+    </div>
+    <div class="card">
+      <h2>Mutant test: does the target see bugs?</h2>
+      <canvas id="mutantChart" width="700" height="700" aria-label="Scatter of code-text cosine against behaviour cosine for 120 mutants"></canvas>
+      <p class="hint" id="mutantNote"></p>
+    </div>
+  </div>
+</section>
+
+<section id="how" hidden>
+  <div class="card prose">
+    <h2>How PreCode-JEPA works (as implemented on gagan/precode)</h2>
+    <p>LLM-JEPA adds a loss that makes the model's embedding of a task description predict an embedding of the reference code <em>text</em>. PreCode keeps that recipe and swaps the target for an embedding of what the reference code <em>does</em> when run.</p>
+    <pre>loss = NTP + λ · (1 − cos(W · h_prompt, z_behaviour))
+W: linear 2048 → 768 (pred_head.pt), z frozen
+precodence: InfoNCE of W·h_prompt against all cached z, τ = 0.07</pre>
+    <p><b>The target.</b> Each training task's reference solution runs in a sandbox on about 17 probe inputs: its test inputs plus edge cases, one argument changed at a time. Exceptions count as behaviour. The trace lines <code>f(args) -&gt; output</code> are feature-hashed into a 768-number vector. 470 of the 474 training tasks are cached.</p>
+    <p><b>The prompt state.</b> <code>h_prompt</code> is the final-layer hidden state at the last prompt token of the ordinary SFT forward pass. Under causal attention it depends only on the prompt, so no extra forward pass is needed and training costs the same as SFT.</p>
+    <p><b>At inference nothing changes.</b> Code is generated exactly as with SFT. This studio additionally runs <code>pred_head</code> on the prompt state to show what PreCode "imagined", then executes every program to show what each one actually does.</p>
+    <p><b>Why the probe grid matters.</b> Two programs can look almost identical and behave differently. The grid shows every program on the same inputs. With a reference solution, cells are marked right or wrong; without one, rows where the models disagree are highlighted.</p>
+  </div>
+</section>
+</div>
+<div id="tip"></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const API = (new URLSearchParams(location.search).get("api") || "").replace(/\/$/, "");
+const COLORS = () => { const cs = getComputedStyle(document.documentElement);
+  return id => cs.getPropertyValue("--c-" + id).trim() || cs.getPropertyValue("--c-base").trim(); };
+let META = null, current = null, state = null;
+
+function esc(s) { return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+  ["play", "results", "how"].forEach(id => { $("#" + id).hidden = id !== b.dataset.tab; });
+  if (b.dataset.tab === "results") drawMutants();
+  if (b.dataset.tab === "play") drawMap();
+}));
+
+/* ---------- boot ---------- */
+async function boot() {
+  try {
+    const r = await fetch(API + "/api/meta");
+    META = await r.json();
+  } catch (e) {
+    $("#status").textContent = "server unreachable"; $("#status").classList.add("mock"); return;
+  }
+  const st = $("#status");
+  st.textContent = META.mock ? "mock mode: canned outputs" : `live · ${META.device} · ${META.gpu_mode} · seed ${META.seed}`;
+  if (META.mock) st.classList.add("mock");
+  $("#examples").innerHTML = META.examples.map((e, i) => `<button type="button" data-i="${i}">${esc(e.label)}</button>`).join("");
+  document.querySelectorAll("#examples button").forEach(b => b.addEventListener("click", () => loadExample(+b.dataset.i)));
+  const col = COLORS();
+  $("#toggles").innerHTML = META.runs.map(r => `<label class="toggle"><input type="checkbox" id="run-${r.id}" value="${r.id}" checked><span class="sw" style="background:${col(r.id)}"></span>${esc(r.name)}</label>`).join("");
+  renderResults();
+  drawMap();
+  if (META.examples.length) loadExample(0);
+}
+function loadExample(i) {
+  const e = META.examples[i]; current = e;
+  $("#task").value = e.task; $("#tests").value = (e.tests || []).join("\n");
+  document.querySelectorAll("#examples button").forEach(b => b.classList.toggle("on", +b.dataset.i === i));
+}
+$("#task").addEventListener("input", () => { if (current && $("#task").value.trim() !== current.task.trim()) { current = null; document.querySelectorAll("#examples button").forEach(b => b.classList.remove("on")); } });
+
+/* ---------- run ---------- */
+$("#go").addEventListener("click", run);
+$("#task").addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") run(); });
+
+async function run() {
+  const task = $("#task").value.trim();
+  if (!task) { $("#runmsg").textContent = "Write a task first."; $("#task").focus(); return; }
+  const tests = $("#tests").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const runs = META.runs.filter(r => $("#run-" + r.id).checked).map(r => r.id);
+  if (!runs.length) { $("#runmsg").textContent = "Pick at least one method."; return; }
+  state = { task, tests, runs, code: {}, raw: {}, ms: {}, imagined: {}, exec: null, reference: current ? current.reference : null };
+  $("#go").disabled = true; $("#runmsg").textContent = "generating…";
+  $("#imagined").hidden = true; $("#grid").innerHTML = ""; $("#psum").textContent = "Waiting for all programs…"; $("#pnote").textContent = "";
+  renderCols(); drawMap();
+  try {
+    const r = await fetch(API + "/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ task, tests, runs }) });
+    if (!r.ok || !r.body) throw new Error("server returned " + r.status);
+    const reader = r.body.getReader(); const dec = new TextDecoder(); let buf = "";
+    while (true) {
+      const { value, done } = await reader.read(); if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let k; while ((k = buf.indexOf("\n\n")) >= 0) { const chunk = buf.slice(0, k); buf = buf.slice(k + 2);
+        if (chunk.startsWith("data: ")) onEvent(JSON.parse(chunk.slice(6))); }
+    }
+    $("#runmsg").textContent = "running programs…";
+    const ex = await fetch(API + "/api/execute", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ codes: state.code, tests, reference: state.reference, imagined: state.imagined }) });
+    if (!ex.ok) throw new Error("execution failed (" + ex.status + ")");
+    state.exec = await ex.json();
+    $("#runmsg").textContent = "";
+    renderCols(); renderGrid(); drawMap();
+  } catch (e) {
+    $("#runmsg").textContent = "Stopped: " + e.message + ". Check that the studio server is running.";
+  }
+  $("#go").disabled = false;
+}
+
+function onEvent(ev) {
+  if (ev.type === "start") { state.raw[ev.run] = ""; state.active = ev.run; }
+  if (ev.type === "token") { state.raw[ev.run] += ev.text; const el = document.getElementById("code-" + ev.run); if (el) { el.textContent = state.raw[ev.run]; el.scrollTop = el.scrollHeight; } return; }
+  if (ev.type === "imagined") { state.imagined[ev.run] = ev.z; state.imagXY = state.imagXY || {}; state.imagXY[ev.run] = ev.xy; state.nearest = state.nearest || {}; state.nearest[ev.run] = ev.nearest; renderImagined(); drawMap(); return; }
+  if (ev.type === "done") { state.code[ev.run] = ev.code; state.ms[ev.run] = ev.ms; state.active = null; }
+  if (ev.type === "end") state.active = null;
+  renderCols();
+}
+
+function renderImagined() {
+  const run = Object.keys(state.nearest || {})[0]; if (!run) return;
+  $("#imagined").hidden = false;
+  $("#nbrs").innerHTML = state.nearest[run].map(n => `<div class="nb"><div class="top"><span>task ${n.task_id}</span><b>cos ${n.cos.toFixed(2)}</b></div>
+    <p>${esc(n.desc)}</p><pre>${esc(n.trace.join("\n"))}</pre></div>`).join("");
+}
+
+function renderCols() {
+  if (!state) return;
+  const col = COLORS();
+  $("#cols").innerHTML = state.runs.map(id => {
+    const r = META.runs.find(x => x.id === id); const ex = state.exec && state.exec.results[id];
+    const streaming = state.active === id; const done = id in state.code;
+    let st = done ? `${(state.ms[id] / 1000).toFixed(1)} s` : streaming ? "writing…" : "queued";
+    let verdict = "", tl = "", extra = "";
+    if (ex) {
+      const t = ex.tests;
+      if (t.length) {
+        const p = t.filter(x => x.ok).length, all = p === t.length;
+        verdict = `<div class="verdict"><span class="${all ? "ok" : "bad"}">${all ? "✓" : "✗"} ${p}/${t.length} checks</span><span class="bar"><i style="width:${100 * p / t.length}%"></i></span></div>`;
+        tl = `<div class="tlist">${t.map(x => `<span class="${x.ok ? "" : "f"}" title="${esc(x.test + (x.ok ? "  ✓" : "  ✗ " + x.why))}"></span>`).join("")}</div>`;
+      } else if (ex.agree_ref && ex.agree_ref[1]) {
+        const [a, n] = ex.agree_ref;
+        verdict = `<div class="verdict"><span class="${a === n ? "ok" : "bad"}">${a}/${n} probes match reference</span></div>`;
+      }
+      const lines = [];
+      if (ex.nearest && ex.nearest[0]) lines.push(`Behaves most like training task <b>${ex.nearest[0].task_id}</b> (cos ${ex.nearest[0].cos.toFixed(2)})`);
+      if (ex.imagined_vs_actual !== undefined) lines.push(`Imagined vs actual behaviour: <b>cos ${ex.imagined_vs_actual.toFixed(2)}</b>`);
+      if (state.exec.has_reference && ex.agree_ref[1] && t.length) lines.push(`Matches the reference on <b>${ex.agree_ref[0]}/${ex.agree_ref[1]}</b> probe inputs`);
+      extra = lines.map(l => `<div class="meta-line">${l}</div>`).join("");
+    }
+    const code = done ? state.code[id] : (state.raw[id] || "");
+    return `<div class="card col ${id.startsWith("precode") ? "ours" : ""}" style="--c:${col(id)}">
+      <div class="hd"><div><h3>${esc(r.name)}</h3><div class="sub">${esc(r.blurb)}</div></div><span class="state">${st}</span></div>
+      <pre class="code ${streaming ? "cursor" : ""}" id="code-${id}">${esc(code)}</pre>${verdict}${tl}${extra}</div>`;
+  }).join("");
+}
+
+function renderGrid() {
+  const ex = state.exec; const rows = ex.probes; const runs = state.runs;
+  const hasRef = ex.has_reference;
+  if (!rows.length) { $("#grid").innerHTML = `<div class="empty">No probe inputs could run on these programs.</div>`; $("#psum").textContent = ""; return; }
+  const split = rows.filter(r => r.split).length;
+  $("#psum").innerHTML = split ? `The programs <b>disagree on ${split} of ${rows.length}</b> inputs. Those rows are where the bugs are.` : `All programs agree on all ${rows.length} inputs.`;
+  const head = `<tr><th>input</th>${hasRef ? "<th>reference</th>" : ""}${runs.map(id => `<th style="color:${COLORS()(id)}">${esc(META.runs.find(x => x.id === id).name)}</th>`).join("")}</tr>`;
+  const body = rows.slice().sort((a, b) => b.split - a.split).map(r => {
+    const cells = runs.map(id => { const v = r.outs[id] ?? "—"; let cls = "";
+      if (hasRef && r.truth != null) cls = v === r.truth ? "good" : "wrong";
+      else if (r.split && v !== r.majority) cls = "odd";
+      return `<td class="${cls}" title="${esc(v)}">${esc(v.length > 40 ? v.slice(0, 40) + "…" : v)}</td>`; }).join("");
+    return `<tr class="${r.split ? "split" : ""}"><td class="call" title="${esc(r.call)}">${esc(r.call)}</td>${hasRef ? `<td>${esc(r.truth ?? "—")}</td>` : ""}${cells}</tr>`;
+  }).join("");
+  $("#grid").innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+  $("#pnote").textContent = "Probe inputs: " + ex.probe_note + (hasRef ? ". Green = same as the reference solution, red = different." : ". Amber = differs from the majority answer.");
+}
+
+/* ---------- behaviour map ---------- */
+let mapPts = [];
+function drawMap() {
+  const cv = $("#map"); if (!META || !cv || cv.offsetParent === null) return;
+  const ctx = cv.getContext("2d"), W = cv.width, H = cv.height, pad = 40;
+  const cs = getComputedStyle(document.documentElement), col = COLORS();
+  const X = x => pad + x * (W - 2 * pad), Y = y => pad + (1 - y) * (H - 2 * pad);
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = cs.getPropertyValue("--dot").trim();
+  mapPts = META.map.map(p => ({ x: X(p.x), y: Y(p.y), d: `task ${p.id}: ${p.d}` }));
+  for (const p of mapPts) { ctx.beginPath(); ctx.arc(p.x, p.y, 3.2, 0, 7); ctx.fill(); }
+  const legend = [`<span><span class="sw" style="background:${cs.getPropertyValue("--dot")}"></span>training tasks</span>`];
+  if (state && state.exec) {
+    for (const id of state.runs) {
+      const r = state.exec.results[id]; if (!r || !r.xy) continue;
+      ctx.fillStyle = col(id); ctx.strokeStyle = cs.getPropertyValue("--panel").trim(); ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(X(r.xy[0]), Y(r.xy[1]), 11, 0, 7); ctx.fill(); ctx.stroke();
+      mapPts.push({ x: X(r.xy[0]), y: Y(r.xy[1]), d: META.runs.find(x => x.id === id).name + ": where its code actually landed" });
+      legend.push(`<span><span class="sw" style="background:${col(id)}"></span>${esc(META.runs.find(x => x.id === id).name)} code</span>`);
+    }
+  }
+  if (state && state.imagXY) {
+    for (const [id, xy] of Object.entries(state.imagXY)) {
+      star(ctx, X(xy[0]), Y(xy[1]), 17, col(id), cs.getPropertyValue("--ink").trim());
+      mapPts.push({ x: X(xy[0]), y: Y(xy[1]), d: "PreCode's prediction, before writing any code" });
+      legend.push(`<span style="color:${col(id)}">★</span><span>${esc(META.runs.find(x => x.id === id).name)} imagined</span>`);
+    }
+  }
+  $("#legend").innerHTML = legend.join("");
+}
+function star(ctx, x, y, r, fill, stroke) {
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r; ctx.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); }
+  ctx.closePath(); ctx.fillStyle = fill; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = stroke; ctx.stroke();
+}
+$("#map").addEventListener("mousemove", e => {
+  const cv = e.currentTarget, b = cv.getBoundingClientRect(), sx = cv.width / b.width;
+  const x = (e.clientX - b.left) * sx, y = (e.clientY - b.top) * sx;
+  let best = null, bd = 14 * sx;
+  for (const p of mapPts) { const d = Math.hypot(p.x - x, p.y - y); if (d < bd) { bd = d; best = p; } }
+  const tip = $("#tip");
+  if (best) { tip.textContent = best.d; tip.style.display = "block"; tip.style.left = (e.clientX + 12) + "px"; tip.style.top = (e.clientY + 12) + "px"; }
+  else tip.style.display = "none";
+});
+$("#map").addEventListener("mouseleave", () => { $("#tip").style.display = "none"; });
+window.addEventListener("resize", drawMap);
+if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawMap(); drawMutants(); });
+
+/* ---------- results ---------- */
+function renderResults() {
+  const R = META.results || {};
+  const runs = R.runs || [];
+  if (runs.length) {
+    const sets = [...new Set(runs.map(r => r.dataset))];
+    const names = [...new Set(runs.map(r => r.run))];
+    const head = `<tr><th>run</th>${sets.map(s => `<th class="num">${esc(s)} base</th><th class="num">${esc(s)} plus</th>`).join("")}</tr>`;
+    const best = {}; for (const s of sets) for (const k of ["pass1_base", "pass1_plus"]) best[s + k] = Math.max(...runs.filter(r => r.dataset === s).map(r => +r[k]));
+    const body = names.map(n => `<tr><td>${esc(n)}</td>${sets.map(s => { const r = runs.find(x => x.run === n && x.dataset === s);
+      return ["pass1_base", "pass1_plus"].map(k => r ? `<td class="num" style="${+r[k] === best[s + k] ? "font-weight:600;color:var(--ours)" : ""}">${(100 * r[k]).toFixed(1)}%</td>` : "<td>—</td>").join(""); }).join("")}</tr>`).join("");
+    $("#runsTable").innerHTML = `<div class="gridwrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  } else $("#runsTable").innerHTML = `<div class="empty">No results/runs.csv yet.</div>`;
+  const P = R.paired || [];
+  $("#pairedTable").innerHTML = P.length ? `<div class="gridwrap"><table><thead><tr><th>dataset</th><th>vs</th><th class="num">only PreCode</th><th class="num">only other</th><th class="num">both</th><th class="num">p</th></tr></thead><tbody>${
+    P.map(p => `<tr><td>${esc(p.dataset)}</td><td>${esc(p.vs)}</td><td class="num">${p.precode_only}</td><td class="num">${p.other_only}</td><td class="num">${p.both}</td><td class="num">${p.p}</td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">No per-task results yet.</div>`;
+  const M = R.mutant || {};
+  if (M.n_mutants) $("#mutantNote").innerHTML = `${M.n_mutants} automatic bugs that still pass the visible test. Mean cosine between correct and buggy code: <b>${M.behaviour_ref_vs_mutant}</b> with the behaviour vector vs <b>${M.codetext_ref_vs_mutant}</b> with a code-text vector. The behaviour vector separates the bug more in <b>${Math.round(100 * M.frac_mutants_where_behaviour_separates_more)}%</b> of pairs (points below the diagonal).`;
+}
+function drawMutants() {
+  const cv = $("#mutantChart"); const M = (META && META.results && META.results.mutant) || {};
+  if (!cv || cv.offsetParent === null || !M.pairs) return;
+  const ctx = cv.getContext("2d"), W = cv.width, H = cv.height, l = 70, b = 60, t = 20, r = 20;
+  const cs = getComputedStyle(document.documentElement);
+  const lo = 0.4, X = v => l + (v - lo) / (1 - lo) * (W - l - r), Y = v => H - b - (v - lo) / (1 - lo) * (H - b - t);
+  ctx.clearRect(0, 0, W, H);
+  ctx.strokeStyle = cs.getPropertyValue("--line").trim(); ctx.fillStyle = cs.getPropertyValue("--muted").trim(); ctx.lineWidth = 1; ctx.font = "20px Instrument Sans, sans-serif";
+  for (const v of [0.4, 0.6, 0.8, 1.0]) {
+    ctx.beginPath(); ctx.moveTo(X(v), Y(lo)); ctx.lineTo(X(v), Y(1)); ctx.stroke(); ctx.beginPath(); ctx.moveTo(X(lo), Y(v)); ctx.lineTo(X(1), Y(v)); ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillText(v.toFixed(1), X(v), H - b + 26); ctx.textAlign = "right"; ctx.fillText(v.toFixed(1), l - 10, Y(v) + 6);
+  }
+  ctx.setLineDash([6, 6]); ctx.strokeStyle = cs.getPropertyValue("--muted").trim(); ctx.beginPath(); ctx.moveTo(X(lo), Y(lo)); ctx.lineTo(X(1), Y(1)); ctx.stroke(); ctx.setLineDash([]);
+  ctx.textAlign = "center"; ctx.fillText("cos(correct, bug) using code text", (l + W - r) / 2, H - 12);
+  ctx.save(); ctx.translate(20, (t + H - b) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("using behaviour vector", 0, 0); ctx.restore();
+  ctx.fillStyle = cs.getPropertyValue("--c-precode").trim(); ctx.globalAlpha = 0.75;
+  for (const [x, y] of M.pairs) { ctx.beginPath(); ctx.arc(X(Math.max(x, lo)), Y(Math.max(y, lo)), 6, 0, 7); ctx.fill(); }
+  ctx.globalAlpha = 1;
+}
+boot();
+</script>
+</body>
+</html>
