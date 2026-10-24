@@ -16,11 +16,11 @@ ap.add_argument("--results", default="results")
 ap.add_argument("--models", default="/data/precode/models")
 a = ap.parse_args()
 
-ORDER = ["base", "sft", "jepa", "precode", "precodence", "precodefull_aux", "precodefull_prefix", "precodefull"]
+ORDER = ["base", "sft", "jepa", "precode", "precodence", "sft_loop", "precodefull_aux", "precodefull_prefix", "precodefull"]
 NAMES = {"base": "Zero-shot", "sft": "SFT", "jepa": "LLM-JEPA", "precode": "PreCode (cosine)",
-         "precodence": "PreCode (InfoNCE)", "precodefull_aux": "PreCode-full: aux only",
+         "precodence": "PreCode (InfoNCE)", "sft_loop": "SFT (PreCode-full loop, λ=0)", "precodefull_aux": "PreCode-full: aux only",
          "precodefull_prefix": "PreCode-full: + prefix", "precodefull": "PreCode-full: + prefix + weighting"}
-LADDER = [("jepa", "sft"), ("precode", "jepa"), ("precodence", "precode"), ("precodefull_aux", "precodence"),
+LADDER = [("sft_loop", "sft"), ("precodefull_aux", "sft_loop"), ("precodefull", "sft_loop"), ("jepa", "sft"), ("precode", "jepa"), ("precodence", "precode"), ("precodefull_aux", "precodence"),
           ("precodefull_prefix", "precodefull_aux"), ("precodefull", "precodefull_prefix"), ("precodefull", "sft")]
 
 rows = []

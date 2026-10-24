@@ -44,6 +44,7 @@ GPU type: `PRECODE_GPU=A100-40GB modal run modal_app.py` (default L40S).
 | `jepa` | `train/finetune.py --predictors 1 --lbd 1.0` | LLM-JEPA: predict own embedding of the code text |
 | `precode` | `train/finetune.py --precode` | + λ·(1 − cos(W·h_prompt, z_behaviour)) |
 | `precodence` | `train/finetune.py --precode --precode_loss infonce` | same, InfoNCE against all 470 cached z |
+| `sft_loop` | `train/precode_full.py --mode aux --lbd 0` | control: plain SFT through the PreCode-full training loop |
 | `precodefull_aux` | `train/precode_full.py --mode aux` | MLP head (warmed up on frozen prompt states, then joint) + InfoNCE, λ 0.5 |
 | `precodefull_prefix` | `train/precode_full.py --mode prefix` | + 4 soft tokens from predicted z, read while writing (on from 34% of training) |
 | `precodefull` | `train/precode_full.py --mode full` | + hard-task NTP weights 1 − cos, detached, mean 1 (on from 67%) |

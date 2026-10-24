@@ -17,6 +17,7 @@ Background (laptop can sleep):  modal run --detach modal_app.py
 Methods:
     base                zero-shot Llama-3.2-1B-Instruct (eval only)
     sft, jepa, precode, precodence          train/finetune.py via train/run_all.sh (Gagan's recipe, unchanged)
+    sft_loop            train/precode_full.py with lambda 0: SFT through the same loop (control for the family below)
     precodefull_aux, precodefull_prefix, precodefull   train/precode_full.py --mode aux | prefix | full
 Everything lands on the Modal volume "precode-data" (mounted at /precode-vol, linked as /data/precode):
     /data/precode/models/<run>/   (contract C4)   /data/precode/samples/<run>/   /data/precode/results/
@@ -31,7 +32,8 @@ VOL = "/precode-vol"      # volume mount point; nothing in the image may touch t
 GPU = os.environ.get("PRECODE_GPU", "L40S")          # L40S (48 GB, bf16) is plenty for a 1B model; A100-40GB also fine
 BASE_MODEL = "unsloth/Llama-3.2-1B-Instruct"
 FINETUNE_METHODS = ["sft", "jepa", "precode", "precodence"]
-FULL_METHODS = {"precodefull_aux": "aux", "precodefull_prefix": "prefix", "precodefull": "full"}
+FULL_METHODS = {"sft_loop": "aux --lbd 0 --head_warmup_epochs 0",     # control: same loop as below, no behaviour loss
+                "precodefull_aux": "aux", "precodefull_prefix": "prefix", "precodefull": "full"}
 ALL_METHODS = ["base"] + FINETUNE_METHODS + list(FULL_METHODS)
 
 app = modal.App("precode-jepa")
