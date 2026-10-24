@@ -14,6 +14,7 @@ Stages (each can be run on its own; finished work is skipped):
     --stage eval      MBPP+ (224) and HumanEval+ (164) pass@1 for every run
     --stage analyze   behaviour metrics on MBPP+ test tasks + t-SNE figure
     --stage compare   COMPARISON.md        --stage download   results -> ./results_modal_<model>/
+    --stage debug     print what base + the given methods actually generate on 12 validation tasks
 Other flags: --model qc15|llama1b, --methods a,b, --seeds 42,7,1234, --force, --extra "<trainer flags>".
 
 Methods:
@@ -139,6 +140,25 @@ def sweep_job(tag: str, method: str, lr: float, epochs: int, extra: str = ""):
     shutil.rmtree(out, ignore_errors=True)                       # ~3 GB each; only the score is needed
     vol.commit()
     return res
+
+
+@app.function(image=image, gpu=GPU, volumes={VOL: vol}, secrets=SECRETS, timeout=3 * 3600)
+def debug_job(tag: str, kind: str, lr: float = 2e-5, epochs: int = 1, n: int = 12):
+    """Show what a model actually writes on the first n validation tasks: raw completion, extracted code, error.
+    kind = base (zero-shot) or a method name (trained on the 384 non-val tasks into /tmp, nothing saved)."""
+    link_data(); vol.reload()
+    rows = open(f"{REPO}/datasets/mbpp_val.jsonl").read().splitlines()[:n]
+    open("/tmp/val_n.jsonl", "w").write("\n".join(rows) + "\n")
+    model = MODELS[tag][0]
+    if kind != "base":
+        model = _train(tag, kind, 42, lr, epochs, "/tmp/dbg_models", f"dbg_{kind}", "datasets/mbpp_train_noval.jsonl", "")
+    sh(f"python eval/val_hf.py --model {model} --out /tmp/dbg.json --sets /tmp/val_n.jsonl", env={"HF_HUB_OFFLINE": "1"})
+    res = json.load(open("/tmp/dbg.json"))
+    lines = [f"===== {kind} (lr {lr:g}, ep {epochs}) : {res['passed']}/{res['n']} passed ====="]
+    for s in res["samples"][:6]:
+        lines += [f"--- task {s['task']}  ok={s['ok']}  error={s['error']!r}", f"PROMPT: {s['prompt'][:160]!r}",
+                  f"RAW:    {s['raw'][:600]!r}", f"CODE:   {s['code'][:400]!r}"]
+    return "\n".join(lines)
 
 
 @app.function(image=image, volumes={VOL: vol}, timeout=600)
@@ -299,8 +319,13 @@ def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_ME
     print(f"model {model} = {MODELS[model][0]} | GPU {GPU}")
     show = lambda r: print(r if not isinstance(r, Exception) else f"FAILED: {r}")
 
-    if stage in ("all", "sweep", "train", "eval"):
+    if stage in ("all", "sweep", "train", "eval", "debug"):
         print(prefetch.remote(model))
+    if stage == "debug":
+        kinds = ["base"] + trainable
+        for out in debug_job.starmap([(model, k) for k in kinds], return_exceptions=True):
+            print(out if not isinstance(out, Exception) else f"FAILED: {out}")
+        return
     if stage in ("all", "sweep"):
         jobs = [(model, m, lr, ep, extra) for m in trainable for lr in SWEEP_LR for ep in SWEEP_EPOCHS]
         print(f"sweep: {len(jobs)} jobs ({len(trainable)} methods x {len(SWEEP_LR)} lr x {len(SWEEP_EPOCHS)} epochs)")

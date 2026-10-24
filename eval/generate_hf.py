@@ -37,7 +37,7 @@ def run(tok, model, head, inj, cfg, user_msgs, batch=32, max_new=384):
     codes, zs = [], []
     for s in range(0, len(texts), batch):
         outs, z = generate_batch(model, tok, texts[s:s + batch], head, inj, cfg.get("h_pool", "last"), max_new)
-        codes += [extract_code(o) for o in outs]
+        codes += [sys.modules[__name__].extract_code(o) for o in outs]   # looked up at call time (val_hf records raw text)
         if z is not None:
             zs += z.float().cpu().tolist()
         print(f"[gen] {min(s + batch, len(texts))}/{len(texts)}", flush=True)
