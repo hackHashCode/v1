@@ -82,3 +82,12 @@ whatever head_lr is (1e-3–3e-3) and rises only slightly with λ3. 90 val tasks
 - InfoNCE (precodence) τ 0.07 / 0.1: 26/90 and 86/365, ≈ SFT.
 - Note: a PreCode config is not bit-reproducible (same seed: 28 then 26/90), so ±2 val tasks per run is pure training noise.
 - Note: `results/per_task/sweep_lr2e-4_e4_mbppplus224.json` (a sweep scored on test) predates this session and was not used for any selection.
+
+## Final test runs (Oct 24 23:30 – Oct 25 00:50 IST)
+Frozen config, full train set, seeds 42/7/1234. Test pass@1 (plus) means: zero-shot 38.8 / 23.2 · SFT 36.5 / 17.1 · LLM-JEPA 38.2 / 18.9 · PreCode 37.1 / 18.3 (MBPP+ / HumanEval+).
+- Val (365 tasks) predicted PreCode > JEPA by about 6 tasks; test has JEPA ahead by 1–3 tasks. Both gaps are inside noise, so val and test agree only on "PreCode ≈ JEPA, ≥ SFT".
+- PreCode vs SFT on HumanEval+: 2 PreCode-only tasks at every seed, 0 the other way (pooled McNemar p = 0.031; 6 distinct tasks).
+- Attempts-to-green: no PreCode advantage (4.32 vs SFT 4.33, JEPA 4.25, zero-shot 3.88). Paraphrase: fine-tuned models score higher on reworded prompts; no meaningful method differences.
+- Infra notes: running 3 vLLM jobs on one GPU makes engine startup fail its memory check whenever another job frees memory; `train/fast_post.sh` retries with random back-off (≤ 8 tries, most passed by try 3).
+- Post-hoc ideas, **not run** (test already seen, so any result would be post-hoc): visible-test reranking of the 5 samples (upper bound = solved@5: PreCode 43.5%,
+  zero-shot 50.4%, so it lifts every method), WiSE-FT-style interpolation back toward base to recover HumanEval+, and RL with a unit-test reward (doesn't fit the GPU budget and would need all methods RL'd for a fair claim).

@@ -1,0 +1,12 @@
+[
+ {
+  "label": "Mbpp/89",
+  "task": "Write a function to find the closest smaller number than n.",
+  "tests": [
+   "assert closest_num(11) == 10",
+   "assert closest_num(*[11]) == 10",
+   "assert closest_num(*[7]) == 6",
+   "assert closest_num(*[12]) == 11"
+  ]
+ }
+]
