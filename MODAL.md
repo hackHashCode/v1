@@ -18,16 +18,19 @@ On Windows also run `$env:PYTHONUTF8="1"` in each new PowerShell window before `
 python -m modal run --detach modal_app.py
 ```
 Pipeline: **sweep → select → train → eval → analyze → compare → download**. Follow it at https://modal.com/apps;
-results land in `results_modal_qc15/` (`COMPARISON.md`, `SWEEP.md`, `tsne_*.png`). Finished work is skipped on reruns.
+results land in `results_modal_qc15/` (`COMPARISON.md`, `SWEEP.md`, `tsne_*.png`). Finished work is skipped on reruns;
+a run is retrained / re-evaluated automatically when its selected config or behaviour cache changes
+(each model folder records its `train_config.json`; sweep results record the cache they used).
 
 Single stages: `--stage sweep | select | train | eval | analyze | compare | download`.
-Other flags: `--methods sft,precodefull_aux`, `--seeds 42`, `--force` (redo), `--extra "--lbd 0.3"`,
+Other flags: `--methods sft,precodefull_aux`, `--seeds 42,7,1234,11,99`, `--force` (redo everything),
+`--force-methods a,b` (redo the sweep for these only), `--extra "--lbd 0.3"`,
 `--model llama1b` (the original Llama-3.2-1B-Instruct runs, kept at their old paths), `--upload-repo you/repo`.
 GPU: `PRECODE_GPU=A100-40GB` (default L40S).
 
 ## 3. How settings are chosen (no test-set tuning)
 
-For every trained method, a grid of learning rate {2e-5, 5e-5, 1e-4} × epochs {1, 2} is trained on
+For every trained method, a grid of learning rate {1e-5, 2e-5, 5e-5, 1e-4, 2e-4} × epochs {1, 2, 3} is trained on
 `mbpp_train_noval.jsonl` (384 tasks, seed 42) and scored on `mbpp_val` + `mbpp_valext` (365 tasks that are in
 neither training nor the test sets). The best setting per method (ties → fewer epochs, lower lr) goes to
 `results/best_config.json` and is then used for the 3-seed runs on all 474 training tasks. The test sets are
@@ -52,7 +55,7 @@ All share LoRA r16, effective batch 16, 474 training tasks; lr and epochs come f
 
 ## 5. Metrics in `COMPARISON.md`
 
-- pass@1 base and plus on MBPP+ (224) and HumanEval+ (164), mean ± std over 3 seeds
+- pass@1 base and plus on MBPP+ (224) and HumanEval+ (164), mean ± std over seeds, 95% bootstrap CI over tasks
 - exact McNemar tests pooled over seeds: every method vs SFT, the ablation ladder, PreCode vs LLM-JEPA
 - behaviour metrics on MBPP+ test tasks (`eval/analyze.py`): behaviour match (partial credit per probe),
   exact behaviour, Recall@1 / @5 of the predicted z among 224 unseen tasks (random 0.45% / 2.2%),

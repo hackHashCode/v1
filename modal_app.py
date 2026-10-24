@@ -15,7 +15,8 @@ Stages (each can be run on its own; finished work is skipped):
     --stage analyze   behaviour metrics on MBPP+ test tasks + t-SNE figure
     --stage compare   COMPARISON.md        --stage download   results -> ./results_modal_<model>/
     --stage debug     print what base + the given methods actually generate on 12 validation tasks
-Other flags: --model qc15|llama1b, --methods a,b, --seeds 42,7,1234, --force, --extra "<trainer flags>".
+Other flags: --model qc15|llama1b, --methods a,b, --seeds 42,7,1234, --force (redo everything), --force-methods a,b
+(redo the sweep for these), --extra "<trainer flags>". Train/eval redo automatically when the selected config changes.
 
 Methods:
     base                zero-shot (eval only)
@@ -41,8 +42,9 @@ FINETUNE_METHODS = ["sft", "jepa", "precode", "precodence"]
 FULL_METHODS = {"sft_loop": "aux --lbd 0 --head_warmup_epochs 0",
                 "precodefull_aux": "aux", "precodefull_prefix": "prefix", "precodefull": "full"}
 ALL_METHODS = ["base"] + FINETUNE_METHODS + list(FULL_METHODS)
-SWEEP_LR = [2e-5, 5e-5, 1e-4]
-SWEEP_EPOCHS = [1, 2]
+SWEEP_LR = [1e-5, 2e-5, 5e-5, 1e-4, 2e-4]     # widened: several methods picked an edge of the old 3x2 grid
+SWEEP_EPOCHS = [1, 2, 3]
+USES_CACHE = {"precode", "precodence", "precodefull_aux", "precodefull_prefix", "precodefull"}
 DEFAULT_CFG = {"lr": 5e-5, "epochs": 2}
 CACHE = {"qc15": "cache/behaviour_cache_anon.pt",        # name-free target (function renamed to f before encoding)
          "llama1b": "cache/behaviour_cache.pt"}          # original runs used the name-bearing cache
@@ -132,11 +134,15 @@ def sweep_job(tag: str, method: str, lr: float, epochs: int, extra: str = "", fo
     P = paths(tag)
     name = f"{method}_lr{lr:g}_e{epochs}"
     res_path = f"{P['results']}/sweep/{name}.json"
+    cache_used = CACHE[tag] if method in USES_CACHE else "none"
     if os.path.exists(res_path) and not force:
-        return json.load(open(res_path))
+        old = json.load(open(res_path))
+        if old.get("cache", CACHE["llama1b"] if method in USES_CACHE else "none") == cache_used:
+            return old
     out = _train(tag, method, 42, lr, epochs, P["sweep_models"], name, "datasets/mbpp_train_noval.jsonl", extra)
     sh(f"python eval/val_hf.py --model {out} --out /tmp/val.json", env={"HF_HUB_OFFLINE": "1"})
-    res = {**json.load(open("/tmp/val.json")), "method": method, "lr": lr, "epochs": epochs}
+    res = {**json.load(open("/tmp/val.json")), "method": method, "lr": lr, "epochs": epochs, "cache": cache_used}
+    res.pop("samples", None)
     res.pop("per_task", None)
     os.makedirs(os.path.dirname(res_path), exist_ok=True)
     json.dump(res, open(res_path, "w"))
@@ -173,6 +179,10 @@ def select(tag: str):
     d = f"{P['results']}/sweep"
     for f in sorted(os.listdir(d)) if os.path.isdir(d) else []:
         r = json.load(open(f"{d}/{f}"))
+        if r["lr"] not in SWEEP_LR or r["epochs"] not in SWEEP_EPOCHS:
+            continue
+        if r.get("cache", CACHE["llama1b"] if r["method"] in USES_CACHE else "none") != (CACHE[tag] if r["method"] in USES_CACHE else "none"):
+            continue                                               # made with an outdated behaviour cache
         table.append(r)
         key = (r["pass1"], -r["epochs"], -r["lr"])
         if r["method"] not in best or key > best[r["method"]][0]:
@@ -193,17 +203,22 @@ def train(tag: str, method: str, seed: int, force: bool = False, extra: str = ""
     link_data(); vol.reload()
     P = paths(tag)
     run = run_name(method, seed)
-    if os.path.exists(f"{P['models']}/{run}/DONE") and not force:
-        return f"{run}: already trained, skipped"
     bc = f"{P['results']}/best_config.json"
     cfg = (json.load(open(bc)).get(method) if os.path.exists(bc) else None) or DEFAULT_CFG
+    want = {"method": method, "seed": seed, "lr": cfg["lr"], "epochs": cfg["epochs"],
+            "cache": CACHE[tag] if method in USES_CACHE else "none", "extra": extra}
+    tc = f"{P['models']}/{run}/train_config.json"
+    have = json.load(open(tc)) if os.path.exists(tc) else None
+    if os.path.exists(f"{P['models']}/{run}/DONE") and not force and have == want:
+        return f"{run}: already trained with the selected config, skipped"
     t0 = time.time()
     _train(tag, method, seed, cfg["lr"], cfg["epochs"], P["models"], run, "datasets/mbpp_train.jsonl", extra)
+    json.dump(want, open(tc, "w"))
     vol.commit()
     return f"{run}: trained (lr {cfg['lr']:g}, {cfg['epochs']} ep) in {int(time.time() - t0)} s"
 
 
-def _score(eval_json, run, dataset, ids, results):
+def _score(eval_json, run, dataset, ids, results, train_cfg=None):
     """Same rule as eval/score.py (pass = base AND plus), one file per run so parallel evals never race."""
     res = json.load(open(eval_json))["eval"]
     per, nb, npl = {}, 0, 0
@@ -215,7 +230,7 @@ def _score(eval_json, run, dataset, ids, results):
     json.dump(per, open(f"{results}/per_task/{run}_{dataset}.json", "w"))
     method, seed = run.rsplit("_s", 1)
     row = {"run": run, "method": method, "seed": int(seed), "dataset": dataset, "pass1_base": round(nb / len(ids), 4),
-           "pass1_plus": round(npl / len(ids), 4), "n_tasks": len(ids), "timestamp": int(time.time())}
+           "pass1_plus": round(npl / len(ids), 4), "n_tasks": len(ids), "timestamp": int(time.time()), "train_cfg": train_cfg}
     json.dump(row, open(f"{results}/rows/{run}_{dataset}.json", "w"))
     return row
 
@@ -227,8 +242,13 @@ def evaluate(tag: str, run: str, force: bool = False):
     model = MODELS[tag][0] if run == "base_s0" else f"{P['models']}/{run}"
     if run != "base_s0" and not os.path.exists(f"{model}/DONE"):
         return {"run": run, "error": "not trained (no DONE)"}
-    if not force and all(os.path.exists(f"{P['results']}/rows/{run}_{d}.json") for d in ("mbppplus224", "humanevalplus")):
-        return {"run": run, "rows": [json.load(open(f"{P['results']}/rows/{run}_{d}.json")) for d in ("mbppplus224", "humanevalplus")]}
+    tc = f"{model}/train_config.json"
+    trained_with = json.load(open(tc)) if run != "base_s0" and os.path.exists(tc) else {"base": MODELS[tag][0]}
+    rp = [f"{P['results']}/rows/{run}_{d}.json" for d in ("mbppplus224", "humanevalplus")]
+    if not force and all(os.path.exists(p) for p in rp):
+        old = [json.load(open(p)) for p in rp]
+        if all(r.get("train_cfg") == trained_with for r in old):
+            return {"run": run, "rows": old}
     out = f"{P['samples']}/{run}"
     os.makedirs(out, exist_ok=True)
     rows = []
@@ -242,7 +262,7 @@ def evaluate(tag: str, run: str, force: bool = False):
         sh(f"evalplus.evaluate --dataset {ds} --samples {samples}")
         res = next(f for f in (f"{out}/{ds}_eval_results.json", f"{out}/{ds}.eval_results.json") if os.path.exists(f))
         ids = json.load(open(f"{REPO}/eval/mbppplus_test_ids.json")) if ds == "mbpp" else list(json.load(open(res))["eval"])
-        rows.append(_score(res, run, name, ids, P["results"]))
+        rows.append(_score(res, run, name, ids, P["results"], trained_with))
     vol.commit()
     return {"run": run, "rows": rows}
 
@@ -308,7 +328,7 @@ def upload(tag: str, run: str, repo: str):
 
 @app.local_entrypoint()
 def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_METHODS), seeds: str = "42,7,1234",
-         force: bool = False, extra: str = "", upload_repo: str = ""):
+         force: bool = False, force_methods: str = "", extra: str = "", upload_repo: str = ""):
     import base64
     if model not in MODELS:
         sys.exit(f"unknown model {model}; choose from {list(MODELS)}")
@@ -330,7 +350,8 @@ def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_ME
             print(out if not isinstance(out, Exception) else f"FAILED: {out}")
         return
     if stage in ("all", "sweep"):
-        jobs = [(model, m, lr, ep, extra, force) for m in trainable for lr in SWEEP_LR for ep in SWEEP_EPOCHS]
+        fm = {x.strip() for x in force_methods.split(",") if x.strip()}
+        jobs = [(model, m, lr, ep, extra, force or m in fm) for m in trainable for lr in SWEEP_LR for ep in SWEEP_EPOCHS]
         print(f"sweep: {len(jobs)} jobs ({len(trainable)} methods x {len(SWEEP_LR)} lr x {len(SWEEP_EPOCHS)} epochs)")
         for r in sweep_job.starmap(jobs, return_exceptions=True):
             show(r if isinstance(r, Exception) else f"{r['method']:20s} lr {r['lr']:g} ep {r['epochs']}  val {r['pass1']:.3f}")

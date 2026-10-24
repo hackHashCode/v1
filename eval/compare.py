@@ -60,6 +60,19 @@ def per_task(m, ds):
     return out
 
 
+def boot_ci(m, ds, n_boot=2000):
+    """95% bootstrap CI (over tasks) of pass@1 plus, using each task's pass rate averaged over the method's seeds."""
+    import random
+    runs = list(per_task(m, ds).values())
+    if not runs:
+        return None
+    tasks = sorted(set.intersection(*[set(r) for r in runs]))
+    rate = [sum(bool(r[t]) for r in runs) / len(runs) for t in tasks]
+    rng = random.Random(0)
+    means = sorted(sum(rate[rng.randrange(len(rate))] for _ in rate) / len(rate) for _ in range(n_boot))
+    return 100 * means[int(0.025 * n_boot)], 100 * means[int(0.975 * n_boot) - 1]
+
+
 def mcnemar(A, B, ds):
     pa, pb = per_task(A, ds), per_task(B, ds)
     if A == "base" and pa:      # zero-shot has one run (seed 0): pair it with every seed of the other method
@@ -87,7 +100,7 @@ def train_stats(run_dir):
 
 
 lines = ["# PreCode-JEPA: method comparison", "",
-         "pass@1 in %, greedy decoding, mean ± std over seeds (n). MBPP+ = 224 test-split tasks, HumanEval+ = 164.",
+         "pass@1 in %, greedy decoding, mean ± std over seeds (n) [95% bootstrap CI over tasks]. MBPP+ = 224 test-split tasks, HumanEval+ = 164.",
          "\"plus\" = passes EvalPlus's extended tests too (the headline number).", ""]
 hdr = "| method | " + " | ".join(f"{d} plus | {d} base" for d in datasets) + " |"
 lines += [hdr, "|" + "---|" * (1 + 2 * len(datasets))]
@@ -100,6 +113,10 @@ for m in methods:
         table.setdefault(m, {})[d] = {"plus": pl, "base": ba}
         fmt = lambda x: "—" if not x else f"{x['mean']:.1f} ± {x['std']:.1f} ({x['n']})"
         c = fmt(pl)
+        ci = boot_ci(m, d) if pl else None
+        if ci:
+            c += f" [{ci[0]:.1f}–{ci[1]:.1f}]"
+            table[m][d]["plus_ci95"] = ci
         if pl and abs(pl["mean"] - best[d]) < 1e-9:
             c = f"**{c}**"
         cells += [c, fmt(ba)]
