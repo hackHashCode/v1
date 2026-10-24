@@ -14,7 +14,7 @@ What it does for one prompt:
 Environment:
   MODELS_DIR   default /data/precode/models     (contract C4: merged HF model dirs)
   DEMO_SEED    default 42                       picks <run>_s<seed>
-  RUNS         default base,sft,jepa,precode    (precodence is added automatically if it exists)
+  RUNS         default base,sft,jepa,precode    (precodence and precodefull are added automatically if they exist)
   BASE_MODEL   default meta-llama/Llama-3.2-1B-Instruct
   GPU_MODE     auto | all | swap                swap keeps models in CPU RAM, moves one to GPU at a time
   H_POOL       last | mean   (must match training, default last)
@@ -50,6 +50,9 @@ LABELS = {
     "jepa": ("LLM-JEPA", "predicts its own code-text embedding"),
     "precode": ("PreCode", "predicts execution behaviour (ours)"),
     "precodence": ("PreCode-NCE", "behaviour target, InfoNCE over all tasks"),
+    "precodefull_aux": ("PreCode-full aux", "InfoNCE behaviour head, no prefix"),
+    "precodefull_prefix": ("PreCode-full +prefix", "writes while reading its own behaviour guess"),
+    "precodefull": ("PreCode-full", "prefix + hard-task weighting (ours)"),
 }
 
 # ------------------------------------------------------------------ data: cache, traces, train tasks
@@ -102,8 +105,9 @@ def nearest(z, k=3):
 # ------------------------------------------------------------------ models
 def run_dirs():
     names = [r.strip() for r in os.environ.get("RUNS", "base,sft,jepa,precode").split(",") if r.strip()]
-    if "precodence" not in names and os.path.isdir(os.path.join(MODELS_DIR, f"precodence_s{SEED}")):
-        names.append("precodence")
+    for extra in ("precodence", "precodefull"):   # shown automatically once trained
+        if extra not in names and os.path.isdir(os.path.join(MODELS_DIR, f"{extra}_s{SEED}")):
+            names.append(extra)
     out = {}
     for n in names:
         out[n] = BASE_MODEL if n == "base" else os.path.join(MODELS_DIR, f"{n}_s{SEED}")
@@ -114,7 +118,9 @@ RUNS = run_dirs()
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DTYPE = torch.bfloat16 if DEVICE == "cuda" and torch.cuda.is_bf16_supported() else (torch.float16 if DEVICE == "cuda" else torch.float32)
 GPU_LOCK = threading.Lock()
-MODELS, HEADS, TOK = {}, {}, None
+MODELS, HEADS, PREFIX, TOK = {}, {}, {}, None
+sys.path.insert(0, os.path.join(ROOT, "train"))
+from precode_runtime import load_precode_parts  # noqa: E402
 
 
 def load_head(path, dim_in):
@@ -145,10 +151,13 @@ if not MOCK:
         MODELS[name] = m
         if TOK is None:
             TOK = AutoTokenizer.from_pretrained(path)
-        hp = os.path.join(path, "pred_head.pt")
-        if os.path.exists(hp):
-            HEADS[name] = load_head(hp, m.config.hidden_size)
-    print(f"[studio] device={DEVICE} dtype={DTYPE} gpu_mode={GPU_MODE} runs={list(MODELS)} heads={list(HEADS)}", flush=True)
+        if name != "base":
+            head, inj, _cfg = load_precode_parts(path, m.config.hidden_size)
+            if head is not None:
+                HEADS[name] = head
+            if inj is not None:
+                PREFIX[name] = inj
+    print(f"[studio] device={DEVICE} dtype={DTYPE} gpu_mode={GPU_MODE} runs={list(MODELS)} heads={list(HEADS)} prefix={list(PREFIX)}", flush=True)
 else:
     GPU_MODE = "mock"
     HEADS = {k: None for k in RUNS if k.startswith("precode")}
@@ -166,8 +175,9 @@ def extract(t):
 
 
 def prompt_ids(user):
-    return TOK.apply_chat_template([{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
-                                   add_generation_prompt=True, return_tensors="pt")
+    text = TOK.apply_chat_template([{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
+                                   tokenize=False, add_generation_prompt=True)
+    return TOK(text, add_special_tokens=False, return_tensors="pt").input_ids   # same tokenisation as training
 
 
 def on_gpu(name):
@@ -188,7 +198,8 @@ def predict_z(name, m, ids):
         out = m(ids, output_hidden_states=True)
     h_all = out.hidden_states[-1][0].float()
     h = h_all.mean(0) if H_POOL == "mean" else h_all[-1]
-    return F.normalize(HEADS[name](h.cpu()), dim=0)
+    with torch.no_grad():
+        return F.normalize(HEADS[name](h.cpu()), dim=0)
 
 
 # ------------------------------------------------------------------ mock generation (UI development)
@@ -310,8 +321,16 @@ def generate(req: dict):
                         z = predict_z(name, m, ids)
                         yield sse({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
                     streamer = TextIteratorStreamer(TOK, skip_prompt=True, skip_special_tokens=True)
-                    th = threading.Thread(target=m.generate, kwargs=dict(input_ids=ids, attention_mask=torch.ones_like(ids),
-                                          max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=TOK.eos_token_id, streamer=streamer))
+                    gen = dict(max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=TOK.eos_token_id, streamer=streamer)
+                    if name in PREFIX:   # PreCode-full: [BOS, 4 soft tokens from predicted z, rest], as in training
+                        with torch.no_grad():
+                            pre = PREFIX[name](z.unsqueeze(0)).to(m.device)
+                            e = m.get_input_embeddings()(ids)
+                            emb = torch.cat([e[:, :1], pre.to(e.dtype), e[:, 1:]], 1)
+                        gen.update(inputs_embeds=emb, attention_mask=torch.ones(emb.shape[:2], dtype=torch.long, device=m.device))
+                    else:
+                        gen.update(input_ids=ids, attention_mask=torch.ones_like(ids))
+                    th = threading.Thread(target=m.generate, kwargs=gen)
                     th.start()
                     text = ""
                     for piece in streamer:
