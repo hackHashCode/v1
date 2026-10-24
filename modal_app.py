@@ -98,7 +98,8 @@ def train(method: str, seed: int, epochs: float = 2, force: bool = False, extra:
         # strip Windows CRLF first: a repo checked out on Windows uploads run_all.sh with \r\n, and bash then
         # dies on line 1 ("set: pipefail\r: invalid option") before writing any log
         sh("tr -d '\\r' < train/run_all.sh > /tmp/run_all.sh")
-        sh(f"bash /tmp/run_all.sh {method} {seed}", env={"EPOCHS": str(epochs), "EXTRA": extra})
+        ep = str(int(epochs)) if float(epochs).is_integer() else str(epochs)   # finetune.py --num_epochs is an int
+        sh(f"bash /tmp/run_all.sh {method} {seed}", env={"EPOCHS": ep, "EXTRA": extra})
     elif method in FULL_METHODS:
         sh(f"python train/precode_full.py --mode {FULL_METHODS[method]} --seed {seed} --epochs {epochs} "
            f"--model {BASE_MODEL} --out {out} {extra} 2>&1 | tee /data/precode/models/{run}.log",
