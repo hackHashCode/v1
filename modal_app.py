@@ -123,13 +123,13 @@ def prefetch(tag: str):
 
 
 @app.function(image=image, gpu=GPU, volumes={VOL: vol}, secrets=SECRETS, timeout=6 * 3600)
-def sweep_job(tag: str, method: str, lr: float, epochs: int, extra: str = ""):
+def sweep_job(tag: str, method: str, lr: float, epochs: int, extra: str = "", force: bool = False):
     """Train on the 384 non-validation tasks (seed 42), score on the 365 validation tasks, delete the weights."""
     link_data(); vol.reload()
     P = paths(tag)
     name = f"{method}_lr{lr:g}_e{epochs}"
     res_path = f"{P['results']}/sweep/{name}.json"
-    if os.path.exists(res_path):
+    if os.path.exists(res_path) and not force:
         return json.load(open(res_path))
     out = _train(tag, method, 42, lr, epochs, P["sweep_models"], name, "datasets/mbpp_train_noval.jsonl", extra)
     sh(f"python eval/val_hf.py --model {out} --out /tmp/val.json", env={"HF_HUB_OFFLINE": "1"})
@@ -327,7 +327,7 @@ def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_ME
             print(out if not isinstance(out, Exception) else f"FAILED: {out}")
         return
     if stage in ("all", "sweep"):
-        jobs = [(model, m, lr, ep, extra) for m in trainable for lr in SWEEP_LR for ep in SWEEP_EPOCHS]
+        jobs = [(model, m, lr, ep, extra, force) for m in trainable for lr in SWEEP_LR for ep in SWEEP_EPOCHS]
         print(f"sweep: {len(jobs)} jobs ({len(trainable)} methods x {len(SWEEP_LR)} lr x {len(SWEEP_EPOCHS)} epochs)")
         for r in sweep_job.starmap(jobs, return_exceptions=True):
             show(r if isinstance(r, Exception) else f"{r['method']:20s} lr {r['lr']:g} ep {r['epochs']}  val {r['pass1']:.3f}")

@@ -91,9 +91,15 @@ def ensure_chat_template(tok):
 
 
 def stop_ids(tok):
-    """End-of-turn tokens as well as EOS: a chat-tuned model ends its answer with <|im_end|> (Qwen) or <|eot_id|>
-    (Llama). Without them, a base model's generation config keeps going past the answer into a fake next turn."""
+    """Stop at EOS and at every control token of the form <|...|>. Chat-tuned models end with <|im_end|> (Qwen) or
+    <|eot_id|> (Llama), but a code BASE model like Qwen2.5-Coder was pretrained on whole repositories and, after a
+    function, emits <|repo_name|> / <|file_sep|> / <|fim_prefix|> and keeps going. None of these ever belongs in an
+    answer, so all of them end generation (same rule for every method)."""
     ids = {tok.eos_token_id} if tok.eos_token_id is not None else set()
+    for i, at in getattr(tok, "added_tokens_decoder", {}).items():
+        s = str(getattr(at, "content", at))
+        if re.fullmatch(r"<\|[^|<>]+\|>", s) and i != tok.bos_token_id:
+            ids.add(int(i))
     for s in ("<|im_end|>", "<|eot_id|>", "<|endoftext|>"):
         i = tok.convert_tokens_to_ids(s)
         if isinstance(i, int) and i != tok.unk_token_id and i >= 0:
@@ -102,12 +108,14 @@ def stop_ids(tok):
 
 
 def extract_code(t):
-    """First ``` fenced block if any (contract C13); otherwise the text up to any role marker a base model invents."""
+    """First ``` fenced block if any (contract C13); then cut at any leftover control marker (<|...) or a fake next
+    turn ("user" / ".user" / "assistant" line) that a base model may invent."""
     if "```" in t:
         t = t.split("```")[1]
         if t.startswith("python"):
             t = t[len("python"):]
-    t = re.split(r"\n(?:<\|im_start\|>|user\n|assistant\n|Human:|### )", t)[0]
+    t = t.split("<|")[0]
+    t = re.split(r"\n\s*\.?\s*(?:user|assistant|Human:|### )\s*(?:\n|$)", t)[0]
     return t.strip()
 
 
