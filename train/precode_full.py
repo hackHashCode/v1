@@ -78,10 +78,9 @@ if os.path.exists(os.path.join(a.out, "DONE")):
     os.remove(os.path.join(a.out, "DONE"))
 
 # ------------------------------------------------------------------ data (same format and masking as finetune.py)
-tok = AutoTokenizer.from_pretrained(a.model)
+from precode_runtime import ensure_chat_template   # noqa: E402  (same folder)
+tok = ensure_chat_template(AutoTokenizer.from_pretrained(a.model))   # base checkpoints may lack a chat template
 tok.padding_side = "right"
-if tok.pad_token is None:
-    tok.pad_token = tok.eos_token
 rows = [json.loads(l) for l in open(a.train_file)]
 examples = []
 for r in rows:

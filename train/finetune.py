@@ -430,7 +430,9 @@ def setup_model_and_tokenizer(model_name, use_lora=True, lora_rank=16, pretrain=
         tokenizer.chat_template = "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        assert tokenizer.chat_template is not None, f"{model_name} does not have chat template."
+        if tokenizer.chat_template is None:   # base checkpoints (e.g. Qwen2.5-Coder-1.5B): ChatML, same as precode_runtime
+            from precode_runtime import ensure_chat_template
+            ensure_chat_template(tokenizer)
     
     # use_llama_3_2_chat_template(tokenizer)
     

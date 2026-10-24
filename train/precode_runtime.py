@@ -1,6 +1,6 @@
 """Inference helpers shared by eval/generate_hf.py and demo/studio: load pred_head / prefix_injector from a run
 folder and generate with the same [BOS, prefix, rest] layout that train/precode_full.py trains with."""
-import json, os
+import json, os, re
 
 import torch
 import torch.nn as nn
@@ -73,3 +73,57 @@ def prefixed_inputs(model, ids, mask, prefix):
         rows_e.append(torch.cat([emb[i, :b + 1], prefix[i], emb[i, b + 1:]], 0))
         rows_m.append(torch.cat([mask[i, :b + 1], torch.ones(n, dtype=mask.dtype, device=mask.device), mask[i, b + 1:]], 0))
     return torch.stack(rows_e), torch.stack(rows_m)
+
+
+# ------------------------------------------------------------------ tokenizer / generation helpers (any model)
+CHATML = ("{% for m in messages %}<|im_start|>{{ m['role'] }}\n{{ m['content'] }}<|im_end|>\n{% endfor %}"
+          "{% if add_generation_prompt %}<|im_start|>assistant\n{% endif %}")
+
+
+def ensure_chat_template(tok):
+    """Base (non-instruct) checkpoints may ship without a chat template. Use ChatML (Qwen's own format) so training,
+    eval and the demo all build identical prompts."""
+    if tok.chat_template is None:
+        tok.chat_template = CHATML
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    return tok
+
+
+def stop_ids(tok):
+    """End-of-turn tokens as well as EOS: a chat-tuned model ends its answer with <|im_end|> (Qwen) or <|eot_id|>
+    (Llama). Without them, a base model's generation config keeps going past the answer into a fake next turn."""
+    ids = {tok.eos_token_id} if tok.eos_token_id is not None else set()
+    for s in ("<|im_end|>", "<|eot_id|>", "<|endoftext|>"):
+        i = tok.convert_tokens_to_ids(s)
+        if isinstance(i, int) and i != tok.unk_token_id and i >= 0:
+            ids.add(i)
+    return sorted(ids)
+
+
+def extract_code(t):
+    """First ``` fenced block if any (contract C13); otherwise the text up to any role marker a base model invents."""
+    if "```" in t:
+        t = t.split("```")[1]
+        if t.startswith("python"):
+            t = t[len("python"):]
+    t = re.split(r"\n(?:<\|im_start\|>|user\n|assistant\n|Human:|### )", t)[0]
+    return t.strip()
+
+
+@torch.no_grad()
+def generate_batch(model, tok, texts, head=None, inj=None, h_pool="last", max_new=384):
+    """Greedy generation for a list of chat-formatted prompt strings. Returns (decoded completions, z or None)."""
+    tok.padding_side = "left"
+    enc = tok(texts, return_tensors="pt", padding=True, add_special_tokens=False).to(model.device)
+    gen = dict(max_new_tokens=max_new, do_sample=False, pad_token_id=tok.pad_token_id, eos_token_id=stop_ids(tok))
+    z = None
+    if head is not None:
+        z = predict_z(head, prompt_state(model, enc.input_ids, enc.attention_mask, h_pool))
+    if inj is not None:
+        emb, mask = prefixed_inputs(model, enc.input_ids, enc.attention_mask, inj.to(z.device)(z))
+        new = model.generate(inputs_embeds=emb, attention_mask=mask, **gen)       # new tokens only
+    else:
+        out = model.generate(**enc, **gen)
+        new = out[:, enc.input_ids.shape[1]:]
+    return [tok.decode(o, skip_special_tokens=True) for o in new], z

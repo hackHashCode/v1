@@ -4,4 +4,4 @@ checkpoint-*/
 __pycache__/ 
 .env 
 /data/ 
-results_modal/
+results_modal*/

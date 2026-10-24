@@ -15,7 +15,7 @@ Environment:
   MODELS_DIR   default /data/precode/models     (contract C4: merged HF model dirs)
   DEMO_SEED    default 42                       picks <run>_s<seed>
   RUNS         default base,sft,jepa,precode    (precodence and precodefull are added automatically if they exist)
-  BASE_MODEL   default meta-llama/Llama-3.2-1B-Instruct
+  BASE_MODEL   default Qwen/Qwen2.5-Coder-1.5B (zero-shot column; use the same base the runs were trained from)
   GPU_MODE     auto | all | swap                swap keeps models in CPU RAM, moves one to GPU at a time
   H_POOL       last | mean   (must match training, default last)
   MAX_NEW      default 384
@@ -40,7 +40,7 @@ SYSTEM = "You are an expert Python programmer. Write a correct Python function f
 MOCK = os.environ.get("MOCK", "0") == "1"
 SEED = os.environ.get("DEMO_SEED", "42")
 MODELS_DIR = os.environ.get("MODELS_DIR", "/data/precode/models")
-BASE_MODEL = os.environ.get("BASE_MODEL", "meta-llama/Llama-3.2-1B-Instruct")
+BASE_MODEL = os.environ.get("BASE_MODEL", "Qwen/Qwen2.5-Coder-1.5B")
 H_POOL = os.environ.get("H_POOL", "last")
 MAX_NEW = int(os.environ.get("MAX_NEW", "384"))
 
@@ -50,7 +50,7 @@ LABELS = {
     "jepa": ("LLM-JEPA", "predicts its own code-text embedding"),
     "precode": ("PreCode", "predicts execution behaviour (ours)"),
     "precodence": ("PreCode-NCE", "behaviour target, InfoNCE over all tasks"),
-    "precodefull_aux": ("PreCode-full aux", "InfoNCE behaviour head, no prefix"),
+    "precodefull_aux": ("PreCode", "behaviour head (InfoNCE), trained predictor (ours)"),
     "precodefull_prefix": ("PreCode-full +prefix", "writes while reading its own behaviour guess"),
     "precodefull": ("PreCode-full", "prefix + hard-task weighting (ours)"),
 }
@@ -105,7 +105,7 @@ def nearest(z, k=3):
 # ------------------------------------------------------------------ models
 def run_dirs():
     names = [r.strip() for r in os.environ.get("RUNS", "base,sft,jepa,precode").split(",") if r.strip()]
-    for extra in ("precodence", "precodefull"):   # shown automatically once trained
+    for extra in ("precodence", "precodefull_aux", "precodefull"):   # shown automatically once trained
         if extra not in names and os.path.isdir(os.path.join(MODELS_DIR, f"{extra}_s{SEED}")):
             names.append(extra)
     out = {}
@@ -120,7 +120,7 @@ DTYPE = torch.bfloat16 if DEVICE == "cuda" and torch.cuda.is_bf16_supported() el
 GPU_LOCK = threading.Lock()
 MODELS, HEADS, PREFIX, TOK = {}, {}, {}, None
 sys.path.insert(0, os.path.join(ROOT, "train"))
-from precode_runtime import load_precode_parts  # noqa: E402
+from precode_runtime import ensure_chat_template, extract_code, load_precode_parts, stop_ids  # noqa: E402
 
 
 def load_head(path, dim_in):
@@ -150,7 +150,7 @@ if not MOCK:
             m = m.to(DEVICE)
         MODELS[name] = m
         if TOK is None:
-            TOK = AutoTokenizer.from_pretrained(path)
+            TOK = ensure_chat_template(AutoTokenizer.from_pretrained(path))
         if name != "base":
             head, inj, _cfg = load_precode_parts(path, m.config.hidden_size)
             if head is not None:
@@ -321,7 +321,7 @@ def generate(req: dict):
                         z = predict_z(name, m, ids)
                         yield sse({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
                     streamer = TextIteratorStreamer(TOK, skip_prompt=True, skip_special_tokens=True)
-                    gen = dict(max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=TOK.eos_token_id, streamer=streamer)
+                    gen = dict(max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=TOK.pad_token_id, eos_token_id=stop_ids(TOK), streamer=streamer)
                     if name in PREFIX:   # PreCode-full: [BOS, 4 soft tokens from predicted z, rest], as in training
                         with torch.no_grad():
                             pre = PREFIX[name](z.unsqueeze(0)).to(m.device)
@@ -339,7 +339,7 @@ def generate(req: dict):
                     th.join()
                 finally:
                     off_gpu(name)
-            yield sse({"type": "done", "run": name, "code": extract(text), "ms": int((time.time() - t0) * 1000)})
+            yield sse({"type": "done", "run": name, "code": extract_code(text), "ms": int((time.time() - t0) * 1000)})
         yield sse({"type": "end"})
 
     return StreamingResponse(stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})

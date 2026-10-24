@@ -20,7 +20,7 @@ ORDER = ["base", "sft", "jepa", "precode", "precodence", "sft_loop", "precodeful
 NAMES = {"base": "Zero-shot", "sft": "SFT", "jepa": "LLM-JEPA", "precode": "PreCode (cosine)",
          "precodence": "PreCode (InfoNCE)", "sft_loop": "SFT (PreCode-full loop, λ=0)", "precodefull_aux": "PreCode-full: aux only",
          "precodefull_prefix": "PreCode-full: + prefix", "precodefull": "PreCode-full: + prefix + weighting"}
-LADDER = [("sft_loop", "sft"), ("precodefull_aux", "sft_loop"), ("precodefull", "sft_loop"), ("jepa", "sft"), ("precode", "jepa"), ("precodence", "precode"), ("precodefull_aux", "precodence"),
+LADDER = [("sft_loop", "sft"), ("precodefull_aux", "sft_loop"), ("precodefull", "sft_loop"), ("precodefull_aux", "jepa"), ("precodefull", "jepa"), ("jepa", "sft"), ("precode", "jepa"), ("precodence", "precode"), ("precodefull_aux", "precodence"),
           ("precodefull_prefix", "precodefull_aux"), ("precodefull", "precodefull_prefix"), ("precodefull", "sft")]
 
 rows = []
@@ -137,9 +137,40 @@ if stats:
     for k, s in stats.items():
         lines.append(f"| {k} | {s['cos_own']} | {s['top1']} | {s['ntp']} | {s['beh']} | {s['steps']} |")
 
+metrics = {}
+for p in glob.glob(os.path.join(a.results, "metrics", "*.json")):
+    d = json.load(open(p)); d.pop("per_task_match", None)
+    metrics[d["run"]] = d
+if metrics:
+    def magg(m, k):
+        v = [d[k] for r, d in metrics.items() if r.rsplit("_s", 1)[0] == m and k in d]
+        return (st.mean(v), st.stdev(v) if len(v) > 1 else 0.0, len(v)) if v else None
+    fm = lambda x, pct=True: "—" if not x else (f"{100 * x[0]:.1f} ± {100 * x[1]:.1f}" if pct else f"{x[0]:.3f} ± {x[1]:.3f}")
+    lines += ["", "## Behaviour metrics on the 224 MBPP+ test tasks (eval/analyze.py)", "",
+              "behaviour match = % of probe inputs where the generated code's output equals the canonical solution's (partial credit). "
+              "exact = % of tasks matching on every probe. Recall@k / cos only exist for methods with a behaviour head; "
+              "test-task behaviour vectors are built for this analysis only, training never sees them.", "",
+              "| method | behaviour match % | exact behaviour % | recall@1 % | recall@5 % | cos(pred, true) | cos(pred, own code) | cos_own solved / unsolved |",
+              "|---|---|---|---|---|---|---|---|"]
+    mmeth = methods + [m for m in ORDER if m not in methods and any(r.rsplit("_s", 1)[0] == m for r in metrics)]
+    for m in mmeth:
+        if not any(r.rsplit("_s", 1)[0] == m for r in metrics):
+            continue
+        cp, cf = magg(m, "cos_own_pass"), magg(m, "cos_own_fail")
+        split = "—" if not cp else f"{cp[0]:.3f} / {cf[0]:.3f}"
+        lines.append(f"| {NAMES.get(m, m)} | {fm(magg(m, 'behaviour_match'))} | {fm(magg(m, 'exact_behaviour'))} | "
+                     f"{fm(magg(m, 'recall@1'))} | {fm(magg(m, 'recall@5'))} | {fm(magg(m, 'cos_own'), False)} | "
+                     f"{fm(magg(m, 'cos_generated'), False)} | {split} |")
+    r1 = next((d["random@1"] for d in metrics.values() if "random@1" in d), None)
+    if r1:
+        lines.append(f"\nRandom recall@1 = {100 * r1:.2f}%, recall@5 = {100 * min(1.0, 5 * r1):.2f}%.")
+    figs = sorted(os.path.basename(p) for p in glob.glob(os.path.join(a.results, "tsne_*.png")))
+    if figs:
+        lines.append("Figures: " + ", ".join(figs))
+
 os.makedirs(a.results, exist_ok=True)
 open(os.path.join(a.results, "COMPARISON.md"), "w").write("\n".join(lines) + "\n")
-json.dump({"table": table, "tests": tests, "train_stats": stats}, open(os.path.join(a.results, "comparison.json"), "w"), indent=1)
+json.dump({"table": table, "tests": tests, "train_stats": stats, "metrics": metrics}, open(os.path.join(a.results, "comparison.json"), "w"), indent=1)
 with open(os.path.join(a.results, "runs.csv"), "w", newline="") as f:      # rebuilt so demo/studio's Results tab sees every run
     w = csv.writer(f)
     w.writerow(["run", "method", "seed", "dataset", "pass1_base", "pass1_plus", "n_tasks", "timestamp"])
