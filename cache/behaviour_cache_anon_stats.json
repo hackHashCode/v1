@@ -1,0 +1,7 @@
+{
+ "encoder": "features",
+ "anonymized": true,
+ "cached": 470,
+ "mean_offdiag_cos": 0.0667,
+ "mean_cos_to_named_cache": 0.5205
+}

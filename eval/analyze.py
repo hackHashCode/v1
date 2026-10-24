@@ -6,7 +6,7 @@
 
 Test-task behaviour vectors are built ONLY for this analysis (training never sees them): probes are the EvalPlus
 base inputs then plus inputs (first 10 of each, long reprs skipped), run on the canonical solution, traced and
-encoded exactly like the training cache (cache/behaviour.py: trace + encode_features).
+encoded exactly like the training cache (cache/behaviour.py: trace + encode_features, function renamed to f).
 
 Per run:
   behaviour_match   mean over tasks of the fraction of probes where the generated code's output equals the
@@ -60,7 +60,7 @@ def _canon(item):
     probes = probes_for(prob)
     out = outputs(prob["canonical_solution"], probes)
     lines = [f"{c} -> {out[c]}" for c in probes if c in out]
-    return tid, {"probes": probes, "out": out, "z": B.encode_features(lines).tolist() if lines else None}
+    return tid, {"probes": probes, "out": out, "z": B.encode_features(lines, anonymize_names=True).tolist() if lines else None}
 
 
 def build_test(results):
@@ -84,7 +84,7 @@ def _one(args):
     common = [c for c in tb["probes"] if c in tb["out"]]
     match = sum(1 for c in common if o.get(c) == tb["out"][c]) / len(common) if common else 0.0
     lines = [f"{c} -> {o[c]}" for c in tb["probes"] if c in o]
-    return tid, match, (B.encode_features(lines).tolist() if lines else None)
+    return tid, match, (B.encode_features(lines, anonymize_names=True).tolist() if lines else None)
 
 
 def analyze_run(run, samples, results):

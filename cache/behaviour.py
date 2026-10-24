@@ -140,12 +140,24 @@ def behaviour_features(lines):
             feats.append((f"edge:{k}->{t}", 0.7))        # e.g. edge:empty->EXC:IndexError
     return feats
 
-def encode_features(lines):
+_CALL_NAME = re.compile(r"^[A-Za-z_]\w*\(")
+
+
+def anonymize(lines):
+    """Rename the called function to f in every trace line. Function names are almost unique per MBPP task (447 of
+    470) and the prompt shows the name, so a name-bearing target can be "predicted" by reading the name; about half
+    of a name-bearing vector depends on the name alone (cos 0.52 to its anonymised version)."""
+    return [_CALL_NAME.sub("f(", l, count=1) for l in lines]
+
+
+def encode_features(lines, anonymize_names=False):
     """Signed feature hashing with sqrt damping of repeated features: a feature seen on every probe
     (e.g. 'returns int') must not drown out the few probes where a bug changes the output.
     Chosen on the mutant test: plain sums gave ref-vs-mutant cos 0.90 (code text 0.95); sqrt gives
     0.86 while keeping cross-task structure (mean cos ~0.06); counting once gives 0.79 but ~0 structure."""
     import math, torch
+    if anonymize_names:
+        lines = anonymize(lines)
     acc = {}
     for f, w in behaviour_features(lines):
         acc[f] = acc.get(f, 0.0) + w
@@ -164,8 +176,9 @@ def encode_mpnet(lines):
     v = _MPNET.encode(lines, convert_to_tensor=True, normalize_embeddings=True).mean(0).float().cpu()
     return torch.nn.functional.normalize(v, dim=0)
 
-def encode(lines, encoder="features"):
+def encode(lines, encoder="features", anonymize_names=False):
     import torch
+    if anonymize_names: lines = anonymize(lines)
     if encoder == "features": return encode_features(lines)
     if encoder == "mpnet": return encode_mpnet(lines)
     if encoder == "hybrid":

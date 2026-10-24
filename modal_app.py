@@ -44,6 +44,8 @@ ALL_METHODS = ["base"] + FINETUNE_METHODS + list(FULL_METHODS)
 SWEEP_LR = [2e-5, 5e-5, 1e-4]
 SWEEP_EPOCHS = [1, 2]
 DEFAULT_CFG = {"lr": 5e-5, "epochs": 2}
+CACHE = {"qc15": "cache/behaviour_cache_anon.pt",        # name-free target (function renamed to f before encoding)
+         "llama1b": "cache/behaviour_cache.pt"}          # original runs used the name-bearing cache
 
 app = modal.App("precode-jepa")
 vol = modal.Volume.from_name("precode-data", create_if_missing=True)
@@ -98,10 +100,11 @@ def _train(tag, method, seed, lr, epochs, out_root, run, train_file, extra):
         ep = str(int(epochs)) if float(epochs).is_integer() else str(epochs)   # finetune.py --num_epochs is an int
         sh(f"bash /tmp/run_all.sh {method} {seed}",
            env={"EPOCHS": ep, "LR": str(lr), "MODEL": hf_id, "MODELS_ROOT": out_root, "NAME": run, "TRAIN": train_file,
+                "CACHE": CACHE[tag],
                 "EXTRA": f"--last_token {last_token} {extra}".strip()})
     elif method in FULL_METHODS:
         sh(f"python train/precode_full.py --mode {FULL_METHODS[method]} --seed {seed} --epochs {epochs} --lr {lr} "
-           f"--model {hf_id} --train_file {train_file} --out {out} {extra} 2>&1 | tee {out_root}/{run}.log",
+           f"--model {hf_id} --train_file {train_file} --cache {CACHE[tag]} --out {out} {extra} 2>&1 | tee {out_root}/{run}.log",
            env={"HF_HUB_OFFLINE": "1"})
     else:
         raise ValueError(f"unknown method {method}")

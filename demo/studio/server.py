@@ -19,6 +19,7 @@ Environment:
   GPU_MODE     auto | all | swap                swap keeps models in CPU RAM, moves one to GPU at a time
   H_POOL       last | mean   (must match training, default last)
   MAX_NEW      default 384
+  BEHAVIOUR_CACHE  default behaviour_cache_anon.pt (use behaviour_cache.pt for the original Llama runs)
   MOCK         1 = canned generations, no torch models (UI development)
 """
 import ast, csv, json, math, os, re, subprocess, sys, tempfile, threading, time
@@ -56,7 +57,8 @@ LABELS = {
 }
 
 # ------------------------------------------------------------------ data: cache, traces, train tasks
-CACHE = {int(k): F.normalize(v.float(), dim=0) for k, v in torch.load(os.path.join(ROOT, "cache", "behaviour_cache.pt")).items()}
+CACHE_FILE = os.environ.get("BEHAVIOUR_CACHE", "behaviour_cache_anon.pt")    # must match the cache the runs trained on
+CACHE = {int(k): F.normalize(v.float(), dim=0) for k, v in torch.load(os.path.join(ROOT, "cache", CACHE_FILE)).items()}
 IDS = sorted(CACHE)
 Z = torch.stack([CACHE[t] for t in IDS])                     # [N, 768]
 TRACES = {}
@@ -72,7 +74,7 @@ for line in open(os.path.join(ROOT, "datasets", "mbpp_train.jsonl"), encoding="u
 def build_map():
     """2-D layout of the behaviour space. t-SNE on cosine distance; new points are placed by a
     cosine-weighted average of their nearest cached tasks (t-SNE can't embed new points)."""
-    path = os.path.join(HERE, "map_cache.json")
+    path = os.path.join(HERE, f"map_cache_{CACHE_FILE.replace('.pt', '')}.json")
     if os.path.exists(path):
         d = json.load(open(path, encoding="utf-8"))
         if d.get("ids") == IDS:
@@ -262,7 +264,9 @@ def read_results():
             paired.append({"dataset": ds, "vs": other, "precode_only": only_a, "other_only": only_b,
                            "both": sum(1 for t in A if A[t] and Bd.get(t, False)), "n": len(A), "p": round(p_val, 4)})
     mutant = {}
-    mp = os.path.join(ROOT, "results", "plots", "mutant_numbers_features.json")
+    mp = os.path.join(ROOT, "results", "plots", "mutant_numbers_features_anon.json")
+    if not os.path.exists(mp):
+        mp = os.path.join(ROOT, "results", "plots", "mutant_numbers_features.json")
     if os.path.exists(mp):
         d = json.load(open(mp, encoding="utf-8"))
         mutant = {k: d[k] for k in ("n_mutants", "behaviour_ref_vs_mutant", "codetext_ref_vs_mutant",
@@ -517,7 +521,7 @@ def execute(req: dict):
     results = {}
     for k, c in codes.items():
         lines = [f"{r['call']} -> {r['outs'][k]}" for r in rows if r["outs"].get(k, "—") != "—"]
-        z = B.encode_features(lines) if lines else None
+        z = B.encode_features(lines, anonymize_names=CACHE_FILE.endswith("_anon.pt")) if lines else None
         item = {"tests": run_tests(c, tests),
                 "xy": place(z) if z is not None else None,
                 "agree_ref": (sum(1 for r in rows if r["truth"] is not None and r["outs"][k] == r["truth"]), sum(1 for r in rows if r["truth"] is not None))}
