@@ -1,5 +1,3 @@
 run,method,seed,dataset,pass1_base,pass1_plus,n_tasks,timestamp
 base_s0,base,0,mbppplus224,0.4196,0.3884,224,1792849246
 base_s0,base,0,humanevalplus,0.2561,0.2317,164,1792849246
-sft_s42,sft,42,mbppplus224,0.4196,0.3571,224,1792850962
-sft_s42,sft,42,humanevalplus,0.1829,0.1646,164,1792850962

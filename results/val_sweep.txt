@@ -1,0 +1,5 @@
+Llama-3.2-1B-Instruct  val 25/90 = 0.278
+sweep_lr2e-4_e4  val 23/90 = 0.256
+sweep_lr1e-4_e2  val 25/90 = 0.278
+sweep_lr5e-5_e2  val 27/90 = 0.300
+sweep_lr2e-5_e3  val 26/90 = 0.289
