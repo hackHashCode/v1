@@ -15,6 +15,7 @@ Stages (each can be run on its own; finished work is skipped):
     --stage analyze   behaviour metrics on MBPP+ test tasks + t-SNE figure
     --stage compare   COMPARISON.md        --stage download   results -> ./results_modal_<model>/
     --stage debug     print what base + the given methods actually generate on 12 validation tasks
+    --stage upload --upload-repo user/name   push the given runs (merged weights + heads) and a model card to a private HF repo
 Other flags: --model qc15|llama1b, --methods a,b, --seeds 42,7,1234, --force (redo everything), --force-methods a,b
 (redo the sweep for these), --extra "<trainer flags>". Train/eval redo automatically when the selected config changes.
 
@@ -326,6 +327,49 @@ def upload(tag: str, run: str, repo: str):
     return f"{run} -> {repo}"
 
 
+MODEL_CARD = """---
+license: apache-2.0
+base_model: Qwen/Qwen2.5-Coder-1.5B
+library_name: transformers
+tags: [code, mbpp, jepa, precode-jepa]
+---
+# PreCode-JEPA checkpoints (Qwen2.5-Coder-1.5B)
+
+HashCode 14.0, Track 02 (team 21Squad). Code: https://github.com/hackHashCode/v1 (branch `nikhita/studio`, see `REPORT.md`).
+
+PreCode trains a code model to predict an embedding of what its program will do (the reference solution's execution
+trace on probe inputs, function renamed to `f`) from the task description, alongside next-token prediction.
+
+| folder | method | MBPP+ pass@1 (5-seed mean) | HumanEval+ |
+|---|---|---|---|
+| `precodefull_aux_s<seed>` | **PreCode** (behaviour objective; includes `pred_head.pt`) | **60.0** | 18.0 |
+| `sft_s<seed>` | SFT | 55.0 | 16.8 |
+| `sft_loop_s<seed>` | SFT control (PreCode's loop, behaviour loss off) | 54.7 | 16.2 |
+| `jepa_s<seed>` | LLM-JEPA | 46.9 | 26.1 |
+
+Each folder is a merged full model (no adapter needed). Prompt format: ChatML with system prompt
+"You are an expert Python programmer. Write a correct Python function for the task. Output only code." and the task
+description plus its first assert as the user turn; greedy decoding; stop at any `<|...|>` control token.
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+repo, run = "{repo}", "precodefull_aux_s42"
+tok = AutoTokenizer.from_pretrained(repo, subfolder=run)
+model = AutoModelForCausalLM.from_pretrained(repo, subfolder=run, torch_dtype="auto")
+```
+"""
+
+
+@app.function(image=image, volumes={VOL: vol}, secrets=SECRETS, timeout=600)
+def upload_card(repo: str):
+    from huggingface_hub import HfApi
+    api = HfApi()
+    api.create_repo(repo, repo_type="model", private=True, exist_ok=True)
+    api.upload_file(path_or_fileobj=MODEL_CARD.replace("{repo}", repo).encode(), path_in_repo="README.md",
+                    repo_id=repo, commit_message="model card")
+    return f"model card -> https://huggingface.co/{repo}"
+
+
 @app.local_entrypoint()
 def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_METHODS), seeds: str = "42,7,1234",
          force: bool = False, force_methods: str = "", extra: str = "", upload_repo: str = ""):
@@ -389,5 +433,7 @@ def main(stage: str = "all", model: str = "qc15", methods: str = ",".join(ALL_ME
                 open(p, "w", encoding="utf-8").write(data)
         print(f"saved {len(files)} files to {dest} (see COMPARISON.md and SWEEP.md there)")
     if upload_repo:
+        print(f"uploading {len([r for r in runs if r != 'base_s0'])} runs to https://huggingface.co/{upload_repo} (private)")
         for r in upload.starmap([(model, run, upload_repo) for run in runs if run != "base_s0"], return_exceptions=True):
             show(r)
+        print(upload_card.remote(upload_repo))
