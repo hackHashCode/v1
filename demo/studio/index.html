@@ -14,7 +14,7 @@
   --bg: #f3f2ee; --panel: #ffffff; --panel-2: #f7f6f2; --line: #dcd9d0; --ink: #1b1d22; --muted: #646872;
   --ours: #b26a00; --ours-bg: #fff3dc; --ok: #1f8a4c; --ok-bg: #e5f5ec; --bad: #c4352b; --bad-bg: #fbe9e7;
   --warn: #9a6400; --warn-bg: #fff4d6; --dot: #b9b6ac;
-  --c-base: #7a7f8a; --c-sft: #2f6fd6; --c-jepa: #8a4fd0; --c-precode: #d98a00; --c-precodence: #d0532a;
+  --c-base: #7a7f8a; --c-sft: #2f6fd6; --c-sft_loop: #4f9a94; --c-jepa: #8a4fd0; --c-precode: #d98a00; --c-precodence: #d0532a;
   --sans: "Instrument Sans", "Segoe UI", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
@@ -22,7 +22,7 @@
     --bg: #111317; --panel: #191c22; --panel-2: #1f232a; --line: #2e333c; --ink: #e8eaee; --muted: #9aa0ab;
     --ours: #f0a830; --ours-bg: #2c2312; --ok: #4cc283; --ok-bg: #15281e; --bad: #f2776c; --bad-bg: #2e1a19;
     --warn: #f0c060; --warn-bg: #2b2414; --dot: #4a505b;
-    --c-base: #9aa0ab; --c-sft: #6ea2ff; --c-jepa: #b88cff; --c-precode: #f0a830; --c-precodence: #ff8a5c;
+    --c-base: #9aa0ab; --c-sft: #6ea2ff; --c-sft_loop: #6cc4bc; --c-jepa: #b88cff; --c-precode: #f0a830; --c-precodence: #ff8a5c;
   }
 }
 * { box-sizing: border-box; }
@@ -115,8 +115,40 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
 .prose { max-width: 70ch; font-size: 15px; }
 .prose code { font: 13px var(--mono); background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
 .prose pre { font: 13px/1.5 var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; }
+/* headline banner */
+.hero { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.hero .claim { background: var(--ink); color: var(--bg); border-radius: 12px; padding: 16px 18px; }
+.hero .claim b { color: var(--c-precode); }
+.hero .claim .big { font-size: 22px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+.hero .claim .sub { color: inherit; opacity: 0.75; margin-top: 6px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.stat .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.stat .v { font: 700 26px/1.2 var(--sans); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.stat .v small { font-size: 14px; font-weight: 500; color: var(--muted); }
+.stat.ours { border-color: var(--ours); background: var(--ours-bg); }
+.stat.ours .v { color: var(--ours); }
+/* example groups */
+.group-lab { font-size: 12px; color: var(--muted); margin: 2px 0 6px; }
+.group-lab b { color: var(--ours); font-weight: 600; }
+.chips button .rec { font: 11px var(--mono); color: var(--muted); margin-left: 6px; }
+.chips button.on .rec { color: var(--ours); }
+.context { margin-top: 10px; font-size: 13px; padding: 8px 12px; border-radius: 8px; background: var(--panel-2); border: 1px dashed var(--line); }
+.context b { font-variant-numeric: tabular-nums; }
+/* scoreboard */
+.scoreboard { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; }
+.scoreboard .sc { flex: 1 1 180px; border-radius: 12px; padding: 12px 14px; border: 1px solid var(--line); background: var(--panel); border-left: 5px solid var(--c); }
+.scoreboard .sc .n { font-weight: 600; }
+.scoreboard .sc .r { font: 700 22px var(--sans); font-variant-numeric: tabular-nums; }
+.scoreboard .sc.win { background: var(--ok-bg); }
+.scoreboard .sc.loss { background: var(--bad-bg); }
+.scoreboard .note { flex: 1 1 100%; font-size: 13px; color: var(--muted); }
+/* mode switch */
+.mode { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.mode button { background: none; border: 0; padding: 4px 12px; font: 500 12px var(--sans); color: var(--muted); cursor: pointer; }
+.mode button.on { background: var(--ink); color: var(--bg); }
+.err { color: var(--bad); font-size: 12.5px; }
 @media (max-width: 960px) {
-  .composer, .evidence, .rgrid { grid-template-columns: minmax(0, 1fr); }
+  .composer, .evidence, .rgrid, .hero { grid-template-columns: minmax(0, 1fr); }
   .imagined .row { grid-template-columns: minmax(0, 1fr); }
 }
 </style>
@@ -126,6 +158,10 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
 <header>
   <div class="brand">PreCode <span>Studio</span></div>
   <span class="status" id="status">connecting…</span>
+  <span class="mode" role="group" aria-label="Live models or recorded runs">
+    <button type="button" id="mode-live" class="on" title="Generate with the real models now">Live</button>
+    <button type="button" id="mode-replay" title="Play back a recorded run of the same models (no GPU needed)">Replay</button>
+  </span>
   <nav class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-tab="play" id="tab-play">Playground</button>
     <button role="tab" aria-selected="false" data-tab="results" id="tab-results">Results</button>
@@ -133,11 +169,14 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
   </nav>
 </header>
 
+<div class="hero" id="hero" hidden></div>
+
 <section id="play">
   <div class="composer">
     <div class="card">
       <h2>Task</h2>
-      <div class="chips" id="examples"></div>
+      <div id="examples"></div>
+      <div class="context" id="context" hidden></div>
       <label class="lab" for="task">Describe the function</label>
       <textarea id="task" rows="3" placeholder="Write a function to find the second largest distinct number in a list."></textarea>
     </div>
@@ -162,6 +201,7 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
   </div>
 
   <div class="cols" id="cols"><div class="empty card" style="grid-column:1/-1">Pick an example or write a task, then run all methods.</div></div>
+  <div class="scoreboard" id="scoreboard" hidden></div>
 
   <div class="evidence">
     <div class="card">
@@ -182,14 +222,19 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
 <section id="results" hidden>
   <div class="rgrid">
     <div class="card span">
-      <h2>pass@1 by run</h2>
+      <h2>pass@1 on held-out test sets (mean ± std over seeds)</h2>
       <div id="runsTable"></div>
-      <p class="hint">Greedy decoding. MBPP+ = 224 MBPP test-split tasks with EvalPlus's extra tests; HumanEval+ = 164 tasks. "base" scores the original tests, "plus" the extended ones.</p>
+      <p class="hint">Qwen2.5-Coder-1.5B, LoRA, 474 MBPP training tasks. Greedy decoding, same prompt and script for every method. MBPP+ = 224 MBPP test-split tasks with EvalPlus's extended tests; HumanEval+ = 164 tasks. Brackets: 95% bootstrap CI over tasks. Hyper-parameters were chosen per method on validation data only; test sets were scored once, after selection.</p>
     </div>
     <div class="card">
-      <h2>Paired comparison (same tasks)</h2>
+      <h2>Paired comparison (same tasks, all seeds)</h2>
       <div id="pairedTable"></div>
-      <p class="hint">Counts of tasks only one model solves, with the exact McNemar p-value. Differences are real only if p is small and they hold across seeds.</p>
+      <p class="hint">Tasks only one method solves, pooled over seeds, with the exact McNemar p-value. "SFT control" is trained with PreCode's own loop and the behaviour loss switched off, so the gap is the objective itself.</p>
+    </div>
+    <div class="card">
+      <h2>Does it actually learn behaviour?</h2>
+      <div id="behTable"></div>
+      <p class="hint">On the 224 unseen MBPP+ tasks. Recall@k: is the task's true behaviour vector among the k nearest to PreCode's prediction (chance: 0.45% / 2.2%). Behaviour match: share of probe inputs where the generated code's output equals the reference solution's.</p>
     </div>
     <div class="card">
       <h2>Mutant test: does the target see bugs?</h2>
@@ -201,13 +246,14 @@ tr.split td.call { color: var(--ink); font-weight: 500; }
 
 <section id="how" hidden>
   <div class="card prose">
-    <h2>How PreCode-JEPA works (as implemented on gagan/precode)</h2>
-    <p>LLM-JEPA adds a loss that makes the model's embedding of a task description predict an embedding of the reference code <em>text</em>. PreCode keeps that recipe and swaps the target for an embedding of what the reference code <em>does</em> when run.</p>
-    <pre>loss = NTP + λ · (1 − cos(W · h_prompt, z_behaviour))
-W: linear 2048 → 768 (pred_head.pt), z frozen
-precodence: InfoNCE of W·h_prompt against all cached z, τ = 0.07</pre>
-    <p><b>The target.</b> Each training task's reference solution runs in a sandbox on about 17 probe inputs: its test inputs plus edge cases, one argument changed at a time. Exceptions count as behaviour. The trace lines <code>f(args) -&gt; output</code> are feature-hashed into a 768-number vector. 470 of the 474 training tasks are cached.</p>
-    <p><b>The prompt state.</b> <code>h_prompt</code> is the final-layer hidden state at the last prompt token of the ordinary SFT forward pass. Under causal attention it depends only on the prompt, so no extra forward pass is needed and training costs the same as SFT.</p>
+    <h2>How PreCode-JEPA works</h2>
+    <p><b>Idea:</b> before a model writes code, it should know what that code will <em>do</em>. LLM-JEPA trains the model's reading of a task to predict an embedding of the reference code's <em>text</em>. PreCode swaps that target for an embedding of the reference code's <em>behaviour</em>: what it outputs when you run it.</p>
+    <pre>h   = hidden state at the last prompt token (prompt only, same forward pass as SFT)
+ẑ   = normalize(MLP(h))           MLP 1536 → 768 → 768, warmed up on frozen prompt states first
+z   = frozen behaviour vector of the task's reference solution
+loss = NTP(code) + 0.5 · InfoNCE(ẑ vs all 470 cached z, τ = 0.07)</pre>
+    <p><b>The target.</b> Each training task's reference solution runs in a sandbox on about 17 probe inputs: its test inputs plus edge cases (empty, negative, reversed, repeated…), one argument changed at a time. Exceptions count as behaviour. The trace lines <code>f(args) -&gt; output</code> are feature-hashed into a 768-number vector. The function is renamed to <code>f</code> first, so the model can't "predict" behaviour by reading the function name.</p>
+    <p><b>Cost.</b> <code>h</code> comes from the ordinary SFT forward pass (causal attention: it only sees the prompt), so training costs the same as SFT. The head is thrown away for inference.</p>
     <p><b>At inference nothing changes.</b> Code is generated exactly as with SFT. This studio additionally runs <code>pred_head</code> on the prompt state to show what PreCode "imagined", then executes every program to show what each one actually does.</p>
     <p><b>Why the probe grid matters.</b> Two programs can look almost identical and behave differently. The grid shows every program on the same inputs. With a reference solution, cells are marked right or wrong; without one, rows where the models disagree are highlighted.</p>
   </div>
@@ -218,11 +264,17 @@ precodence: InfoNCE of W·h_prompt against all cached z, τ = 0.07</pre>
 <script>
 const $ = (s) => document.querySelector(s);
 const API = (new URLSearchParams(location.search).get("api") || "").replace(/\/$/, "");
+const SPEED = +(new URLSearchParams(location.search).get("speed") || 1);   // replay speed-up
 const COLORS = () => { const cs = getComputedStyle(document.documentElement);
-  return id => cs.getPropertyValue("--c-" + id).trim() || cs.getPropertyValue("--c-base").trim(); };
-let META = null, current = null, state = null;
+  return id => { const k = String(id).startsWith("precode") ? "precode" : id;
+    return cs.getPropertyValue("--c-" + k).trim() || cs.getPropertyValue("--c-base").trim(); }; };
+let META = null, current = null, state = null, MODE = "live";
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function esc(s) { return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function runInfo(id) { return (META.runs.find(x => x.id === id)) || (state && state.runsMeta || []).find(x => x.id === id) || { id, name: id, blurb: "" }; }
+function slug(e) { return !e ? null : e.task_id ? e.task_id.replace(/[^A-Za-z0-9]+/g, "_") : "spec_" + e.label.toLowerCase().replace(/[^a-z0-9]+/g, "_"); }
+function oursId() { const r = META.runs.find(x => x.ours); return r ? r.id : "precodefull_aux"; }
 
 /* ---------- tabs ---------- */
 document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
@@ -231,6 +283,16 @@ document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("cl
   if (b.dataset.tab === "results") drawMutants();
   if (b.dataset.tab === "play") drawMap();
 }));
+
+/* ---------- live / replay ---------- */
+function setMode(m) {
+  MODE = m;
+  $("#mode-live").classList.toggle("on", m === "live"); $("#mode-replay").classList.toggle("on", m === "replay");
+  $("#go").textContent = m === "live" ? "Run all methods" : "Replay recorded run";
+  updateContext();
+}
+$("#mode-live").addEventListener("click", () => setMode("live"));
+$("#mode-replay").addEventListener("click", () => setMode("replay"));
 
 /* ---------- boot ---------- */
 async function boot() {
@@ -241,37 +303,82 @@ async function boot() {
     $("#status").textContent = "server unreachable"; $("#status").classList.add("mock"); return;
   }
   const st = $("#status");
-  st.textContent = META.mock ? "mock mode: canned outputs" : `live · ${META.device} · ${META.gpu_mode} · seed ${META.seed}`;
+  st.textContent = META.mock ? "mock mode: canned outputs" : `live · ${META.gpu || META.device}${META.parallel ? " · all models at once" : ""} · seed ${META.seed}`;
   if (META.mock) st.classList.add("mock");
-  $("#examples").innerHTML = META.examples.map((e, i) => `<button type="button" data-i="${i}">${esc(e.label)}</button>`).join("");
+  renderHero();
+  const groups = [["showcase", META.showcase && META.showcase.n_picked ?
+      `<b>Showcase:</b> MBPP+ test tasks PreCode solved in ≥4 of 5 training seeds while SFT failed in ≥4 of 5 (${META.showcase.n_picked} such tasks; ${META.showcase.n_reverse} go the other way, out of ${META.showcase.n_tasks})` : "<b>Showcase</b>"],
+    ["specs", "Hand-written specs (not from any benchmark)"]];
+  $("#examples").innerHTML = groups.map(([g, lab]) => {
+    const items = META.examples.map((e, i) => [e, i]).filter(([e]) => e.group === g);
+    if (!items.length) return "";
+    return `<div class="group-lab">${lab}</div><div class="chips">${items.map(([e, i]) =>
+      `<button type="button" data-i="${i}" title="${esc(e.task)}">${esc(e.label)}${e.record ? `<span class="rec">${e.record.precode}/${e.record.seeds} vs ${e.record.sft}/${e.record.seeds}</span>` : ""}${(META.recordings || []).includes(slug(e)) ? " ⏵" : ""}</button>`).join("")}</div>`;
+  }).join("");
   document.querySelectorAll("#examples button").forEach(b => b.addEventListener("click", () => loadExample(+b.dataset.i)));
   const col = COLORS();
   $("#toggles").innerHTML = META.runs.map(r => `<label class="toggle"><input type="checkbox" id="run-${r.id}" value="${r.id}" checked><span class="sw" style="background:${col(r.id)}"></span>${esc(r.name)}</label>`).join("");
+  if (META.mock && (META.recordings || []).length) setMode("replay");
   renderResults();
   drawMap();
   if (META.examples.length) loadExample(0);
 }
+
+function renderHero() {
+  const R = META.results || {}; const T = R.table || [];
+  const get = m => T.find(r => r.method === m);
+  const ours = get(R.ours), sft = get("sft"), jepa = get("jepa"), ctrl = get("sft_loop");
+  if (!ours || !sft || !ours.mbppplus224) return;
+  const d = ours.mbppplus224.mean - sft.mbppplus224.mean;
+  const t = (R.tests || []).find(x => x.a === R.ours && x.b === "sft" && x.dataset === "mbppplus224");
+  const p = t ? (t.p < 0.0001 ? "p < 0.0001" : "p = " + t.p.toFixed(4)) : "";
+  const card = (k, row, cls) => row && row.mbppplus224 ? `<div class="stat ${cls || ""}"><div class="k">${k} · MBPP+</div><div class="v">${row.mbppplus224.mean.toFixed(1)}<small>% ± ${row.mbppplus224.std.toFixed(1)}</small></div></div>` : "";
+  $("#hero").innerHTML = `<div class="claim"><div class="big">Teaching a code model to <b>predict what its program will do</b> before writing it: <b>+${d.toFixed(1)} points</b> pass@1 over SFT.</div>
+    <div class="sub">Qwen2.5-Coder-1.5B · MBPP+ (224 held-out tasks, extended tests) · ${ours.mbppplus224.n} seeds · ${p}${ctrl ? ` · identical-loop control: ${ctrl.mbppplus224.mean.toFixed(1)}%` : ""}</div></div>
+    ${card("PreCode", ours, "ours")}${card("SFT", sft)}${card("LLM-JEPA", jepa)}`;
+  $("#hero").hidden = false;
+}
+
 function loadExample(i) {
   const e = META.examples[i]; current = e;
   $("#task").value = e.task; $("#tests").value = (e.tests || []).join("\n");
   document.querySelectorAll("#examples button").forEach(b => b.classList.toggle("on", +b.dataset.i === i));
+  updateContext();
 }
-$("#task").addEventListener("input", () => { if (current && $("#task").value.trim() !== current.task.trim()) { current = null; document.querySelectorAll("#examples button").forEach(b => b.classList.remove("on")); } });
+function updateContext() {
+  const c = $("#context"); const e = current;
+  const hasRec = e && (META.recordings || []).includes(slug(e));
+  let html = "";
+  if (e && e.record) {
+    const r = e.record;
+    html = `On the benchmark (${e.task_id}, ${r.seeds} training seeds): <b>PreCode passed ${r.precode}/${r.seeds}</b> · SFT ${r.sft}/${r.seeds} · LLM-JEPA ${r.jepa}/${r.seeds} · SFT control ${r.sft_loop}/${r.seeds}. The live run below uses the seed-42 models; the hidden MBPP+ tests aren't shown, these are MBPP's own asserts.`;
+  }
+  if (MODE === "replay") html += (html ? "<br>" : "") + (hasRec ? "Replay: a recorded run of the same models on this exact task, played back with its original timing." : `<span class="err">No recording for this task: switch to Live.</span>`);
+  c.innerHTML = html; c.hidden = !html;
+}
+$("#task").addEventListener("input", () => { if (current && $("#task").value.trim() !== current.task.trim()) { current = null; document.querySelectorAll("#examples button").forEach(b => b.classList.remove("on")); updateContext(); } });
 
 /* ---------- run ---------- */
 $("#go").addEventListener("click", run);
 $("#task").addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") run(); });
 
+function resetView() {
+  $("#imagined").hidden = true; $("#grid").innerHTML = ""; $("#psum").textContent = "Waiting for all programs…"; $("#pnote").textContent = "";
+  $("#scoreboard").hidden = true;
+  renderCols(); drawMap();
+}
+
 async function run() {
+  if (MODE === "replay") return replay();
   const task = $("#task").value.trim();
   if (!task) { $("#runmsg").textContent = "Write a task first."; $("#task").focus(); return; }
   const tests = $("#tests").value.split("\n").map(s => s.trim()).filter(Boolean);
   const runs = META.runs.filter(r => $("#run-" + r.id).checked).map(r => r.id);
   if (!runs.length) { $("#runmsg").textContent = "Pick at least one method."; return; }
-  state = { task, tests, runs, code: {}, raw: {}, ms: {}, imagined: {}, exec: null, reference: current ? current.reference : null };
-  $("#go").disabled = true; $("#runmsg").textContent = "generating…";
-  $("#imagined").hidden = true; $("#grid").innerHTML = ""; $("#psum").textContent = "Waiting for all programs…"; $("#pnote").textContent = "";
-  renderCols(); drawMap();
+  state = { task, tests, runs, code: {}, raw: {}, ms: {}, err: {}, imagined: {}, exec: null, active: new Set(),
+            reference: current && current.task.trim() === task ? current.reference : null, setup: current ? current.setup : "" };
+  $("#go").disabled = true; $("#runmsg").textContent = META.parallel ? "all methods writing at once…" : "generating…";
+  resetView();
   try {
     const r = await fetch(API + "/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ task, tests, runs }) });
     if (!r.ok || !r.body) throw new Error("server returned " + r.status);
@@ -282,25 +389,52 @@ async function run() {
       let k; while ((k = buf.indexOf("\n\n")) >= 0) { const chunk = buf.slice(0, k); buf = buf.slice(k + 2);
         if (chunk.startsWith("data: ")) onEvent(JSON.parse(chunk.slice(6))); }
     }
-    $("#runmsg").textContent = "running programs…";
+    $("#runmsg").textContent = "running every program…";
     const ex = await fetch(API + "/api/execute", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ codes: state.code, tests, reference: state.reference, imagined: state.imagined }) });
+      body: JSON.stringify({ codes: state.code, tests, reference: state.reference, imagined: state.imagined, setup: state.setup }) });
     if (!ex.ok) throw new Error("execution failed (" + ex.status + ")");
     state.exec = await ex.json();
     $("#runmsg").textContent = "";
-    renderCols(); renderGrid(); drawMap();
+    renderCols(); renderGrid(); drawMap(); renderScoreboard();
   } catch (e) {
-    $("#runmsg").textContent = "Stopped: " + e.message + ". Check that the studio server is running.";
+    const canReplay = current && (META.recordings || []).includes(slug(current));
+    $("#runmsg").innerHTML = `<span class="err">Live run stopped: ${esc(e.message)}.</span>` + (canReplay ? " Switching to the recorded run…" : "");
+    $("#go").disabled = false;
+    if (canReplay) { setMode("replay"); return replay(); }
   }
   $("#go").disabled = false;
 }
 
+async function replay() {
+  if (!current || !(META.recordings || []).includes(slug(current))) { $("#runmsg").innerHTML = `<span class="err">No recording for this task.</span>`; return; }
+  $("#go").disabled = true; $("#runmsg").textContent = "replaying recorded run…";
+  let rec;
+  try { rec = await (await fetch(API + "/api/recording/" + slug(current))).json(); }
+  catch (e) { $("#runmsg").innerHTML = `<span class="err">Couldn't load the recording.</span>`; $("#go").disabled = false; return; }
+  $("#task").value = rec.task; $("#tests").value = (rec.tests || []).join("\n");
+  state = { task: rec.task, tests: rec.tests, runs: rec.runs, runsMeta: rec.runs_meta, code: {}, raw: {}, ms: {}, err: {}, imagined: {}, exec: null,
+            active: new Set(), reference: rec.reference, recorded: rec.recorded_at };
+  resetView();
+  const t0 = performance.now();
+  for (const ev of rec.events) {
+    const wait = ev.t / SPEED - (performance.now() - t0);
+    if (wait > 0) await sleep(wait);
+    onEvent(ev);
+  }
+  $("#runmsg").textContent = "running every program…"; await sleep(400 / SPEED);
+  state.exec = rec.exec;
+  $("#runmsg").textContent = `Replayed a recorded run (${rec.gpu || "GPU"}, ${rec.recorded_at || ""}).`;
+  renderCols(); renderGrid(); drawMap(); renderScoreboard();
+  $("#go").disabled = false;
+}
+
 function onEvent(ev) {
-  if (ev.type === "start") { state.raw[ev.run] = ""; state.active = ev.run; }
+  if (ev.type === "start") { state.raw[ev.run] = ""; state.active.add(ev.run); }
   if (ev.type === "token") { state.raw[ev.run] += ev.text; const el = document.getElementById("code-" + ev.run); if (el) { el.textContent = state.raw[ev.run]; el.scrollTop = el.scrollHeight; } return; }
   if (ev.type === "imagined") { state.imagined[ev.run] = ev.z; state.imagXY = state.imagXY || {}; state.imagXY[ev.run] = ev.xy; state.nearest = state.nearest || {}; state.nearest[ev.run] = ev.nearest; renderImagined(); drawMap(); return; }
-  if (ev.type === "done") { state.code[ev.run] = ev.code; state.ms[ev.run] = ev.ms; state.active = null; }
-  if (ev.type === "end") state.active = null;
+  if (ev.type === "error") { state.err[ev.run] = ev.message; }
+  if (ev.type === "done") { state.code[ev.run] = ev.code; state.ms[ev.run] = ev.ms; state.active.delete(ev.run); }
+  if (ev.type === "end") state.active.clear();
   renderCols();
 }
 
@@ -311,35 +445,53 @@ function renderImagined() {
     <p>${esc(n.desc)}</p><pre>${esc(n.trace.join("\n"))}</pre></div>`).join("");
 }
 
+function verdictOf(id) {
+  const ex = state.exec && state.exec.results[id]; if (!ex) return null;
+  if (ex.tests && ex.tests.length) { const p = ex.tests.filter(x => x.ok).length; return { pass: p, n: ex.tests.length, kind: "checks" }; }
+  if (ex.agree_ref && ex.agree_ref[1]) return { pass: ex.agree_ref[0], n: ex.agree_ref[1], kind: "probes match reference" };
+  return null;
+}
+
 function renderCols() {
   if (!state) return;
   const col = COLORS();
   $("#cols").innerHTML = state.runs.map(id => {
-    const r = META.runs.find(x => x.id === id); const ex = state.exec && state.exec.results[id];
-    const streaming = state.active === id; const done = id in state.code;
+    const r = runInfo(id); const ex = state.exec && state.exec.results[id];
+    const streaming = state.active.has(id); const done = id in state.code;
     let st = done ? `${(state.ms[id] / 1000).toFixed(1)} s` : streaming ? "writing…" : "queued";
     let verdict = "", tl = "", extra = "";
     if (ex) {
-      const t = ex.tests;
-      if (t.length) {
-        const p = t.filter(x => x.ok).length, all = p === t.length;
-        verdict = `<div class="verdict"><span class="${all ? "ok" : "bad"}">${all ? "✓" : "✗"} ${p}/${t.length} checks</span><span class="bar"><i style="width:${100 * p / t.length}%"></i></span></div>`;
-        tl = `<div class="tlist">${t.map(x => `<span class="${x.ok ? "" : "f"}" title="${esc(x.test + (x.ok ? "  ✓" : "  ✗ " + x.why))}"></span>`).join("")}</div>`;
-      } else if (ex.agree_ref && ex.agree_ref[1]) {
-        const [a, n] = ex.agree_ref;
-        verdict = `<div class="verdict"><span class="${a === n ? "ok" : "bad"}">${a}/${n} probes match reference</span></div>`;
+      const t = ex.tests, v = verdictOf(id);
+      if (v) {
+        const all = v.pass === v.n;
+        verdict = `<div class="verdict"><span class="${all ? "ok" : "bad"}">${all ? "✓" : "✗"} ${v.pass}/${v.n} ${v.kind}</span><span class="bar"><i style="width:${100 * v.pass / v.n}%"></i></span></div>`;
       }
+      if (t.length) tl = `<div class="tlist">${t.map(x => `<span class="${x.ok ? "" : "f"}" title="${esc(x.test + (x.ok ? "  ✓" : "  ✗ " + x.why))}"></span>`).join("")}</div>`;
       const lines = [];
-      if (ex.nearest && ex.nearest[0]) lines.push(`Behaves most like training task <b>${ex.nearest[0].task_id}</b> (cos ${ex.nearest[0].cos.toFixed(2)})`);
-      if (ex.imagined_vs_actual !== undefined) lines.push(`Imagined vs actual behaviour: <b>cos ${ex.imagined_vs_actual.toFixed(2)}</b>`);
+      const firstFail = t.find(x => !x.ok);
+      if (firstFail) lines.push(`First failure: <b>${esc(firstFail.why)}</b> on <code>${esc(firstFail.test.slice(0, 70))}</code>`);
+      if (ex.imagined_vs_actual !== undefined) lines.push(`Predicted vs actual behaviour: <b>cos ${ex.imagined_vs_actual.toFixed(2)}</b>`);
       if (state.exec.has_reference && ex.agree_ref[1] && t.length) lines.push(`Matches the reference on <b>${ex.agree_ref[0]}/${ex.agree_ref[1]}</b> probe inputs`);
       extra = lines.map(l => `<div class="meta-line">${l}</div>`).join("");
     }
+    if (state.err[id]) extra += `<div class="err">${esc(state.err[id])}</div>`;
     const code = done ? state.code[id] : (state.raw[id] || "");
-    return `<div class="card col ${id.startsWith("precode") ? "ours" : ""}" style="--c:${col(id)}">
+    return `<div class="card col ${r.ours || id.startsWith("precode") ? "ours" : ""}" style="--c:${col(id)}">
       <div class="hd"><div><h3>${esc(r.name)}</h3><div class="sub">${esc(r.blurb)}</div></div><span class="state">${st}</span></div>
       <pre class="code ${streaming ? "cursor" : ""}" id="code-${id}">${esc(code)}</pre>${verdict}${tl}${extra}</div>`;
   }).join("");
+}
+
+function renderScoreboard() {
+  const col = COLORS(); const sb = $("#scoreboard");
+  const items = state.runs.map(id => ({ id, v: verdictOf(id) })).filter(x => x.v);
+  if (!items.length) { sb.hidden = true; return; }
+  const ex = state.exec;
+  const split = ex.split_count || 0;
+  sb.innerHTML = items.map(({ id, v }) => { const all = v.pass === v.n;
+    return `<div class="sc ${all ? "win" : "loss"}" style="--c:${col(id)}"><div class="n">${esc(runInfo(id).name)}</div><div class="r ${all ? "ok" : "bad"}">${all ? "✓" : "✗"} ${v.pass}/${v.n}</div><div class="sub">${esc(v.kind)}</div></div>`; }).join("")
+    + `<div class="note">${split ? `The programs give different answers on <b>${split}</b> probe inputs: see "Same inputs, every program" below for exactly where.` : "All programs agree on every probe input."}${state.recorded ? " (recorded run)" : ""}</div>`;
+  sb.hidden = false;
 }
 
 function renderGrid() {
@@ -348,7 +500,7 @@ function renderGrid() {
   if (!rows.length) { $("#grid").innerHTML = `<div class="empty">No probe inputs could run on these programs.</div>`; $("#psum").textContent = ""; return; }
   const split = rows.filter(r => r.split).length;
   $("#psum").innerHTML = split ? `The programs <b>disagree on ${split} of ${rows.length}</b> inputs. Those rows are where the bugs are.` : `All programs agree on all ${rows.length} inputs.`;
-  const head = `<tr><th>input</th>${hasRef ? "<th>reference</th>" : ""}${runs.map(id => `<th style="color:${COLORS()(id)}">${esc(META.runs.find(x => x.id === id).name)}</th>`).join("")}</tr>`;
+  const head = `<tr><th>input</th>${hasRef ? "<th>reference</th>" : ""}${runs.map(id => `<th style="color:${COLORS()(id)}">${esc(runInfo(id).name)}</th>`).join("")}</tr>`;
   const body = rows.slice().sort((a, b) => b.split - a.split).map(r => {
     const cells = runs.map(id => { const v = r.outs[id] ?? "—"; let cls = "";
       if (hasRef && r.truth != null) cls = v === r.truth ? "good" : "wrong";
@@ -377,15 +529,15 @@ function drawMap() {
       const r = state.exec.results[id]; if (!r || !r.xy) continue;
       ctx.fillStyle = col(id); ctx.strokeStyle = cs.getPropertyValue("--panel").trim(); ctx.lineWidth = 3;
       ctx.beginPath(); ctx.arc(X(r.xy[0]), Y(r.xy[1]), 11, 0, 7); ctx.fill(); ctx.stroke();
-      mapPts.push({ x: X(r.xy[0]), y: Y(r.xy[1]), d: META.runs.find(x => x.id === id).name + ": where its code actually landed" });
-      legend.push(`<span><span class="sw" style="background:${col(id)}"></span>${esc(META.runs.find(x => x.id === id).name)} code</span>`);
+      mapPts.push({ x: X(r.xy[0]), y: Y(r.xy[1]), d: runInfo(id).name + ": where its code actually landed" });
+      legend.push(`<span><span class="sw" style="background:${col(id)}"></span>${esc(runInfo(id).name)} code</span>`);
     }
   }
   if (state && state.imagXY) {
     for (const [id, xy] of Object.entries(state.imagXY)) {
       star(ctx, X(xy[0]), Y(xy[1]), 17, col(id), cs.getPropertyValue("--ink").trim());
       mapPts.push({ x: X(xy[0]), y: Y(xy[1]), d: "PreCode's prediction, before writing any code" });
-      legend.push(`<span style="color:${col(id)}">★</span><span>${esc(META.runs.find(x => x.id === id).name)} imagined</span>`);
+      legend.push(`<span style="color:${col(id)}">★</span><span>${esc(runInfo(id).name)} predicted</span>`);
     }
   }
   $("#legend").innerHTML = legend.join("");
@@ -409,21 +561,25 @@ window.addEventListener("resize", drawMap);
 if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawMap(); drawMutants(); });
 
 /* ---------- results ---------- */
+function fmtP(p) { return p < 0.0001 ? "&lt; 0.0001" : p.toFixed(4); }
 function renderResults() {
   const R = META.results || {};
-  const runs = R.runs || [];
-  if (runs.length) {
-    const sets = [...new Set(runs.map(r => r.dataset))];
-    const names = [...new Set(runs.map(r => r.run))];
-    const head = `<tr><th>run</th>${sets.map(s => `<th class="num">${esc(s)} base</th><th class="num">${esc(s)} plus</th>`).join("")}</tr>`;
-    const best = {}; for (const s of sets) for (const k of ["pass1_base", "pass1_plus"]) best[s + k] = Math.max(...runs.filter(r => r.dataset === s).map(r => +r[k]));
-    const body = names.map(n => `<tr><td>${esc(n)}</td>${sets.map(s => { const r = runs.find(x => x.run === n && x.dataset === s);
-      return ["pass1_base", "pass1_plus"].map(k => r ? `<td class="num" style="${+r[k] === best[s + k] ? "font-weight:600;color:var(--ours)" : ""}">${(100 * r[k]).toFixed(1)}%</td>` : "<td>—</td>").join(""); }).join("")}</tr>`).join("");
+  const T = R.table || [];
+  if (T.length) {
+    const sets = [["mbppplus224", "MBPP+ (224)"], ["humanevalplus", "HumanEval+ (164)"]];
+    const best = {}; for (const [s] of sets) best[s] = Math.max(...T.filter(r => r[s]).map(r => r[s].mean));
+    const head = `<tr><th>method</th>${sets.map(([, n]) => `<th class="num">${n}</th>`).join("")}<th class="num">seeds</th></tr>`;
+    const body = T.map(r => `<tr${r.method === R.ours ? ' style="background:var(--ours-bg)"' : ""}><td>${r.method === R.ours ? "<b>PreCode</b> (ours)" : esc(r.name)}</td>${sets.map(([s]) => { const c = r[s]; if (!c) return "<td>—</td>";
+      return `<td class="num" style="${c.mean === best[s] ? "font-weight:600;color:var(--ours)" : ""}">${c.mean.toFixed(1)} ± ${(c.std || 0).toFixed(1)}${c.ci ? ` <span class="sub">[${c.ci[0].toFixed(1)}–${c.ci[1].toFixed(1)}]</span>` : ""}</td>`; }).join("")}<td class="num">${(r.mbppplus224 || r.humanevalplus).n}</td></tr>`).join("");
     $("#runsTable").innerHTML = `<div class="gridwrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
-  } else $("#runsTable").innerHTML = `<div class="empty">No results/runs.csv yet.</div>`;
-  const P = R.paired || [];
-  $("#pairedTable").innerHTML = P.length ? `<div class="gridwrap"><table><thead><tr><th>dataset</th><th>vs</th><th class="num">only PreCode</th><th class="num">only other</th><th class="num">both</th><th class="num">p</th></tr></thead><tbody>${
-    P.map(p => `<tr><td>${esc(p.dataset)}</td><td>${esc(p.vs)}</td><td class="num">${p.precode_only}</td><td class="num">${p.other_only}</td><td class="num">${p.both}</td><td class="num">${p.p}</td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">No per-task results yet.</div>`;
+  } else $("#runsTable").innerHTML = `<div class="empty">No results/qc15/comparison.json found.</div>`;
+  const P = R.tests || [];
+  $("#pairedTable").innerHTML = P.length ? `<div class="gridwrap"><table><thead><tr><th>A vs B</th><th>dataset</th><th class="num">only A</th><th class="num">only B</th><th class="num">p</th></tr></thead><tbody>${
+    P.map(p => `<tr><td>${esc(p.a_name)} vs ${esc(p.b_name)}</td><td>${p.dataset === "mbppplus224" ? "MBPP+" : "HumanEval+"}</td><td class="num">${p.a_only}</td><td class="num">${p.b_only}</td><td class="num" style="${p.p < 0.05 ? "font-weight:600" : ""}">${fmtP(p.p)}</td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">No paired tests found.</div>`;
+  const BH = R.behaviour || [];
+  const pct = v => v === undefined ? "—" : (100 * v).toFixed(1) + "%";
+  $("#behTable").innerHTML = BH.length ? `<div class="gridwrap"><table><thead><tr><th>method</th><th class="num">recall@1</th><th class="num">recall@5</th><th class="num">behaviour match</th><th class="num">exact behaviour</th></tr></thead><tbody>${
+    BH.map(b => `<tr${b.method === R.ours ? ' style="background:var(--ours-bg)"' : ""}><td>${esc(b.method === R.ours ? "PreCode" : b.name)}</td><td class="num">${b.method === "sft" || b.method === "jepa" || b.method === "base" ? "—" : pct(b["recall@1"])}</td><td class="num">${b.method === "sft" || b.method === "jepa" || b.method === "base" ? "—" : pct(b["recall@5"])}</td><td class="num">${pct(b.behaviour_match)}</td><td class="num">${pct(b.exact_behaviour)}</td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">No behaviour metrics found.</div>`;
   const M = R.mutant || {};
   if (M.n_mutants) $("#mutantNote").innerHTML = `${M.n_mutants} automatic bugs that still pass the visible test. Mean cosine between correct and buggy code: <b>${M.behaviour_ref_vs_mutant}</b> with the behaviour vector vs <b>${M.codetext_ref_vs_mutant}</b> with a code-text vector. The behaviour vector separates the bug more in <b>${Math.round(100 * M.frac_mutants_where_behaviour_separates_more)}%</b> of pairs (points below the diagonal).`;
 }

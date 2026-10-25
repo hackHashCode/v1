@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PreCode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* The stage demo: one claim, one task, two models, one verdict. Everything else lives in /studio. */
+:root {
+  --bg: #fafaf8; --panel: #ffffff; --line: #e6e4de; --ink: #16181d; --muted: #6b6f78;
+  --ours: #c97a00; --ours-soft: #fff4e0; --base: #3b6fd8;
+  --ok: #17864a; --ok-soft: #e7f6ed; --bad: #c8372d; --bad-soft: #fcebea;
+  --sans: "Inter", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --panel: #171a20; --line: #2a2e36; --ink: #eceef2; --muted: #9196a1;
+  --ours: #f4a93a; --ours-soft: #2b2312; --base: #7aa5ff;
+  --ok: #4fcf8a; --ok-soft: #13271c; --bad: #ff7a6e; --bad-soft: #2d1817;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 28px max(16px, 3vw) 40px; }
+header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+.mark { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.mark span { color: var(--ours); }
+.pill { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
+header a { margin-left: auto; color: var(--muted); font-size: 14px; text-decoration: none; }
+header a:hover { color: var(--ink); }
+header button { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 3px 9px; cursor: pointer; font: 13px var(--sans); }
+
+/* claim */
+h1 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.12; letter-spacing: -0.03em; margin: 0 0 18px; font-weight: 800; max-width: 22ch; }
+h1 em { font-style: normal; color: var(--ours); }
+.score { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 28px; margin-bottom: 34px; }
+.score .n { font-size: clamp(40px, 6vw, 64px); font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+.score .n.ours { color: var(--ours); }
+.score .n.base { color: var(--muted); }
+.score .lab { font-size: 14px; color: var(--muted); margin-top: 6px; }
+.score .delta { font-size: 18px; font-weight: 700; color: var(--ok); }
+.score .fine { flex-basis: 100%; font-size: 13px; color: var(--muted); }
+
+/* task */
+.task { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.task .t { flex: 1; min-width: 0; }
+.task .t .q { font-size: 18px; font-weight: 600; }
+.task .t .a { font: 13px var(--mono); color: var(--muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav { display: flex; align-items: center; gap: 6px; color: var(--muted); font: 13px var(--mono); }
+.nav button { width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; font-size: 16px; }
+.go { background: var(--ink); color: var(--bg); border: 0; border-radius: 11px; padding: 13px 26px; font: 700 16px var(--sans); cursor: pointer; white-space: nowrap; }
+.go:disabled { opacity: 0.45; cursor: progress; }
+button:focus-visible { outline: 2px solid var(--ours); outline-offset: 2px; }
+
+/* the two models */
+.duel { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+.pane { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; border-top: 4px solid var(--c); }
+.pane.ours { box-shadow: 0 0 0 1px var(--ours); }
+.pane .hd { display: flex; justify-content: space-between; align-items: baseline; }
+.pane .name { font-weight: 700; font-size: 17px; }
+.pane .what { font-size: 13px; color: var(--muted); }
+.pane .time { font: 12px var(--mono); color: var(--muted); }
+pre { margin: 0; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px; font: 13px/1.55 var(--mono); min-height: 168px; max-height: 260px; overflow: auto; white-space: pre; }
+pre.typing::after { content: "▍"; color: var(--c); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.verdict { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 10px 14px; font-weight: 700; font-size: 18px; min-height: 48px; }
+.verdict.ok { background: var(--ok-soft); color: var(--ok); }
+.verdict.bad { background: var(--bad-soft); color: var(--bad); }
+.verdict.wait { color: var(--muted); font-weight: 500; font-size: 14px; border: 1px dashed var(--line); }
+.verdict small { font-weight: 500; font-size: 13px; opacity: 0.85; }
+
+/* where they differ */
+.diff { margin-top: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.diff h2 { font-size: 15px; margin: 0 0 10px; font-weight: 700; }
+table { width: 100%; border-collapse: collapse; font: 13px var(--mono); }
+th { text-align: left; font: 600 12px var(--sans); color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 7px 8px; border-bottom: 1px solid var(--line); max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+td.y { color: var(--ok); } td.n { color: var(--bad); background: var(--bad-soft); }
+.foot { margin-top: 22px; font-size: 13px; color: var(--muted); max-width: 80ch; }
+.foot b { color: var(--ink); font-weight: 600; }
+#msg { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 20px; }
+@media (max-width: 760px) { .duel { grid-template-columns: 1fr; } .task { flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { pre.typing::after { animation: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">Pre<span>Code</span></div>
+    <span class="pill" id="status">connecting…</span>
+    <a href="studio" id="more">full studio →</a>
+    <button type="button" id="theme" aria-label="Toggle dark mode">◐</button>
+  </header>
+
+  <h1>We taught a code model to <em>predict what its program will do</em> before it writes it.</h1>
+  <div class="score" id="score"></div>
+
+  <div class="task">
+    <div class="t"><div class="q" id="q">…</div><div class="a" id="a"></div></div>
+    <div class="nav"><button type="button" id="prev" aria-label="Previous task">‹</button><span id="pos"></span><button type="button" id="next" aria-label="Next task">›</button></div>
+    <button class="go" id="go" type="button">Run ▶</button>
+  </div>
+  <div id="msg"></div>
+
+  <div class="duel" id="duel"></div>
+  <div class="diff" id="diff" hidden></div>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const QS = new URLSearchParams(location.search);
+const API = (QS.get("api") || "").replace(/\/$/, "");
+const FORCE_REPLAY = QS.get("replay") === "1";
+const FIRST_TOKEN_TIMEOUT = 25000;     // cold Modal container: fall back to the recording instead of making the room wait
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let META, TASKS = [], idx = 0, OURS = "precodefull_aux", PAIR = [], S = null;
+
+/* theme: dark by default on stage (projectors), remembered per browser */
+function setTheme(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem("pc-theme", t); } catch (e) {} }
+let saved = null; try { saved = localStorage.getItem("pc-theme"); } catch (e) {}
+setTheme(saved || "dark");
+$("#theme").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+
+function slug(e) { return e.task_id ? e.task_id.replace(/[^A-Za-z0-9]+/g, "_") : "spec_" + e.label.toLowerCase().replace(/[^a-z0-9]+/g, "_"); }
+function hasRec(e) { return (META.recordings || []).includes(slug(e)); }
+
+async function boot() {
+  try { META = await (await fetch(API + "/api/meta")).json(); }
+  catch (e) { $("#status").textContent = "server unreachable"; return; }
+  const ours = META.runs.find(r => r.ours); if (ours) OURS = ours.id;
+  PAIR = ["sft", OURS];
+  $("#status").textContent = FORCE_REPLAY ? "replay" : META.mock ? "mock" : `live · ${META.gpu || META.device}`;
+  if (API) $("#more").href = "studio?api=" + encodeURIComponent(API);
+
+  const R = META.results || {}, T = R.table || [];
+  const row = m => T.find(r => r.method === m), o = row(R.ours || OURS), b = row("sft"), j = row("jepa"), c = row("sft_loop");
+  const t = (R.tests || []).find(x => x.a === (R.ours || OURS) && x.b === "sft" && x.dataset === "mbppplus224");
+  if (o && b) {
+    const d = o.mbppplus224.mean - b.mbppplus224.mean;
+    $("#score").innerHTML = `
+      <div><div class="n ours">${o.mbppplus224.mean.toFixed(1)}%</div><div class="lab">PreCode (ours)</div></div>
+      <div><div class="n base">${b.mbppplus224.mean.toFixed(1)}%</div><div class="lab">standard fine-tuning (SFT)</div></div>
+      <div class="delta">+${d.toFixed(1)} points</div>
+      <div class="fine">pass@1 on MBPP+ (224 unseen tasks, extended hidden tests) · Qwen2.5-Coder-1.5B · mean of ${o.mbppplus224.n} seeds · ${t ? (t.p < 0.0001 ? "p < 0.0001" : "p = " + t.p.toFixed(3)) : ""}${c ? ` · same training loop with our loss switched off: ${c.mbppplus224.mean.toFixed(1)}%` : ""}</div>`;
+  }
+  TASKS = META.examples.filter(e => e.group === "showcase");
+  if (!TASKS.length) TASKS = META.examples;
+  const sc = META.showcase || {};
+  $("#foot").innerHTML = `<b>Same base model, same 474 training tasks, same training loop.</b> The only change is one extra objective: from the task description alone, predict an embedding of what the reference solution outputs when run. Inference is unchanged.`
+    + (sc.n_picked ? ` These are real held-out test tasks where PreCode passed in at least 4 of 5 training seeds and SFT failed in at least 4 of 5: <b>${sc.n_picked}</b> tasks go PreCode's way, <b>${sc.n_reverse}</b> go SFT's way, out of ${sc.n_tasks}.` : "");
+  show(0);
+}
+
+function show(i) {
+  idx = (i + TASKS.length) % TASKS.length; const e = TASKS[idx];
+  $("#q").textContent = e.task;
+  $("#a").textContent = (e.tests || [])[0] || "";
+  $("#pos").textContent = `${idx + 1}/${TASKS.length}`;
+  $("#msg").textContent = "";
+  S = null; renderPanes(); $("#diff").hidden = true;
+}
+$("#prev").onclick = () => show(idx - 1);
+$("#next").onclick = () => show(idx + 1);
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+  if (e.key === "ArrowLeft") show(idx - 1);
+  if (e.key === "ArrowRight") show(idx + 1);
+  if (e.key === "Enter" && !$("#go").disabled) run();
+});
+$("#go").onclick = () => run();
+
+function name(id) { return id === OURS ? "PreCode" : id === "sft" ? "SFT" : id; }
+function blurb(id) { return id === OURS ? "ours · also learns to predict behaviour" : "baseline · next-token loss only"; }
+
+function renderPanes() {
+  $("#duel").innerHTML = PAIR.map(id => {
+    const code = S ? (S.code[id] ?? S.raw[id] ?? "") : "";
+    const typing = S && S.active.has(id);
+    let v = `<div class="verdict wait">${S ? (typing ? "writing…" : S.code[id] !== undefined ? "running tests…" : "waiting…") : "press Run"}</div>`;
+    const r = S && S.exec && S.exec.results[id];
+    if (r) {
+      const p = r.tests.filter(x => x.ok).length, n = r.tests.length, all = p === n;
+      const fail = r.tests.find(x => !x.ok);
+      v = `<div class="verdict ${all ? "ok" : "bad"}">${all ? "✓ Passes" : "✗ Fails"} <small>${p}/${n} tests${fail ? ` · ${esc(fail.why)}` : ""}</small></div>`;
+    }
+    const col = id === OURS ? "var(--ours)" : "var(--base)";
+    return `<div class="pane ${id === OURS ? "ours" : ""}" style="--c:${col}">
+      <div class="hd"><div><div class="name">${name(id)}</div><div class="what">${blurb(id)}</div></div><span class="time">${S && S.ms[id] ? (S.ms[id] / 1000).toFixed(1) + " s" : ""}</span></div>
+      <pre id="code-${id}" class="${typing ? "typing" : ""}">${esc(code)}</pre>${v}</div>`;
+  }).join("");
+}
+
+function onEvent(ev) {
+  if (!PAIR.includes(ev.run) && ev.type !== "end") return;
+  if (ev.type === "start") { S.raw[ev.run] = ""; S.active.add(ev.run); renderPanes(); }
+  else if (ev.type === "token") { S.raw[ev.run] += ev.text; const el = document.getElementById("code-" + ev.run); if (el) { el.textContent = S.raw[ev.run]; el.scrollTop = el.scrollHeight; } }
+  else if (ev.type === "done") { S.code[ev.run] = ev.code; S.ms[ev.run] = ev.ms; S.active.delete(ev.run); renderPanes(); }
+}
+
+function renderDiff() {
+  const ex = S.exec; if (!ex || !ex.has_reference) { $("#diff").hidden = true; return; }
+  const rows = ex.probes.filter(r => r.truth != null && PAIR.some(id => (r.outs[id] ?? "—") !== r.truth)).slice(0, 5);
+  if (!rows.length) { $("#diff").hidden = true; return; }
+  const cell = (v, truth) => `<td class="${v === truth ? "y" : "n"}" title="${esc(v)}">${esc(v)}</td>`;
+  $("#diff").innerHTML = `<h2>Where they differ: same inputs, run for real</h2>
+    <table><thead><tr><th>input</th><th>correct</th>${PAIR.map(id => `<th>${name(id)}</th>`).join("")}</tr></thead><tbody>${
+      rows.map(r => `<tr><td title="${esc(r.call)}">${esc(r.call)}</td><td>${esc(r.truth)}</td>${PAIR.map(id => cell(r.outs[id] ?? "—", r.truth)).join("")}</tr>`).join("")}</tbody></table>`;
+  $("#diff").hidden = false;
+}
+
+async function run() {
+  const e = TASKS[idx];
+  if (FORCE_REPLAY || META.mock && hasRec(e)) return replay(e);
+  S = { code: {}, raw: {}, ms: {}, active: new Set(), exec: null };
+  $("#go").disabled = true; $("#diff").hidden = true; $("#msg").textContent = ""; renderPanes();
+  const ctl = new AbortController(); let gotToken = false;
+  const timer = setTimeout(() => { if (!gotToken) ctl.abort(); }, FIRST_TOKEN_TIMEOUT);
+  try {
+    const r = await fetch(API + "/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ctl.signal,
+      body: JSON.stringify({ task: e.task, tests: e.tests, runs: PAIR }) });
+    if (!r.ok || !r.body) throw new Error("server returned " + r.status);
+    const rd = r.body.getReader(), dec = new TextDecoder(); let buf = "";
+    while (true) {
+      const { value, done } = await rd.read(); if (done) break;
+      buf += dec.decode(value, { stream: true }); let k;
+      while ((k = buf.indexOf("\n\n")) >= 0) { const ch = buf.slice(0, k); buf = buf.slice(k + 2);
+        if (ch.startsWith("data: ")) { const ev = JSON.parse(ch.slice(6)); if (ev.type === "token") gotToken = true; onEvent(ev); } }
+    }
+    clearTimeout(timer);
+    const x = await fetch(API + "/api/execute", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ codes: S.code, tests: e.tests, reference: e.reference, setup: e.setup || "" }) });
+    if (!x.ok) throw new Error("execution failed");
+    S.exec = await x.json();
+    renderPanes(); renderDiff();
+  } catch (err) {
+    clearTimeout(timer);
+    if (hasRec(e)) { $("#msg").textContent = "Live model is slow to respond: playing a recorded run of the same models."; $("#go").disabled = false; return replay(e); }
+    $("#msg").textContent = "Live run failed (" + (err.name === "AbortError" ? "no response" : err.message) + ").";
+  }
+  $("#go").disabled = false;
+}
+
+async function replay(e) {
+  $("#go").disabled = true; $("#diff").hidden = true;
+  let rec;
+  try { rec = await (await fetch(API + "/api/recording/" + slug(e))).json(); }
+  catch (err) { $("#msg").textContent = "No recording for this task."; $("#go").disabled = false; return; }
+  S = { code: {}, raw: {}, ms: {}, active: new Set(), exec: null }; renderPanes();
+  const t0 = performance.now();
+  for (const ev of rec.events) { const w = ev.t - (performance.now() - t0); if (w > 0) await sleep(w); onEvent(ev); }
+  await sleep(300);
+  S.exec = rec.exec; renderPanes(); renderDiff();
+  if (!$("#msg").textContent) $("#msg").textContent = `Recorded run (${rec.gpu || "GPU"}, ${rec.recorded_at || ""}).`;
+  $("#go").disabled = false;
+}
+boot();
+</script>
+</body>
+</html>

@@ -1,4 +1,34 @@
-# PreCode Studio
+# PreCode demo
+
+Two pages, one server:
+- `/` **stage demo**: the claim (PreCode 60.0% vs SFT 55.0% on MBPP+), one real test task at a time (‹ › or arrow keys),
+  SFT and PreCode writing code side by side, then pass/fail and "where they differ" on real inputs. Enter = run.
+- `/studio`: the full studio (all methods, predicted behaviour, probe grid, behaviour map, full results).
+
+## Run it on Modal (live, with the real models)
+```bash
+pip install modal && python -m modal setup          # once, in the Modal account that will host it
+python -m modal deploy demo/studio/modal_studio.py  # prints https://<workspace>--precode-studio-web.modal.run
+```
+Models (seed 42: sft, jepa, precodefull_aux) are downloaded from the public HF repo
+`MoistPotato/precode-jepa-qwen2.5-coder-1.5b` while the image builds; no Modal volume or secret needed.
+Before presenting: `STUDIO_KEEP_WARM=1 python -m modal deploy demo/studio/modal_studio.py` (no cold start),
+then open the URL once to warm it. Afterwards redeploy without it (a warm GPU bills while idle).
+
+## Record replays (safety net)
+With the live URL up, record every showcase task once and commit the files:
+```bash
+python demo/studio/record.py --api https://<workspace>--precode-studio-web.modal.run
+git add demo/studio/recordings && git commit -m "[demo] recordings"
+```
+The stage page plays the recording automatically if the live model doesn't answer within 25 s, and `/?replay=1`
+forces replay (no GPU needed at all: `MOCK=1 uvicorn demo.studio.server:app` serves recordings too).
+
+## Showcase tasks
+`python demo/studio/make_showcase.py` picks MBPP+ test tasks where PreCode passed in ≥ 4/5 seeds and SFT in ≤ 1/5
+(13 tasks; 3 go the other way, out of 224). The page says so.
+
+## Full studio (original notes)
 
 Live side-by-side demo: one prompt, every method, then proof of what each program actually does.
 

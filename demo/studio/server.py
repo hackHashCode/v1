@@ -13,13 +13,17 @@ What it does for one prompt:
 
 Environment:
   MODELS_DIR   default /data/precode/models     (contract C4: merged HF model dirs)
+  HF_REPO      default MoistPotato/precode-jepa-qwen2.5-coder-1.5b   runs missing from MODELS_DIR are downloaded
+               from <HF_REPO>/<run>_s<seed>/ (set HF_REPO= to disable)
   DEMO_SEED    default 42                       picks <run>_s<seed>
-  RUNS         default base,sft,jepa,precode    (precodence and precodefull are added automatically if they exist)
+  RUNS         default sft,jepa,precodefull_aux  (add base for zero-shot, sft_loop for the SFT control)
   BASE_MODEL   default Qwen/Qwen2.5-Coder-1.5B (zero-shot column; use the same base the runs were trained from)
   GPU_MODE     auto | all | swap                swap keeps models in CPU RAM, moves one to GPU at a time
-  H_POOL       last | mean   (must match training, default last)
+  PARALLEL     1 (default) = all methods generate at the same time when every model fits on the GPU
+  H_POOL       last | mean   fallback only; each run's precode_config.json wins (must match training)
   MAX_NEW      default 384
   BEHAVIOUR_CACHE  default behaviour_cache_anon.pt (use behaviour_cache.pt for the original Llama runs)
+  DTYPE        bf16 | fp16 | fp32 to override the automatic choice
   MOCK         1 = canned generations, no torch models (UI development)
 """
 import ast, csv, json, math, os, re, subprocess, sys, tempfile, threading, time
@@ -44,10 +48,13 @@ MODELS_DIR = os.environ.get("MODELS_DIR", "/data/precode/models")
 BASE_MODEL = os.environ.get("BASE_MODEL", "Qwen/Qwen2.5-Coder-1.5B")
 H_POOL = os.environ.get("H_POOL", "last")
 MAX_NEW = int(os.environ.get("MAX_NEW", "384"))
+HF_REPO = os.environ.get("HF_REPO", "MoistPotato/precode-jepa-qwen2.5-coder-1.5b")
+PARALLEL = os.environ.get("PARALLEL", "1") == "1"
 
 LABELS = {
-    "base": ("Zero-shot", "Llama-3.2-1B-Instruct, no fine-tuning"),
+    "base": ("Zero-shot", f"{BASE_MODEL.split('/')[-1]}, no fine-tuning"),
     "sft": ("SFT", "next-token loss only"),
+    "sft_loop": ("SFT control", "PreCode's training loop, behaviour loss off"),
     "jepa": ("LLM-JEPA", "predicts its own code-text embedding"),
     "precode": ("PreCode", "predicts execution behaviour (ours)"),
     "precodence": ("PreCode-NCE", "behaviour target, InfoNCE over all tasks"),
@@ -105,22 +112,37 @@ def nearest(z, k=3):
 
 
 # ------------------------------------------------------------------ models
+def fetch_from_hub(run):
+    """Download <HF_REPO>/<run>/ (merged weights + heads) into MODELS_DIR, or the HF cache if that isn't writable."""
+    from huggingface_hub import snapshot_download
+    try:
+        os.makedirs(MODELS_DIR, exist_ok=True); root = MODELS_DIR
+    except OSError:
+        root = os.path.join(tempfile.gettempdir(), "precode_models")
+    snapshot_download(HF_REPO, allow_patterns=[f"{run}/*"], local_dir=root)
+    return os.path.join(root, run)
+
+
 def run_dirs():
-    names = [r.strip() for r in os.environ.get("RUNS", "base,sft,jepa,precode").split(",") if r.strip()]
-    for extra in ("precodence", "precodefull_aux", "precodefull"):   # shown automatically once trained
-        if extra not in names and os.path.isdir(os.path.join(MODELS_DIR, f"{extra}_s{SEED}")):
-            names.append(extra)
+    names = [r.strip() for r in os.environ.get("RUNS", "sft,jepa,precodefull_aux").split(",") if r.strip()]
     out = {}
     for n in names:
-        out[n] = BASE_MODEL if n == "base" else os.path.join(MODELS_DIR, f"{n}_s{SEED}")
+        if n == "base":
+            out[n] = BASE_MODEL; continue
+        path = os.path.join(MODELS_DIR, f"{n}_s{SEED}")
+        if not os.path.isdir(path) and HF_REPO and not MOCK:
+            print(f"[studio] {path} not found, downloading {HF_REPO}/{n}_s{SEED}", flush=True)
+            path = fetch_from_hub(f"{n}_s{SEED}")
+        out[n] = path
     return out
 
 
 RUNS = run_dirs()
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 DTYPE = torch.bfloat16 if DEVICE == "cuda" and torch.cuda.is_bf16_supported() else (torch.float16 if DEVICE == "cuda" else torch.float32)
+DTYPE = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}.get(os.environ.get("DTYPE", ""), DTYPE)   # override, e.g. bf16 on a small-RAM CPU box
 GPU_LOCK = threading.Lock()
-MODELS, HEADS, PREFIX, TOK = {}, {}, {}, None
+MODELS, HEADS, PREFIX, POOL, TOKS, TOK = {}, {}, {}, {}, {}, None
 sys.path.insert(0, os.path.join(ROOT, "train"))
 from precode_runtime import ensure_chat_template, extract_code, load_precode_parts, stop_ids  # noqa: E402
 
@@ -151,11 +173,13 @@ if not MOCK:
         if GPU_MODE == "all":
             m = m.to(DEVICE)
         MODELS[name] = m
+        TOKS[name] = ensure_chat_template(AutoTokenizer.from_pretrained(path))   # one per model: threads can't share a fast tokenizer
         if TOK is None:
-            TOK = ensure_chat_template(AutoTokenizer.from_pretrained(path))
+            TOK = TOKS[name]
         if name != "base":
             head, inj, _cfg = load_precode_parts(path, m.config.hidden_size)
-            if head is not None:
+            POOL[name] = _cfg.get("h_pool", H_POOL)
+            if head is not None and name != "sft_loop":   # the control's head is never trained (lambda 0)
                 HEADS[name] = head
             if inj is not None:
                 PREFIX[name] = inj
@@ -176,10 +200,11 @@ def extract(t):
     return t.strip()
 
 
-def prompt_ids(user):
-    text = TOK.apply_chat_template([{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
+def prompt_ids(user, tok=None):
+    tok = tok or TOK
+    text = tok.apply_chat_template([{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
                                    tokenize=False, add_generation_prompt=True)
-    return TOK(text, add_special_tokens=False, return_tensors="pt").input_ids   # same tokenisation as training
+    return tok(text, add_special_tokens=False, return_tensors="pt").input_ids   # same tokenisation as training
 
 
 def on_gpu(name):
@@ -199,7 +224,7 @@ def predict_z(name, m, ids):
     with torch.no_grad():
         out = m(ids, output_hidden_states=True)
     h_all = out.hidden_states[-1][0].float()
-    h = h_all.mean(0) if H_POOL == "mean" else h_all[-1]
+    h = h_all.mean(0) if POOL.get(name, H_POOL) == "mean" else h_all[-1]
     with torch.no_grad():
         return F.normalize(HEADS[name](h.cpu()), dim=0)
 
@@ -224,6 +249,12 @@ def mock_z(task):
 
 
 def mock_code(name, task, tests):
+    show = next((t for t in SHOWCASE.get("tasks", []) if t["task"].strip() == task.strip()), None) if "SHOWCASE" in globals() else None
+    if show:   # UI preview only: PreCode gets the reference, the others a stub with the right name
+        if name.startswith("precode"):
+            return show["reference"]
+        fn = re.search(r"assert\s+([A-Za-z_]\w*)\s*\(", show["tests"][0]).group(1)
+        return f"def {fn}(*args):\n    # mock output ({name})\n    return args[0] if args else None"
     spec = next((s for s in SPECS if s["task"].strip() == task.strip()), None)
     if spec:
         return spec["reference"] if name.startswith("precode") or (name == "jepa" and len(task) % 2) else spec["plausible_bug"]
@@ -239,57 +270,91 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 
 @app.get("/")
-def index():
+def stage():   # the minimal stage demo: one claim, one task, SFT vs PreCode
+    return FileResponse(os.path.join(HERE, "stage.html"))
+
+
+@app.get("/studio")
+def index():   # the full studio: every method, predicted behaviour, probe grid, behaviour map, results
     return FileResponse(os.path.join(HERE, "index.html"))
 
 
+RESULTS_DIR = os.environ.get("RESULTS_DIR", os.path.join(ROOT, "results", "qc15"))
+OURS = os.environ.get("OURS", "precodefull_aux")          # the method the demo calls "PreCode"
+SHOWN = ["sft", "sft_loop", "jepa", OURS]   # zero-shot left out: its chat-format eval is not comparable
+NAMES = {"base": "Zero-shot", "sft": "SFT", "sft_loop": "SFT control (λ = 0)", "jepa": "LLM-JEPA", OURS: "PreCode"}
+
+
 def read_results():
-    rows = []
-    p = os.path.join(ROOT, "results", "runs.csv")
-    if os.path.exists(p):
-        rows = list(csv.DictReader(open(p, encoding="utf-8")))
-    paired = []
-    pt = os.path.join(ROOT, "results", "per_task")
-    for ds in ("mbppplus224", "humanevalplus"):
-        for other in ("sft", "jepa", "base"):
-            a = os.path.join(pt, f"precode_s{SEED}_{ds}.json")
-            b = os.path.join(pt, f"{other}_s{SEED if other != 'base' else 0}_{ds}.json")
-            if not (os.path.exists(a) and os.path.exists(b)):
-                continue
-            A, Bd = json.load(open(a, encoding="utf-8")), json.load(open(b, encoding="utf-8"))
-            only_a = sum(1 for t in A if A[t] and not Bd.get(t, False))
-            only_b = sum(1 for t in A if Bd.get(t, False) and not A[t])
-            n = only_a + only_b
-            p_val = min(1.0, 2 * sum(math.comb(n, i) for i in range(0, min(only_a, only_b) + 1)) / 2**n) if n else 1.0
-            paired.append({"dataset": ds, "vs": other, "precode_only": only_a, "other_only": only_b,
-                           "both": sum(1 for t in A if A[t] and Bd.get(t, False)), "n": len(A), "p": round(p_val, 4)})
+    """Final multi-seed results for the Results tab: results/qc15/comparison.json (written by eval/compare.py)."""
+    p = os.path.join(RESULTS_DIR, "comparison.json")
+    if not os.path.exists(p):
+        return {}
+    d = json.load(open(p, encoding="utf-8"))
+    table = []
+    for m in SHOWN:
+        row = d.get("table", {}).get(m)
+        if not row:
+            continue
+        cell = {ds: {"mean": row[ds]["plus"]["mean"], "std": row[ds]["plus"]["std"], "n": row[ds]["plus"]["n"],
+                     "ci": row[ds].get("plus_ci95")} for ds in ("mbppplus224", "humanevalplus") if ds in row}
+        table.append({"method": m, "name": NAMES.get(m, m), **cell})
+    want = {(OURS, "sft"), (OURS, "sft_loop"), (OURS, "jepa"), ("sft_loop", "sft")}
+    tests = [{**t, "a_name": NAMES.get(t["a"], t["a"]), "b_name": NAMES.get(t["b"], t["b"])}
+             for t in d.get("tests", []) if (t["a"], t["b"]) in want]
+    beh = {}
+    for run, mt in d.get("metrics", {}).items():
+        m = run.rsplit("_s", 1)[0]
+        if m in SHOWN:
+            for k, v in mt.items():
+                if isinstance(v, (int, float)) and not isinstance(v, bool) and k != "n_tasks":
+                    beh.setdefault(m, {}).setdefault(k, []).append(v)
+    behaviour = [{"method": m, "name": NAMES[m], **{k: round(sum(v) / len(v), 4) for k, v in beh[m].items()}} for m in SHOWN if m in beh]
     mutant = {}
     mp = os.path.join(ROOT, "results", "plots", "mutant_numbers_features_anon.json")
     if not os.path.exists(mp):
         mp = os.path.join(ROOT, "results", "plots", "mutant_numbers_features.json")
     if os.path.exists(mp):
-        d = json.load(open(mp, encoding="utf-8"))
-        mutant = {k: d[k] for k in ("n_mutants", "behaviour_ref_vs_mutant", "codetext_ref_vs_mutant",
-                                    "behaviour_ref_vs_other_task", "frac_mutants_where_behaviour_separates_more", "mean_differing_probes") if k in d}
-        mutant["pairs"] = list(zip(d.get("pairs_codetext", []), d.get("pairs_behaviour", [])))
-    return {"runs": rows, "paired": paired, "mutant": mutant}
+        md = json.load(open(mp, encoding="utf-8"))
+        mutant = {k: md[k] for k in ("n_mutants", "behaviour_ref_vs_mutant", "codetext_ref_vs_mutant",
+                                     "behaviour_ref_vs_other_task", "frac_mutants_where_behaviour_separates_more", "mean_differing_probes") if k in md}
+        mutant["pairs"] = list(zip(md.get("pairs_codetext", []), md.get("pairs_behaviour", [])))
+    return {"table": table, "tests": tests, "behaviour": behaviour, "mutant": mutant, "ours": OURS}
+
+
+SHOWCASE = {}
+_sp = os.path.join(HERE, "showcase.json")
+if os.path.exists(_sp):
+    SHOWCASE = json.load(open(_sp, encoding="utf-8"))
+REC_DIR = os.path.join(HERE, "recordings")
 
 
 @app.get("/api/meta")
 def meta():
-    heroes = []
-    hp = os.path.join(ROOT, "demo", "ui", "hero_tasks.json")
-    if os.path.exists(hp):
-        heroes = json.load(open(hp, encoding="utf-8"))
+    show = [{"label": t["label"], "task": t["task"], "tests": t["tests"], "setup": t.get("setup", ""), "reference": t["reference"],
+             "task_id": t["task_id"], "record": t["record"], "group": "showcase"} for t in SHOWCASE.get("tasks", [])]
+    specs = [{"label": s["label"], "task": s["task"], "tests": s["tests"], "reference": s.get("reference"), "group": "specs"} for s in SPECS]
+    recs = sorted(f[:-5] for f in os.listdir(REC_DIR) if f.endswith(".json")) if os.path.isdir(REC_DIR) else []
     return {
-        "mock": MOCK, "seed": SEED, "gpu_mode": GPU_MODE, "device": DEVICE,
-        "runs": [{"id": k, "name": LABELS.get(k, (k, ""))[0], "blurb": LABELS.get(k, ("", k))[1], "imagines": k in HEADS}
+        "mock": MOCK, "seed": SEED, "gpu_mode": GPU_MODE, "device": DEVICE, "parallel": PARALLEL and (MOCK or GPU_MODE == "all"),
+        "gpu": torch.cuda.get_device_name(0) if DEVICE == "cuda" else None, "base_model": BASE_MODEL,
+        "runs": [{"id": k, "name": "PreCode" if k == OURS else LABELS.get(k, (k, ""))[0], "blurb": LABELS.get(k, ("", k))[1],
+                  "imagines": k in HEADS, "ours": k == OURS}
                  for k in RUNS if MOCK or k in MODELS],
-        "examples": [{"label": s["label"], "task": s["task"], "tests": s["tests"], "reference": s.get("reference")} for s in SPECS]
-                    + [{"label": h["label"], "task": h["task"], "tests": h["tests"], "reference": None} for h in heroes],
+        "examples": show + specs,
+        "showcase": {k: SHOWCASE.get(k) for k in ("rule", "n_picked", "n_reverse", "n_tasks", "source")},
+        "recordings": recs,
         "map": [{"id": t, "x": round(float(XY[i][0]), 4), "y": round(float(XY[i][1]), 4), "d": DESC.get(t, "")[:110]} for i, t in enumerate(IDS)],
         "results": read_results(),
     }
+
+
+@app.get("/api/recording/{name}")
+def recording(name: str):
+    path = os.path.join(REC_DIR, os.path.basename(name) + ".json")
+    if not os.path.exists(path):
+        return JSONResponse({"error": "no such recording"}, status_code=404)
+    return FileResponse(path, media_type="application/json")
 
 
 def sse(obj):
@@ -303,50 +368,82 @@ def generate(req: dict):
     wanted = [r for r in req.get("runs", list(RUNS)) if r in RUNS]
     user = user_message(task, tests)
 
-    def stream():
-        for name in wanted:
-            t0 = time.time()
-            yield sse({"type": "start", "run": name})
-            if MOCK:
+    def one(name, emit):
+        """Generate for one method, pushing events through emit(). Runs in its own thread when PARALLEL."""
+        t0 = time.time()
+        emit({"type": "start", "run": name})
+        if MOCK:
+            if name in HEADS:
+                z = mock_z(task)
+                emit({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
+            code = mock_code(name, task, tests)
+            for i in range(0, len(code), 6):
+                time.sleep(0.02 + 0.01 * (hash(name) % 3)); emit({"type": "token", "run": name, "text": code[i:i + 6]})
+            emit({"type": "done", "run": name, "code": code, "ms": int((time.time() - t0) * 1000)})
+            return
+        from transformers import TextIteratorStreamer
+        lock = threading.Lock() if parallel else GPU_LOCK   # sequential mode shares the GPU one model at a time
+        with lock:
+            m = on_gpu(name)
+            text = ""
+            try:
+                tok = TOKS.get(name, TOK)
+                ids = prompt_ids(user, tok).to(m.device)
+                z = None
                 if name in HEADS:
-                    z = mock_z(task)
-                    yield sse({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
-                code = mock_code(name, task, tests)
-                for i in range(0, len(code), 6):
-                    time.sleep(0.02); yield sse({"type": "token", "run": name, "text": code[i:i + 6]})
-                yield sse({"type": "done", "run": name, "code": code, "ms": int((time.time() - t0) * 1000)})
-                continue
-            from transformers import TextIteratorStreamer
-            with GPU_LOCK:
-                m = on_gpu(name)
-                try:
-                    ids = prompt_ids(user).to(m.device)
-                    if name in HEADS:
-                        z = predict_z(name, m, ids)
-                        yield sse({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
-                    streamer = TextIteratorStreamer(TOK, skip_prompt=True, skip_special_tokens=True)
-                    gen = dict(max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=TOK.pad_token_id, eos_token_id=stop_ids(TOK), streamer=streamer)
-                    if name in PREFIX:   # PreCode-full: [BOS, 4 soft tokens from predicted z, rest], as in training
-                        with torch.no_grad():
-                            pre = PREFIX[name](z.unsqueeze(0)).to(m.device)
-                            e = m.get_input_embeddings()(ids)
-                            emb = torch.cat([e[:, :1], pre.to(e.dtype), e[:, 1:]], 1)
-                        gen.update(inputs_embeds=emb, attention_mask=torch.ones(emb.shape[:2], dtype=torch.long, device=m.device))
-                    else:
-                        gen.update(input_ids=ids, attention_mask=torch.ones_like(ids))
-                    th = threading.Thread(target=m.generate, kwargs=gen)
-                    th.start()
-                    text = ""
-                    for piece in streamer:
-                        text += piece
-                        yield sse({"type": "token", "run": name, "text": piece})
-                    th.join()
-                finally:
-                    off_gpu(name)
-            yield sse({"type": "done", "run": name, "code": extract_code(text), "ms": int((time.time() - t0) * 1000)})
+                    z = predict_z(name, m, ids)
+                    emit({"type": "imagined", "run": name, "z": z.tolist(), "nearest": nearest(z), "xy": place(z)})
+                streamer = TextIteratorStreamer(tok, skip_prompt=True, skip_special_tokens=True)
+                gen = dict(max_new_tokens=MAX_NEW, do_sample=False, pad_token_id=tok.pad_token_id, eos_token_id=stop_ids(tok), streamer=streamer)
+                if name in PREFIX:   # PreCode-full: [BOS, 4 soft tokens from predicted z, rest], as in training
+                    with torch.no_grad():
+                        pre = PREFIX[name](z.unsqueeze(0)).to(m.device)
+                        e = m.get_input_embeddings()(ids)
+                        emb = torch.cat([e[:, :1], pre.to(e.dtype), e[:, 1:]], 1)
+                    gen.update(inputs_embeds=emb, attention_mask=torch.ones(emb.shape[:2], dtype=torch.long, device=m.device))
+                else:
+                    gen.update(input_ids=ids, attention_mask=torch.ones_like(ids))
+                th = threading.Thread(target=m.generate, kwargs=gen)
+                th.start()
+                for piece in streamer:
+                    text += piece
+                    emit({"type": "token", "run": name, "text": piece})
+                th.join()
+            except Exception as ex:   # one broken model must not kill the other columns
+                emit({"type": "error", "run": name, "message": f"{type(ex).__name__}: {ex}"[:300]})
+            finally:
+                off_gpu(name)
+        emit({"type": "done", "run": name, "code": extract_code(text), "ms": int((time.time() - t0) * 1000)})
+
+    parallel = PARALLEL and (MOCK or GPU_MODE == "all")
+
+    def stream():   # all methods at once: one thread per model, events merged as they arrive
+        import queue
+        q = queue.Queue()
+        threads = [threading.Thread(target=one, args=(n, q.put), daemon=True) for n in wanted]
+        for th in threads:
+            th.start()
+        finished = 0
+        while finished < len(wanted):
+            ev = q.get()
+            if ev["type"] == "done":
+                finished += 1
+            yield sse(ev)
         yield sse({"type": "end"})
 
-    return StreamingResponse(stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    def stream_sequential():
+        import queue
+        for name in wanted:
+            q = queue.Queue()
+            th = threading.Thread(target=one, args=(name, q.put), daemon=True); th.start()
+            while True:
+                ev = q.get(); yield sse(ev)
+                if ev["type"] == "done":
+                    break
+        yield sse({"type": "end"})
+
+    body = stream() if parallel else stream_sequential()
+    return StreamingResponse(body, media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 # ------------------------------------------------------------------ execution
@@ -490,7 +587,8 @@ def rename(code, name):
 
 @app.post("/api/execute")
 def execute(req: dict):
-    codes = {k: v or "" for k, v in req.get("codes", {}).items()}
+    setup = (req.get("setup") or "").strip()
+    codes = {k: (setup + "\n" + (v or "")) if setup else (v or "") for k, v in req.get("codes", {}).items()}
     tests = [t for t in req.get("tests", []) if t.strip()]
     reference = req.get("reference")
     z_pred = {k: torch.tensor(v) for k, v in (req.get("imagined") or {}).items()}
