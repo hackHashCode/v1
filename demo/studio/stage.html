@@ -80,6 +80,14 @@ td.y { color: var(--ok); } td.n { color: var(--bad); background: var(--bad-soft)
 .foot { margin-top: 22px; font-size: 13px; color: var(--muted); max-width: 80ch; }
 .foot b { color: var(--ink); font-weight: 600; }
 #msg { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 20px; }
+.log { margin-top: 14px; background: #0b0d10; color: #9fe0b0; border-radius: 10px; padding: 10px 14px; font: 12px/1.6 var(--mono); max-height: 150px; overflow: auto; }
+.log div { white-space: pre-wrap; word-break: break-word; }
+.log .dim { color: #6b7380; }
+.own { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.own textarea { width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: 13px/1.5 var(--mono); resize: vertical; }
+.own label { font-size: 12px; color: var(--muted); }
+.linkbtn { background: none; border: 0; color: var(--muted); font: 13px var(--sans); cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+.linkbtn:hover { color: var(--ink); }
 @media (max-width: 760px) { .duel { grid-template-columns: 1fr; } .task { flex-wrap: wrap; } }
 @media (prefers-reduced-motion: reduce) { pre.typing::after { animation: none; } }
 </style>
@@ -99,9 +107,15 @@ td.y { color: var(--ok); } td.n { color: var(--bad); background: var(--bad-soft)
   <div class="task">
     <div class="t"><div class="q" id="q">…</div><div class="a" id="a"></div></div>
     <div class="nav"><button type="button" id="prev" aria-label="Previous task">‹</button><span id="pos"></span><button type="button" id="next" aria-label="Next task">›</button></div>
+    <button type="button" class="linkbtn" id="ownBtn">✎ your own</button>
     <button class="go" id="go" type="button">Run ▶</button>
   </div>
+  <div class="own" id="own" hidden>
+    <div><label for="ownTask">Your task (any Python function)</label><textarea id="ownTask" rows="3" placeholder="Write a function to return the second smallest distinct number in a list."></textarea></div>
+    <div><label for="ownTests">Asserts, one per line (the first one is shown to the models)</label><textarea id="ownTests" rows="3" placeholder="assert second_smallest([4, 1, 1, 3]) == 3"></textarea></div>
+  </div>
   <div id="msg"></div>
+  <div class="log" id="log" hidden></div>
 
   <div class="duel" id="duel"></div>
   <div class="diff" id="diff" hidden></div>
@@ -117,7 +131,12 @@ const FORCE_REPLAY = QS.get("replay") === "1";
 const FIRST_TOKEN_TIMEOUT = 25000;     // cold Modal container: fall back to the recording instead of making the room wait
 const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-let META, TASKS = [], idx = 0, OURS = "precodefull_aux", PAIR = [], S = null;
+let META, TASKS = [], idx = 0, OURS = "precodefull_aux", PAIR = [], S = null, OWN = false;
+function log(line, dim) { const el = $("#log"); el.hidden = false; const d = document.createElement("div"); if (dim) d.className = "dim"; d.textContent = line; el.appendChild(d); el.scrollTop = el.scrollHeight; }
+function clearLog() { $("#log").innerHTML = ""; $("#log").hidden = true; }
+$("#ownBtn").onclick = () => { OWN = !OWN; $("#own").hidden = !OWN; $("#ownBtn").textContent = OWN ? "← showcase tasks" : "✎ your own";
+  $("#q").textContent = OWN ? "Your own task: nothing about it was seen in training or recorded" : TASKS[idx].task; $("#a").textContent = OWN ? "" : (TASKS[idx].tests || [])[0] || "";
+  if (OWN) $("#ownTask").focus(); S = null; renderPanes(); $("#diff").hidden = true; clearLog(); };
 
 /* theme: dark by default on stage (projectors), remembered per browser */
 function setTheme(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem("pc-theme", t); } catch (e) {} }
@@ -163,7 +182,7 @@ function show(i) {
   $("#a").textContent = (e.tests || [])[0] || "";
   $("#pos").textContent = `${idx + 1}/${TASKS.length}`;
   $("#msg").textContent = "";
-  S = null; renderPanes(); $("#diff").hidden = true;
+  S = null; renderPanes(); $("#diff").hidden = true; clearLog();
 }
 $("#prev").onclick = () => show(idx - 1);
 $("#next").onclick = () => show(idx + 1);
@@ -187,7 +206,7 @@ function renderPanes() {
     if (r) {
       const p = r.tests.filter(x => x.ok).length, n = r.tests.length, all = p === n;
       const fail = r.tests.find(x => !x.ok);
-      v = `<div class="verdict ${all ? "ok" : "bad"}">${all ? "✓ Passes" : "✗ Fails"} <small>${p}/${n} tests${fail ? ` · ${esc(fail.why)}` : ""}</small></div>`;
+      v = !n ? `<div class="verdict wait">ran it · add asserts to check it</div>` : `<div class="verdict ${all ? "ok" : "bad"}">${all ? "✓ Passes" : "✗ Fails"} <small>${p}/${n} tests${fail ? ` · ${esc(fail.why)}` : ""}</small></div>`;
     }
     const col = id === OURS ? "var(--ours)" : "var(--base)";
     return `<div class="pane ${id === OURS ? "ours" : ""}" style="--c:${col}">
@@ -197,7 +216,14 @@ function renderPanes() {
 }
 
 function onEvent(ev) {
+  if (ev.type === "server") {
+    log(`▸ ${ev.time}  request ${ev.rid} → ${ev.mock ? "MOCK server" : "Modal container " + ev.container} on ${ev.gpu}`);
+    for (const id of PAIR) if (ev.models[id]) log(`  ${name(id).padEnd(8)} weights: huggingface.co/${ev.models[id]}`, true);
+    return;
+  }
+  if (ev.type === "imagined" && ev.run === OURS) log(`▸ PreCode read the prompt and predicted a 768-number behaviour vector before writing any code`);
   if (!PAIR.includes(ev.run) && ev.type !== "end") return;
+  if (ev.type === "done" && ev.tokens !== undefined) log(`▸ ${name(ev.run)} generated ${ev.tokens} tokens in ${(ev.ms / 1000).toFixed(1)} s (${Math.round(ev.tokens / Math.max(ev.ms / 1000, 0.001))} tok/s), greedy`);
   if (ev.type === "start") { S.raw[ev.run] = ""; S.active.add(ev.run); renderPanes(); }
   else if (ev.type === "token") { S.raw[ev.run] += ev.text; const el = document.getElementById("code-" + ev.run); if (el) { el.textContent = S.raw[ev.run]; el.scrollTop = el.scrollHeight; } }
   else if (ev.type === "done") { S.code[ev.run] = ev.code; S.ms[ev.run] = ev.ms; S.active.delete(ev.run); renderPanes(); }
@@ -215,8 +241,13 @@ function renderDiff() {
 }
 
 async function run() {
-  const e = TASKS[idx];
-  if (FORCE_REPLAY || META.mock && hasRec(e)) return replay(e);
+  let e = TASKS[idx];
+  if (OWN) {
+    const task = $("#ownTask").value.trim(), tests = $("#ownTests").value.split("\n").map(x => x.trim()).filter(Boolean);
+    if (!task) { $("#msg").textContent = "Write a task first."; $("#ownTask").focus(); return; }
+    e = { task, tests, reference: null, own: true };
+  } else if (FORCE_REPLAY || META.mock && hasRec(e)) return replay(e);
+  clearLog();
   S = { code: {}, raw: {}, ms: {}, active: new Set(), exec: null };
   $("#go").disabled = true; $("#diff").hidden = true; $("#msg").textContent = ""; renderPanes();
   const ctl = new AbortController(); let gotToken = false;
@@ -233,14 +264,16 @@ async function run() {
         if (ch.startsWith("data: ")) { const ev = JSON.parse(ch.slice(6)); if (ev.type === "token") gotToken = true; onEvent(ev); } }
     }
     clearTimeout(timer);
+    log(`▸ running both programs on ${e.tests.length} assert${e.tests.length === 1 ? "" : "s"}${e.reference ? " + the reference solution on probe inputs" : ""}, in a sandboxed Python process on the server`);
     const x = await fetch(API + "/api/execute", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ codes: S.code, tests: e.tests, reference: e.reference, setup: e.setup || "" }) });
     if (!x.ok) throw new Error("execution failed");
     S.exec = await x.json();
+    for (const id of PAIR) { const t = (S.exec.results[id] || {}).tests || []; log(`  ${name(id).padEnd(8)} ${t.filter(z => z.ok).length}/${t.length} asserts passed${t.find(z => !z.ok) ? "  (" + t.find(z => !z.ok).why + ")" : ""}`, true); }
     renderPanes(); renderDiff();
   } catch (err) {
     clearTimeout(timer);
-    if (hasRec(e)) { $("#msg").textContent = "Live model is slow to respond: playing a recorded run of the same models."; $("#go").disabled = false; return replay(e); }
+    if (!e.own && hasRec(e)) { $("#msg").textContent = "Live model is slow to respond: playing a recorded run of the same models."; $("#go").disabled = false; return replay(e); }
     $("#msg").textContent = "Live run failed (" + (err.name === "AbortError" ? "no response" : err.message) + ").";
   }
   $("#go").disabled = false;
@@ -252,6 +285,7 @@ async function replay(e) {
   try { rec = await (await fetch(API + "/api/recording/" + slug(e))).json(); }
   catch (err) { $("#msg").textContent = "No recording for this task."; $("#go").disabled = false; return; }
   S = { code: {}, raw: {}, ms: {}, active: new Set(), exec: null }; renderPanes();
+  clearLog(); log(`▸ REPLAY of a recorded live run (${rec.gpu || "GPU"}, ${rec.recorded_at || ""}): no model is being called now`);
   const t0 = performance.now();
   for (const ev of rec.events) { const w = ev.t - (performance.now() - t0); if (w > 0) await sleep(w); onEvent(ev); }
   await sleep(300);

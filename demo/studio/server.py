@@ -367,6 +367,11 @@ def generate(req: dict):
     tests = [t for t in req.get("tests", []) if t.strip()]
     wanted = [r for r in req.get("runs", list(RUNS)) if r in RUNS]
     user = user_message(task, tests)
+    rid = os.urandom(3).hex()
+    where = {"type": "server", "rid": rid, "container": os.environ.get("MODAL_TASK_ID", os.uname().nodename),
+             "gpu": torch.cuda.get_device_name(0) if DEVICE == "cuda" else DEVICE, "time": time.strftime("%H:%M:%S"),
+             "models": {n: (RUNS[n] if n == "base" else f"{HF_REPO}/{n}_s{SEED}") for n in wanted}, "mock": MOCK}
+    print(f"[generate] req={rid} runs={wanted} task={task[:70]!r}", flush=True)
 
     def one(name, emit):
         """Generate for one method, pushing events through emit(). Runs in its own thread when PARALLEL."""
@@ -413,13 +418,17 @@ def generate(req: dict):
                 emit({"type": "error", "run": name, "message": f"{type(ex).__name__}: {ex}"[:300]})
             finally:
                 off_gpu(name)
-        emit({"type": "done", "run": name, "code": extract_code(text), "ms": int((time.time() - t0) * 1000)})
+        secs = time.time() - t0
+        ntok = len(TOKS.get(name, TOK)(text, add_special_tokens=False).input_ids) if text else 0
+        print(f"[generate] req={rid} {name}: {ntok} tokens in {secs:.2f}s ({ntok / max(secs, 1e-6):.0f} tok/s)", flush=True)
+        emit({"type": "done", "run": name, "code": extract_code(text), "ms": int(secs * 1000), "tokens": ntok})
 
     parallel = PARALLEL and (MOCK or GPU_MODE == "all")
 
     def stream():   # all methods at once: one thread per model, events merged as they arrive
         import queue
         q = queue.Queue()
+        yield sse(where)
         threads = [threading.Thread(target=one, args=(n, q.put), daemon=True) for n in wanted]
         for th in threads:
             th.start()
@@ -433,6 +442,7 @@ def generate(req: dict):
 
     def stream_sequential():
         import queue
+        yield sse(where)
         for name in wanted:
             q = queue.Queue()
             th = threading.Thread(target=one, args=(name, q.put), daemon=True); th.start()
@@ -628,7 +638,9 @@ def execute(req: dict):
             if k in z_pred:
                 item["imagined_vs_actual"] = round(float(F.cosine_similarity(z, z_pred[k], dim=0)), 3)
         results[k] = item
-    return JSONResponse({"probes": rows, "probe_note": how, "results": results,
+    print("[execute] " + ", ".join(f"{k}: {sum(t['ok'] for t in v['tests'])}/{len(v['tests'])} asserts" for k, v in results.items())
+          + f", {len(rows)} probe inputs", flush=True)
+    return JSONResponse({"probes": rows, "probe_note": how, "results": results, "n_programs": len(codes),
                          "split_count": sum(1 for r in rows if r["split"]), "has_reference": bool(reference)})
 
 
