@@ -1,0 +1,1 @@
+{"model": "/data/precode/qc15/sweep_models/jepa_lr5e-05_e3", "n": 365, "passed": 9, "pass1": 0.0247, "by_set": {"val": 0.0333, "valext": 0.0218}, "method": "jepa", "lr": 5e-05, "epochs": 3, "cache": "none"}

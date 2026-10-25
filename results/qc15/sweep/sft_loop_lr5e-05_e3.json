@@ -1,0 +1,1 @@
+{"model": "/data/precode/qc15/sweep_models/sft_loop_lr5e-05_e3", "n": 365, "passed": 7, "pass1": 0.0192, "by_set": {"val": 0.0333, "valext": 0.0145}, "method": "sft_loop", "lr": 5e-05, "epochs": 3, "cache": "none"}

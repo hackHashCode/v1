@@ -1,0 +1,1 @@
+{"run": "jepa_s7", "method": "jepa", "seed": 7, "dataset": "mbppplus224", "pass1_base": 0.5714, "pass1_plus": 0.4732, "n_tasks": 224, "timestamp": 1792884797, "train_cfg": {"method": "jepa", "seed": 7, "lr": 2e-05, "epochs": 3, "cache": "none", "extra": ""}}

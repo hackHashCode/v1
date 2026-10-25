@@ -1,0 +1,1 @@
+{"model": "/data/precode/qc15/sweep_models/precodefull_aux_lr5e-05_e1", "n": 365, "passed": 105, "pass1": 0.2877, "by_set": {"val": 0.3778, "valext": 0.2582}, "method": "precodefull_aux", "lr": 5e-05, "epochs": 1, "cache": "cache/behaviour_cache_anon.pt"}

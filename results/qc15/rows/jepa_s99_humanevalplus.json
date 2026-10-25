@@ -1,0 +1,1 @@
+{"run": "jepa_s99", "method": "jepa", "seed": 99, "dataset": "humanevalplus", "pass1_base": 0.2866, "pass1_plus": 0.2256, "n_tasks": 164, "timestamp": 1792884948, "train_cfg": {"method": "jepa", "seed": 99, "lr": 2e-05, "epochs": 3, "cache": "none", "extra": ""}}

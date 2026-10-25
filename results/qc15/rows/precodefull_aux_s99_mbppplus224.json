@@ -1,0 +1,1 @@
+{"run": "precodefull_aux_s99", "method": "precodefull_aux", "seed": 99, "dataset": "mbppplus224", "pass1_base": 0.6786, "pass1_plus": 0.5982, "n_tasks": 224, "timestamp": 1792885124, "train_cfg": {"method": "precodefull_aux", "seed": 99, "lr": 5e-05, "epochs": 3, "cache": "cache/behaviour_cache_anon.pt", "extra": ""}}

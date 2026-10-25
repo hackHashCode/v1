@@ -1,0 +1,1 @@
+{"run": "base_s0", "method": "base", "seed": 0, "dataset": "mbppplus224", "pass1_base": 0.4955, "pass1_plus": 0.4241, "n_tasks": 224, "timestamp": 1792884704, "train_cfg": {"base": "Qwen/Qwen2.5-Coder-1.5B"}}

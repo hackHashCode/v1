@@ -1,0 +1,1 @@
+{"run": "base_s0", "method": "base", "seed": 0, "dataset": "humanevalplus", "pass1_base": 0.0183, "pass1_plus": 0.0183, "n_tasks": 164, "timestamp": 1792884798, "train_cfg": {"base": "Qwen/Qwen2.5-Coder-1.5B"}}

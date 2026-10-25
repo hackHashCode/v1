@@ -1,0 +1,1 @@
+{"run": "jepa_s42", "method": "jepa", "seed": 42, "dataset": "mbppplus224", "pass1_base": 0.558, "pass1_plus": 0.4598, "n_tasks": 224, "timestamp": 1792884782, "train_cfg": {"method": "jepa", "seed": 42, "lr": 2e-05, "epochs": 3, "cache": "none", "extra": ""}}

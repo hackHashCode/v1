@@ -1,0 +1,22 @@
+{
+ "jepa": {
+  "lr": 2e-05,
+  "epochs": 3,
+  "val_pass1": 0.4438
+ },
+ "precodefull_aux": {
+  "lr": 5e-05,
+  "epochs": 3,
+  "val_pass1": 0.4493
+ },
+ "sft_loop": {
+  "lr": 2e-05,
+  "epochs": 2,
+  "val_pass1": 0.4438
+ },
+ "sft": {
+  "lr": 2e-05,
+  "epochs": 2,
+  "val_pass1": 0.4384
+ }
+}

@@ -1,0 +1,1 @@
+{"run": "sft_loop_s42", "method": "sft_loop", "seed": 42, "dataset": "humanevalplus", "pass1_base": 0.1768, "pass1_plus": 0.1463, "n_tasks": 164, "timestamp": 1792884948, "train_cfg": {"method": "sft_loop", "seed": 42, "lr": 2e-05, "epochs": 2, "cache": "none", "extra": ""}}

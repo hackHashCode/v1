@@ -1,0 +1,1 @@
+{"run": "precodefull_s1234", "method": "precodefull", "seed": 1234, "dataset": "humanevalplus", "pass1_base": 0.189, "pass1_plus": 0.1829, "n_tasks": 164, "timestamp": 1792882110}

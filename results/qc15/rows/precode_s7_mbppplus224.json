@@ -1,0 +1,1 @@
+{"run": "precode_s7", "method": "precode", "seed": 7, "dataset": "mbppplus224", "pass1_base": 0.3393, "pass1_plus": 0.2679, "n_tasks": 224, "timestamp": 1792881482}

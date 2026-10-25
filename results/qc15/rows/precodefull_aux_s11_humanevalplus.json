@@ -1,0 +1,1 @@
+{"run": "precodefull_aux_s11", "method": "precodefull_aux", "seed": 11, "dataset": "humanevalplus", "pass1_base": 0.1951, "pass1_plus": 0.1768, "n_tasks": 164, "timestamp": 1792885935, "train_cfg": {"method": "precodefull_aux", "seed": 11, "lr": 5e-05, "epochs": 3, "cache": "cache/behaviour_cache_anon.pt", "extra": ""}}

@@ -1,0 +1,1 @@
+{"run": "sft_s42", "method": "sft", "seed": 42, "dataset": "mbppplus224", "pass1_base": 0.625, "pass1_plus": 0.5491, "n_tasks": 224, "timestamp": 1792884710, "train_cfg": {"method": "sft", "seed": 42, "lr": 2e-05, "epochs": 2, "cache": "none", "extra": ""}}

@@ -1,0 +1,6 @@
+{"step": 10, "epoch": 0.333, "grad_norm": 1.854, "sec": 4, "ntp": 1.0998, "beh": 6.3114, "cos_own": -0.0021, "top1": 0.0, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}
+{"step": 20, "epoch": 0.667, "grad_norm": 1.211, "sec": 9, "ntp": 0.9287, "beh": 6.2421, "cos_own": -0.0018, "top1": 0.0, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}
+{"step": 30, "epoch": 1.0, "grad_norm": 1.509, "sec": 13, "ntp": 0.8107, "beh": 6.2287, "cos_own": -0.0012, "top1": 0.0063, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}
+{"step": 40, "epoch": 1.333, "grad_norm": 1.011, "sec": 17, "ntp": 0.8216, "beh": 6.2947, "cos_own": -0.0053, "top1": 0.0, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}
+{"step": 50, "epoch": 1.667, "grad_norm": 0.951, "sec": 21, "ntp": 0.7831, "beh": 6.27, "cos_own": -0.003, "top1": 0.0, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}
+{"step": 60, "epoch": 2.0, "grad_norm": 1.109, "sec": 26, "ntp": 0.7766, "beh": 6.2806, "cos_own": -0.004, "top1": 0.0063, "w_max": 1.0, "prefix": 0.0, "weight": 0.0}

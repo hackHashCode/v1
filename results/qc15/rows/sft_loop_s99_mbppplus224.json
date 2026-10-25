@@ -1,0 +1,1 @@
+{"run": "sft_loop_s99", "method": "sft_loop", "seed": 99, "dataset": "mbppplus224", "pass1_base": 0.6205, "pass1_plus": 0.5402, "n_tasks": 224, "timestamp": 1792885106, "train_cfg": {"method": "sft_loop", "seed": 99, "lr": 2e-05, "epochs": 2, "cache": "none", "extra": ""}}

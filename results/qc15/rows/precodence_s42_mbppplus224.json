@@ -1,0 +1,1 @@
+{"run": "precodence_s42", "method": "precodence", "seed": 42, "dataset": "mbppplus224", "pass1_base": 0.6741, "pass1_plus": 0.5536, "n_tasks": 224, "timestamp": 1792881637}

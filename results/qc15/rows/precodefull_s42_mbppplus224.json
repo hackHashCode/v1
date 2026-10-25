@@ -1,0 +1,1 @@
+{"run": "precodefull_s42", "method": "precodefull", "seed": 42, "dataset": "mbppplus224", "pass1_base": 0.5536, "pass1_plus": 0.4866, "n_tasks": 224, "timestamp": 1792881914}
