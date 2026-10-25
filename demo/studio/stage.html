@@ -86,8 +86,8 @@ td.y { color: var(--ok); } td.n { color: var(--bad); background: var(--bad-soft)
 .own { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .own textarea { width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: 13px/1.5 var(--mono); resize: vertical; }
 .own label { font-size: 12px; color: var(--muted); }
-.linkbtn { background: none; border: 0; color: var(--muted); font: 13px var(--sans); cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
-.linkbtn:hover { color: var(--ink); }
+.linkbtn { background: var(--ours-soft); border: 1px solid var(--ours); color: var(--ours); font: 600 14px var(--sans); cursor: pointer; padding: 11px 16px; border-radius: 11px; white-space: nowrap; }
+.linkbtn:hover { filter: brightness(1.1); }
 @media (max-width: 760px) { .duel { grid-template-columns: 1fr; } .task { flex-wrap: wrap; } }
 @media (prefers-reduced-motion: reduce) { pre.typing::after { animation: none; } }
 </style>
@@ -107,7 +107,7 @@ td.y { color: var(--ok); } td.n { color: var(--bad); background: var(--bad-soft)
   <div class="task">
     <div class="t"><div class="q" id="q">…</div><div class="a" id="a"></div></div>
     <div class="nav"><button type="button" id="prev" aria-label="Previous task">‹</button><span id="pos"></span><button type="button" id="next" aria-label="Next task">›</button></div>
-    <button type="button" class="linkbtn" id="ownBtn">✎ your own</button>
+    <button type="button" class="linkbtn" id="ownBtn">✎ Try your own task</button>
     <button class="go" id="go" type="button">Run ▶</button>
   </div>
   <div class="own" id="own" hidden>
@@ -134,7 +134,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 let META, TASKS = [], idx = 0, OURS = "precodefull_aux", PAIR = [], S = null, OWN = false;
 function log(line, dim) { const el = $("#log"); el.hidden = false; const d = document.createElement("div"); if (dim) d.className = "dim"; d.textContent = line; el.appendChild(d); el.scrollTop = el.scrollHeight; }
 function clearLog() { $("#log").innerHTML = ""; $("#log").hidden = true; }
-$("#ownBtn").onclick = () => { OWN = !OWN; $("#own").hidden = !OWN; $("#ownBtn").textContent = OWN ? "← showcase tasks" : "✎ your own";
+$("#ownBtn").onclick = () => { OWN = !OWN; $("#own").hidden = !OWN; $("#ownBtn").textContent = OWN ? "← Back to examples" : "✎ Try your own task";
   $("#q").textContent = OWN ? "Your own task: nothing about it was seen in training or recorded" : TASKS[idx].task; $("#a").textContent = OWN ? "" : (TASKS[idx].tests || [])[0] || "";
   if (OWN) $("#ownTask").focus(); S = null; renderPanes(); $("#diff").hidden = true; clearLog(); };
 
