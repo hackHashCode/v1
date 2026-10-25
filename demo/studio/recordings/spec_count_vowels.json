@@ -1,0 +1,1341 @@
+{
+"task": "Write a function to count the vowels in a string, ignoring case.",
+"tests": [
+"assert count_vowels('hello') == 2",
+"assert count_vowels('') == 0",
+"assert count_vowels('HELLO') == 2",
+"assert count_vowels('xyz') == 0",
+"assert count_vowels('AEIOU') == 5",
+"assert count_vowels('Programming') == 3",
+"assert count_vowels('aAa') == 3",
+"assert count_vowels('rhythm') == 0"
+],
+"reference": "def count_vowels(s):\n    return sum(c in 'aeiou' for c in s.lower())",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 728
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 728
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 734
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 809
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 666,
+"cos": 0.402,
+"desc": "Write a function to count occurrence of a character in a string.",
+"trace": [
+"count_char('Python', 'o') -> 1",
+"count_char('little', 't') -> 2",
+"count_char('assert', 's') -> 2",
+"count_char('', 'o') -> 0",
+"count_char('P', 'o') -> 0"
+]
+},
+{
+"task_id": 667,
+"cos": 0.363,
+"desc": "Write a python function to count number of vowels in the string.",
+"trace": [
+"Check_Vow('corner', 'AaEeIiOoUu') -> 2",
+"Check_Vow('valid', 'AaEeIiOoUu') -> 2",
+"Check_Vow('true', 'AaEeIiOoUu') -> 2",
+"Check_Vow('', 'AaEeIiOoUu') -> 0",
+"Check_Vow('c', 'AaEeIiOoUu') -> 0"
+]
+},
+{
+"task_id": 792,
+"cos": 0.357,
+"desc": "Write a python function to count the number of lists in a given number of lists.",
+"trace": [
+"count_list([[1, 3], [5, 7], [9, 11], [13, 15, 17]]) -> 4",
+"count_list([[1, 2], [2, 3], [4, 5]]) -> 3",
+"count_list([[1, 0], [2, 0]]) -> 2",
+"count_list([]) -> 0",
+"count_list([[1, 3]]) -> 1"
+]
+}
+],
+"xy": [
+0.6835091597338456,
+0.9167189156699882
+],
+"t": 1032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1032
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1032
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1032
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1032
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1032
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1045
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1054
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1129
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1165
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1195
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1204
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1207
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count_vowels(string):\n",
+"t": 1247
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1275
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count_vowels(string):\n",
+"t": 1279
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1362
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count_vowels(string):\n",
+"t": 1362
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1362
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1397
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1426
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1431
+},
+{
+"type": "token",
+"run": "sft",
+"text": "vowels ",
+"t": 1473
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1509
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "vowels ",
+"t": 1509
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1545
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1578
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "vowels ",
+"t": 1583
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1631
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1707
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1707
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1707
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1730
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1735
+},
+{
+"type": "token",
+"run": "sft",
+"text": "'aeiou'\n",
+"t": 1791
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "'aeiou'\n",
+"t": 1922
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1924
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1924
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1924
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "'aeiou'\n",
+"t": 1924
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1924
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1960
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1964
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count ",
+"t": 1997
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count ",
+"t": 2036
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2048
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 2071
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 2117
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count ",
+"t": 2191
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2192
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2192
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 2195
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2214
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 2323
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2323
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2323
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2346
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0\n",
+"t": 2351
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2368
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2501
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2503
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2503
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2503
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2503
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char ",
+"t": 2517
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char ",
+"t": 2657
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2657
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2659
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2659
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char ",
+"t": 2659
+},
+{
+"type": "token",
+"run": "sft",
+"text": "string:\n",
+"t": 2662
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "string:\n",
+"t": 2812
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2812
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 2814
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 2814
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "string:\n",
+"t": 2814
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2814
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2870
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2896
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 2897
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 2950
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2955
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2960
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3038
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3038
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 3038
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3109
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char.lower() ",
+"t": 3109
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3112
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char.lower() ",
+"t": 3228
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 3228
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3228
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 3265
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char.lower() ",
+"t": 3265
+},
+{
+"type": "token",
+"run": "sft",
+"text": "vowels:\n",
+"t": 3265
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3346
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "vowels:\n",
+"t": 3346
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 3346
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "           ",
+"t": 3402
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3402
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "vowels:\n",
+"t": 3420
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3550
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count ",
+"t": 3550
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "           ",
+"t": 3550
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count ",
+"t": 3550
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3553
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3577
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+= ",
+"t": 3618
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3667
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count ",
+"t": 3667
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3699
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 3699
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+= ",
+"t": 3722
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 3766
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3775
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3798
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3844
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 3851
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 3869
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3924
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3928
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3945
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3997
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count<|repo_name|>",
+"t": 4000
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def count_vowels(string):\n    vowels = 'aeiou'\n    count = 0\n    for char in string:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+"ms": 3282,
+"t": 4000
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 4006
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4013
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4045
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count<|repo_name|>",
+"t": 4048
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def count_vowels(string):\n    vowels = 'aeiou'\n    count = 0\n    for char in string:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+"ms": 3326,
+"t": 4048
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 4051
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4065
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count<|repo_name|>",
+"t": 4067
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def count_vowels(string):\n    vowels = 'aeiou'\n    count = 0\n    for char in string:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+"ms": 3345,
+"t": 4067
+},
+{
+"type": "end",
+"t": 4067
+}
+],
+"exec": {
+"probes": [
+{
+"call": "count_vowels('hello')",
+"outs": {
+"reference": "2",
+"sft": "2",
+"jepa": "2",
+"precodefull_aux": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "count_vowels('')",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "count_vowels('HELLO')",
+"outs": {
+"reference": "2",
+"sft": "2",
+"jepa": "2",
+"precodefull_aux": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "count_vowels('xyz')",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "count_vowels('AEIOU')",
+"outs": {
+"reference": "5",
+"sft": "5",
+"jepa": "5",
+"precodefull_aux": "5"
+},
+"truth": "5",
+"majority": "5",
+"split": false
+},
+{
+"call": "count_vowels('Programming')",
+"outs": {
+"reference": "3",
+"sft": "3",
+"jepa": "3",
+"precodefull_aux": "3"
+},
+"truth": "3",
+"majority": "3",
+"split": false
+},
+{
+"call": "count_vowels('aAa')",
+"outs": {
+"reference": "3",
+"sft": "3",
+"jepa": "3",
+"precodefull_aux": "3"
+},
+"truth": "3",
+"majority": "3",
+"split": false
+},
+{
+"call": "count_vowels('rhythm')",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "count_vowels('h')",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "count_vowels('olleh')",
+"outs": {
+"reference": "2",
+"sft": "2",
+"jepa": "2",
+"precodefull_aux": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "count_vowels('hellohello')",
+"outs": {
+"reference": "4",
+"sft": "4",
+"jepa": "4",
+"precodefull_aux": "4"
+},
+"truth": "4",
+"majority": "4",
+"split": false
+},
+{
+"call": "count_vowels('hellohellohellohellohello')",
+"outs": {
+"reference": "10",
+"sft": "10",
+"jepa": "10",
+"precodefull_aux": "10"
+},
+"truth": "10",
+"majority": "10",
+"split": false
+},
+{
+"call": "count_vowels('H')",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "count_vowels('OLLEH')",
+"outs": {
+"reference": "2",
+"sft": "2",
+"jepa": "2",
+"precodefull_aux": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "count_vowels('HELLOHELLO')",
+"outs": {
+"reference": "4",
+"sft": "4",
+"jepa": "4",
+"precodefull_aux": "4"
+},
+"truth": "4",
+"majority": "4",
+"split": false
+},
+{
+"call": "count_vowels('HELLOHELLOHELLOHELLOHELLO')",
+"outs": {
+"reference": "10",
+"sft": "10",
+"jepa": "10",
+"precodefull_aux": "10"
+},
+"truth": "10",
+"majority": "10",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert count_vowels('hello') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('HELLO') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('xyz') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('AEIOU') == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('Programming') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('aAa') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('rhythm') == 0",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6867301715999927,
+0.9097176028740286
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 667,
+"cos": 0.472,
+"desc": "Write a python function to count number of vowels in the string.",
+"trace": [
+"Check_Vow('corner', 'AaEeIiOoUu') -> 2",
+"Check_Vow('valid', 'AaEeIiOoUu') -> 2",
+"Check_Vow('true', 'AaEeIiOoUu') -> 2",
+"Check_Vow('', 'AaEeIiOoUu') -> 0",
+"Check_Vow('c', 'AaEeIiOoUu') -> 0"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert count_vowels('hello') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('HELLO') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('xyz') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('AEIOU') == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('Programming') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('aAa') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('rhythm') == 0",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6867301715999927,
+0.9097176028740286
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 667,
+"cos": 0.472,
+"desc": "Write a python function to count number of vowels in the string.",
+"trace": [
+"Check_Vow('corner', 'AaEeIiOoUu') -> 2",
+"Check_Vow('valid', 'AaEeIiOoUu') -> 2",
+"Check_Vow('true', 'AaEeIiOoUu') -> 2",
+"Check_Vow('', 'AaEeIiOoUu') -> 0",
+"Check_Vow('c', 'AaEeIiOoUu') -> 0"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert count_vowels('hello') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('HELLO') == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('xyz') == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('AEIOU') == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('Programming') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('aAa') == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert count_vowels('rhythm') == 0",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6867301715999927,
+0.9097176028740286
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 667,
+"cos": 0.472,
+"desc": "Write a python function to count number of vowels in the string.",
+"trace": [
+"Check_Vow('corner', 'AaEeIiOoUu') -> 2",
+"Check_Vow('valid', 'AaEeIiOoUu') -> 2",
+"Check_Vow('true', 'AaEeIiOoUu') -> 2",
+"Check_Vow('', 'AaEeIiOoUu') -> 0",
+"Check_Vow('c', 'AaEeIiOoUu') -> 0"
+]
+}
+],
+"imagined_vs_actual": 0.304
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

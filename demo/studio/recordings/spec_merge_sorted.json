@@ -1,0 +1,1515 @@
+{
+"task": "Write a function to merge two sorted lists into one sorted list.",
+"tests": [
+"assert merge_sorted([1, 3], [2, 4]) == [1, 2, 3, 4]",
+"assert merge_sorted([], [1, 2]) == [1, 2]",
+"assert merge_sorted([1, 2, 3], []) == [1, 2, 3]",
+"assert merge_sorted([1, 1], [1]) == [1, 1, 1]",
+"assert merge_sorted([5, 6], [1, 2]) == [1, 2, 5, 6]",
+"assert merge_sorted([1, 4, 9], [2, 3]) == [1, 2, 3, 4, 9]",
+"assert merge_sorted([-2, 0], [-1]) == [-2, -1, 0]",
+"assert merge_sorted([], []) == []"
+],
+"reference": "def merge_sorted(a, b):\n    i = j = 0; out = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]: out.append(a[i]); i += 1\n        else: out.append(b[j]); j += 1\n    return out + a[i:] + b[j:]",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 702
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 706
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 706
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 940,
+"cos": 0.349,
+"desc": "Write a function to sort the given array by using heap sort.",
+"trace": [
+"heap_sort([12, 2, 4, 5, 2, 3]) -> [2, 2, 3, 4, 5, 12]",
+"heap_sort([32, 14, 5, 6, 7, 19]) -> [5, 6, 7, 14, 19, 32]",
+"heap_sort([21, 15, 29, 78, 65]) -> [15, 21, 29, 65, 78]",
+"heap_sort([]) -> []",
+"heap_sort([12]) -> [12]"
+]
+},
+{
+"task_id": 743,
+"cos": 0.344,
+"desc": "Write a function to rotate a given list by specified number of items to the right direction.",
+"trace": [
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, 4) -> [8, 9, 10, 1, 2, 3, 4, 5, 6]",
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 2) -> [9, 10, 1, 2, 3, 4, 5, 6, 7, 8]",
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5, 2) -> [6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8]",
+"rotate_right([], 3, 4) -> []",
+"rotate_right([1], 3, 4) -> [1]"
+]
+},
+{
+"task_id": 729,
+"cos": 0.336,
+"desc": "Write a function to add two lists using map and lambda function.",
+"trace": [
+"add_list([1, 2, 3], [4, 5, 6]) -> [5, 7, 9]",
+"add_list([1, 2], [3, 4]) -> [4, 6]",
+"add_list([10, 20], [50, 70]) -> [60, 90]",
+"add_list([], [4, 5, 6]) -> []",
+"add_list([1], [4, 5, 6]) -> [5]"
+]
+}
+],
+"xy": [
+0.09473727605124782,
+0.7759468080333596
+],
+"t": 917
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 918
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 918
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1026
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1026
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1026
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1026
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1026
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1026
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1039
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1052
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1056
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1117
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1127
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1130
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1192
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1199
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1204
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merge_sorted(list1, ",
+"t": 1270
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1274
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "merge_sorted(list1, ",
+"t": 1278
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1347
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1350
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "merge_sorted(list1, ",
+"t": 1355
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list2):\n",
+"t": 1424
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list2):\n",
+"t": 1426
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1431
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1493
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1502
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list2):\n",
+"t": 1506
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1570
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1578
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1580
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1646
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1652
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1658
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "merged_list ",
+"t": 1725
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list ",
+"t": 1727
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1737
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= []\n",
+"t": 1799
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1805
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "merged_list ",
+"t": 1812
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1874
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1883
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1888
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1947
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list1 ",
+"t": 1961
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1965
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2024
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 2032
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list1 ",
+"t": 2041
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i, ",
+"t": 2100
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+ ",
+"t": 2111
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2114
+},
+{
+"type": "token",
+"run": "sft",
+"text": "j ",
+"t": 2173
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list2\n",
+"t": 2186
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2192
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 2248
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2260
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list2\n",
+"t": 2270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2323
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2341
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2348
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2399
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2412
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2424
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0, ",
+"t": 2477
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2488
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2502
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2552
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2565
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "merged_list.sort()\n",
+"t": 2579
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2628
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "merged_list.sort()\n",
+"t": 2644
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2653
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2701
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2723
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2729
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2784
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2795
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2804
+},
+{
+"type": "token",
+"run": "sft",
+"text": "while ",
+"t": 2859
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2871
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2880
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 2936
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2946
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2957
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "merged_list<|repo_name|>",
+"t": 2961
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def merge_sorted(list1, list2):\n  merged_list = list1 + list2\n  merged_list.sort()\n  return merged_list",
+"ms": 2267,
+"t": 2961
+},
+{
+"type": "token",
+"run": "sft",
+"text": "< ",
+"t": 2989
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2993
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "merged_list<|repo_name|>",
+"t": 2996
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def merge_sorted(list1, list2):\n  merged_list = list1 + list2\n  merged_list.sort()\n  return merged_list",
+"ms": 2300,
+"t": 2996
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3008
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3023
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3035
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(list1) ",
+"t": 3048
+},
+{
+"type": "token",
+"run": "sft",
+"text": "and ",
+"t": 3063
+},
+{
+"type": "token",
+"run": "sft",
+"text": "j ",
+"t": 3075
+},
+{
+"type": "token",
+"run": "sft",
+"text": "< ",
+"t": 3088
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3101
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3116
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(list2):\n",
+"t": 3130
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3142
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3155
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 3169
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3181
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3195
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3208
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list1[i] ",
+"t": 3222
+},
+{
+"type": "token",
+"run": "sft",
+"text": "< ",
+"t": 3236
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3248
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3264
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list2[j]:\n",
+"t": 3275
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3289
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3302
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3317
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3329
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3345
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3358
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3372
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list.append(list1[i])\n",
+"t": 3383
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3396
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3410
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 3426
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3439
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3454
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 3467
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3482
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3495
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else:\n",
+"t": 3510
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3523
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3536
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3557
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3565
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3581
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3592
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3622
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list.append(list2[j])\n",
+"t": 3626
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3632
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3643
+},
+{
+"type": "token",
+"run": "sft",
+"text": "j ",
+"t": 3663
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3689
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3690
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 3702
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3712
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3725
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3741
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list ",
+"t": 3752
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3765
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3778
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3793
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list1[i:]\n",
+"t": 3805
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3821
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3833
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3846
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list ",
+"t": 3861
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3874
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3888
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3901
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list2[j:]\n",
+"t": 3915
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3928
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3944
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3954
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3968
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3982
+},
+{
+"type": "token",
+"run": "sft",
+"text": "merged_list<|repo_name|>",
+"t": 3985
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def merge_sorted(list1, list2):\n    merged_list = []\n    i, j = 0, 0\n    while i < len(list1) and j < len(list2):\n        if list1[i] < list2[j]:\n            merged_list.append(list1[i])\n            i += 1\n        else:\n            merged_list.append(list2[j])\n            j += 1\n    merged_list += list1[i:]\n    merged_list += list2[j:]\n    return merged_list",
+"ms": 3292,
+"t": 3985
+},
+{
+"type": "end",
+"t": 3985
+}
+],
+"exec": {
+"probes": [
+{
+"call": "merge_sorted([1, 3], [2, 4])",
+"outs": {
+"reference": "[1, 2, 3, 4]",
+"jepa": "[1, 2, 3, 4]",
+"precodefull_aux": "[1, 2, 3, 4]",
+"sft": "[1, 2, 3, 4]"
+},
+"truth": "[1, 2, 3, 4]",
+"majority": "[1, 2, 3, 4]",
+"split": false
+},
+{
+"call": "merge_sorted([], [1, 2])",
+"outs": {
+"reference": "[1, 2]",
+"jepa": "[1, 2]",
+"precodefull_aux": "[1, 2]",
+"sft": "[1, 2]"
+},
+"truth": "[1, 2]",
+"majority": "[1, 2]",
+"split": false
+},
+{
+"call": "merge_sorted([1, 2, 3], [])",
+"outs": {
+"reference": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "merge_sorted([1, 1], [1])",
+"outs": {
+"reference": "[1, 1, 1]",
+"jepa": "[1, 1, 1]",
+"precodefull_aux": "[1, 1, 1]",
+"sft": "[1, 1, 1]"
+},
+"truth": "[1, 1, 1]",
+"majority": "[1, 1, 1]",
+"split": false
+},
+{
+"call": "merge_sorted([5, 6], [1, 2])",
+"outs": {
+"reference": "[1, 2, 5, 6]",
+"jepa": "[1, 2, 5, 6]",
+"precodefull_aux": "[1, 2, 5, 6]",
+"sft": "[1, 2, 5, 6]"
+},
+"truth": "[1, 2, 5, 6]",
+"majority": "[1, 2, 5, 6]",
+"split": false
+},
+{
+"call": "merge_sorted([1, 4, 9], [2, 3])",
+"outs": {
+"reference": "[1, 2, 3, 4, 9]",
+"jepa": "[1, 2, 3, 4, 9]",
+"precodefull_aux": "[1, 2, 3, 4, 9]",
+"sft": "[1, 2, 3, 4, 9]"
+},
+"truth": "[1, 2, 3, 4, 9]",
+"majority": "[1, 2, 3, 4, 9]",
+"split": false
+},
+{
+"call": "merge_sorted([-2, 0], [-1])",
+"outs": {
+"reference": "[-2, -1, 0]",
+"jepa": "[-2, -1, 0]",
+"precodefull_aux": "[-2, -1, 0]",
+"sft": "[-2, -1, 0]"
+},
+"truth": "[-2, -1, 0]",
+"majority": "[-2, -1, 0]",
+"split": false
+},
+{
+"call": "merge_sorted([], [])",
+"outs": {
+"reference": "[]",
+"jepa": "[]",
+"precodefull_aux": "[]",
+"sft": "[]"
+},
+"truth": "[]",
+"majority": "[]",
+"split": false
+},
+{
+"call": "merge_sorted([], [2, 4])",
+"outs": {
+"reference": "[2, 4]",
+"jepa": "[2, 4]",
+"precodefull_aux": "[2, 4]",
+"sft": "[2, 4]"
+},
+"truth": "[2, 4]",
+"majority": "[2, 4]",
+"split": false
+},
+{
+"call": "merge_sorted([1], [2, 4])",
+"outs": {
+"reference": "[1, 2, 4]",
+"jepa": "[1, 2, 4]",
+"precodefull_aux": "[1, 2, 4]",
+"sft": "[1, 2, 4]"
+},
+"truth": "[1, 2, 4]",
+"majority": "[1, 2, 4]",
+"split": false
+},
+{
+"call": "merge_sorted([3, 1], [2, 4])",
+"outs": {
+"reference": "[2, 3, 1, 4]",
+"jepa": "[1, 2, 3, 4]",
+"precodefull_aux": "[1, 2, 3, 4]",
+"sft": "[2, 3, 1, 4]"
+},
+"truth": "[2, 3, 1, 4]",
+"majority": "[1, 2, 3, 4]",
+"split": true
+},
+{
+"call": "merge_sorted([1, 3, 1], [2, 4])",
+"outs": {
+"reference": "[1, 2, 3, 1, 4]",
+"jepa": "[1, 1, 2, 3, 4]",
+"precodefull_aux": "[1, 1, 2, 3, 4]",
+"sft": "[1, 2, 3, 1, 4]"
+},
+"truth": "[1, 2, 3, 1, 4]",
+"majority": "[1, 1, 2, 3, 4]",
+"split": true
+},
+{
+"call": "merge_sorted([1, 3, 1, 3, 1, 3], [2, 4])",
+"outs": {
+"reference": "[1, 2, 3, 1, 3, 1, 3, 4]",
+"jepa": "[1, 1, 1, 2, 3, 3, 3, 4]",
+"precodefull_aux": "[1, 1, 1, 2, 3, 3, 3, 4]",
+"sft": "[1, 2, 3, 1, 3, 1, 3, 4]"
+},
+"truth": "[1, 2, 3, 1, 3, 1, 3, 4]",
+"majority": "[1, 1, 1, 2, 3, 3, 3, 4]",
+"split": true
+},
+{
+"call": "merge_sorted([-1, -3], [2, 4])",
+"outs": {
+"reference": "[-1, -3, 2, 4]",
+"jepa": "[-3, -1, 2, 4]",
+"precodefull_aux": "[-3, -1, 2, 4]",
+"sft": "[-1, -3, 2, 4]"
+},
+"truth": "[-1, -3, 2, 4]",
+"majority": "[-3, -1, 2, 4]",
+"split": true
+},
+{
+"call": "merge_sorted([1, 3], [])",
+"outs": {
+"reference": "[1, 3]",
+"jepa": "[1, 3]",
+"precodefull_aux": "[1, 3]",
+"sft": "[1, 3]"
+},
+"truth": "[1, 3]",
+"majority": "[1, 3]",
+"split": false
+},
+{
+"call": "merge_sorted([1, 3], [2])",
+"outs": {
+"reference": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"jepa": {
+"tests": [
+{
+"test": "assert merge_sorted([1, 3], [2, 4]) == [1, 2, 3, 4]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], [1, 2]) == [1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 2, 3], []) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 1], [1]) == [1, 1, 1]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([5, 6], [1, 2]) == [1, 2, 5, 6]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 4, 9], [2, 3]) == [1, 2, 3, 4, 9]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([-2, 0], [-1]) == [-2, -1, 0]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], []) == []",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10744255665207281,
+0.7215650684016426
+],
+"agree_ref": [
+12,
+16
+],
+"nearest": [
+{
+"task_id": 898,
+"cos": 0.339,
+"desc": "Write a function to extract specified number of elements from a given list, which follow each other continuously.",
+"trace": [
+"extract_elements([1, 1, 3, 4, 4, 5, 6, 7], 2) -> [1, 4]",
+"extract_elements([0, 1, 2, 3, 4, 4, 4, 4, 5, 7], 4) -> [4]",
+"extract_elements([0, 0, 0, 0, 0], 5) -> [0]",
+"extract_elements([], 2) -> []",
+"extract_elements([1], 2) -> []"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert merge_sorted([1, 3], [2, 4]) == [1, 2, 3, 4]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], [1, 2]) == [1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 2, 3], []) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 1], [1]) == [1, 1, 1]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([5, 6], [1, 2]) == [1, 2, 5, 6]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 4, 9], [2, 3]) == [1, 2, 3, 4, 9]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([-2, 0], [-1]) == [-2, -1, 0]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], []) == []",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10744255665207281,
+0.7215650684016426
+],
+"agree_ref": [
+12,
+16
+],
+"nearest": [
+{
+"task_id": 898,
+"cos": 0.339,
+"desc": "Write a function to extract specified number of elements from a given list, which follow each other continuously.",
+"trace": [
+"extract_elements([1, 1, 3, 4, 4, 5, 6, 7], 2) -> [1, 4]",
+"extract_elements([0, 1, 2, 3, 4, 4, 4, 4, 5, 7], 4) -> [4]",
+"extract_elements([0, 0, 0, 0, 0], 5) -> [0]",
+"extract_elements([], 2) -> []",
+"extract_elements([1], 2) -> []"
+]
+}
+],
+"imagined_vs_actual": 0.236
+},
+"sft": {
+"tests": [
+{
+"test": "assert merge_sorted([1, 3], [2, 4]) == [1, 2, 3, 4]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], [1, 2]) == [1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 2, 3], []) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 1], [1]) == [1, 1, 1]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([5, 6], [1, 2]) == [1, 2, 5, 6]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([1, 4, 9], [2, 3]) == [1, 2, 3, 4, 9]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([-2, 0], [-1]) == [-2, -1, 0]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert merge_sorted([], []) == []",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10503564370921736,
+0.7200551698720128
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 659,
+"cos": 0.353,
+"desc": "Write a python function to print duplicants from a list of integers.",
+"trace": [
+"Repeat([10, 20, 30, 20, 20, 30, 40, 50, -20, 60, 60, -20, -20]) -> [20, 30, -20, 60]",
+"Repeat([-1, 1, -1, 8]) -> [-1]",
+"Repeat([1, 2, 3, 1, 2]) -> [1, 2]",
+"Repeat([]) -> []",
+"Repeat([10]) -> []"
+]
+}
+]
+}
+},
+"split_count": 4,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

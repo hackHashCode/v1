@@ -1,0 +1,1819 @@
+{
+"task": "Write a python function to find the first non-repeated character in a given string.",
+"tests": [
+"assert first_non_repeating_character(\"abcabc\") == None",
+"assert first_non_repeating_character(\"abc\") == \"a\"",
+"assert first_non_repeating_character(\"ababc\") == \"c\""
+],
+"reference": "def first_non_repeating_character(str1):\r\n  char_order = []\r\n  ctr = {}\r\n  for c in str1:\r\n    if c in ctr:\r\n      ctr[c] += 1\r\n    else:\r\n      ctr[c] = 1 \r\n      char_order.append(c)\r\n  for c in char_order:\r\n    if ctr[c] == 1:\r\n      return c\r\n  return None",
+"task_id": "Mbpp/395",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 734
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 734
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 745
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 918
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 920
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 678,
+"cos": 0.272,
+"desc": "Write a python function to remove spaces from a given string.",
+"trace": [
+"remove_spaces('a b c') -> 'abc'",
+"remove_spaces('1 2 3') -> '123'",
+"remove_spaces(' b c') -> 'bc'",
+"remove_spaces('') -> ''",
+"remove_spaces('a') -> 'a'"
+]
+},
+{
+"task_id": 602,
+"cos": 0.215,
+"desc": "Write a python function to find the first repeated character in a given string.",
+"trace": [
+"first_repeated_char('abcabc') -> 'a'",
+"first_repeated_char('abc') -> 'None'",
+"first_repeated_char('123123') -> '1'",
+"first_repeated_char('') -> 'None'",
+"first_repeated_char('a') -> 'None'"
+]
+},
+{
+"task_id": 537,
+"cos": 0.196,
+"desc": "Write a python function to find the first repeated word in a given string.",
+"trace": [
+"first_repeated_word('ab ca bc ab') -> 'ab'",
+"first_repeated_word('ab ca bc') -> 'None'",
+"first_repeated_word('ab ca bc ca ab bc') -> 'ca'",
+"first_repeated_word('') -> 'None'",
+"first_repeated_word('a') -> 'None'"
+]
+}
+],
+"xy": [
+0.8682426888097545,
+0.5326337025743425
+],
+"t": 1137
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1137
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1137
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1137
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1137
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1139
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1139
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1139
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1153
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1159
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1247
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1254
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1257
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1341
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1356
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1364
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1447
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1458
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1465
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1549
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1563
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1567
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "first_non_repeating_character(str1):\n",
+"t": 1649
+},
+{
+"type": "token",
+"run": "sft",
+"text": "first_non_repeating_character(str1):\n",
+"t": 1670
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "first_non_repeating_character(string):\n",
+"t": 1673
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1739
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1753
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1764
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1834
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1852
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1857
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1928
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1948
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1953
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char_order ",
+"t": 2024
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char_count ",
+"t": 2041
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order ",
+"t": 2058
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= []\n",
+"t": 2124
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= {}\n",
+"t": 2146
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= []\n",
+"t": 2154
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2221
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2243
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2261
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2325
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2349
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2360
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count ",
+"t": 2417
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2447
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count ",
+"t": 2459
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= []\n",
+"t": 2508
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char ",
+"t": 2545
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 2556
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2607
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2646
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2654
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2701
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "string:\n",
+"t": 2744
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2749
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2802
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2839
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 2844
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "str1 ",
+"t": 2899
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2934
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2940
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 2997
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 3032
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 3038
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3100
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char ",
+"t": 3130
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 3135
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3197
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 3228
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 3234
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "str1.lower()\n",
+"t": 3299
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3375
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3375
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3375
+},
+{
+"type": "token",
+"run": "sft",
+"text": "str1:\n",
+"t": 3378
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char_count:\n",
+"t": 3384
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3470
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3470
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "           ",
+"t": 3470
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 3530
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3530
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3537
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 3605
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 3605
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3641
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 3715
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 3715
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3715
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3722
+},
+{
+"type": "token",
+"run": "sft",
+"text": "not ",
+"t": 3752
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3835
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "str1:\n",
+"t": 3835
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 3874
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char_count[char] ",
+"t": 3874
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 3908
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4026
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+= ",
+"t": 4026
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4026
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order:\n",
+"t": 4036
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4063
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 4181
+},
+{
+"type": "token",
+"run": "sft",
+"text": "     ",
+"t": 4181
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 4182
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 4202
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4290
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 4290
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 4337
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4343
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4354
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4494
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "else:\n",
+"t": 4494
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char_order:\n",
+"t": 4494
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4529
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "           ",
+"t": 4537
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 4597
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order.append(i)\n",
+"t": 4658
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4658
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4658
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 4711
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4723
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4761
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4813
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4819
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4830
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else:\n",
+"t": 4916
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4916
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4967
+},
+{
+"type": "token",
+"run": "sft",
+"text": "     ",
+"t": 4985
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char_count[char] ",
+"t": 5060
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5060
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5078
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 5095
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5106
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5240
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5240
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count[char_order.index(i)] ",
+"t": 5240
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5272
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 5284
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+= ",
+"t": 5295
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5428
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 5428
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5429
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order.remove(i)\n",
+"t": 5451
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 5460
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 5583
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5583
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 5583
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 5583
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5612
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char ",
+"t": 5685
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 5685
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 5722
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 5722
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "else:\n",
+"t": 5722
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5862
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "string:\n",
+"t": 5862
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 5862
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order:\n",
+"t": 5883
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 5885
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 5890
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 5959
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5970
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 5980
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6038
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6042
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 6061
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6123
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 6138
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 6156
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char_order.append(i)\n",
+"t": 6217
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6236
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 6253
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 6312
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6329
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 6343
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6400
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6415
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char_count[char] ",
+"t": 6433
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6489
+},
+{
+"type": "token",
+"run": "sft",
+"text": "char_order[0]\n",
+"t": 6497
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 6521
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6578
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6588
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 6616
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6664
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6671
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1:\n",
+"t": 6697
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 6755
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count.append(1)\n",
+"t": 6759
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "           ",
+"t": 6782
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6841
+},
+{
+"type": "token",
+"run": "sft",
+"text": "None<|repo_name|>",
+"t": 6844
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def first_non_repeating_character(str1):\n  char_order = []\n  count = 0\n  for i in str1:\n    if i not in char_order:\n      char_order.append(i)\n    else:\n      char_order.remove(i)\n  if char_order:\n    return char_order[0]\n  return None",
+"ms": 6129,
+"t": 6853
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6853
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 6858
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6890
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 6902
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 6936
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "char\n",
+"t": 6949
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 6984
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 6999
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 7030
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 7045
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7083
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 7093
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7129
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 7137
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "None<|repo_name|>",
+"t": 7142
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def first_non_repeating_character(string):\n    char_count = {}\n    for char in string:\n        if char in char_count:\n            char_count[char] += 1\n        else:\n            char_count[char] = 1\n    for char in string:\n        if char_count[char] == 1:\n            return char\n    return None",
+"ms": 6415,
+"t": 7142
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7152
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "range(len(char_order)):\n",
+"t": 7165
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 7177
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7191
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 7205
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7219
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7231
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count[i] ",
+"t": 7244
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 7257
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7271
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1:\n",
+"t": 7283
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 7297
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7311
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 7326
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7341
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7353
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "char_order[i]\n",
+"t": 7373
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7383
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7396
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 7410
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7425
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "None<|repo_name|>",
+"t": 7429
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def first_non_repeating_character(str1):\n  char_order = []\n  count = []\n  str1 = str1.lower()\n  for i in str1:\n    if i in char_order:\n      count[char_order.index(i)] += 1\n    else:\n      char_order.append(i)\n      count.append(1)\n  for i in range(len(char_order)):\n    if count[i] == 1:\n      return char_order[i]\n  return None",
+"ms": 6703,
+"t": 7429
+},
+{
+"type": "end",
+"t": 7429
+}
+],
+"exec": {
+"probes": [
+{
+"call": "first_non_repeating_character('abcabc')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('abc')",
+"outs": {
+"reference": "'a'",
+"sft": "'a'",
+"precodefull_aux": "'a'",
+"jepa": "'a'"
+},
+"truth": "'a'",
+"majority": "'a'",
+"split": false
+},
+{
+"call": "first_non_repeating_character('ababc')",
+"outs": {
+"reference": "'c'",
+"sft": "'c'",
+"precodefull_aux": "'c'",
+"jepa": "'c'"
+},
+"truth": "'c'",
+"majority": "'c'",
+"split": false
+},
+{
+"call": "first_non_repeating_character('')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('a')",
+"outs": {
+"reference": "'a'",
+"sft": "'a'",
+"precodefull_aux": "'a'",
+"jepa": "'a'"
+},
+"truth": "'a'",
+"majority": "'a'",
+"split": false
+},
+{
+"call": "first_non_repeating_character('cbacba')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('abcabcabcabc')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('abcabcabcabcabcabcabcabcabcabc')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('cba')",
+"outs": {
+"reference": "'c'",
+"sft": "'c'",
+"precodefull_aux": "'c'",
+"jepa": "'c'"
+},
+"truth": "'c'",
+"majority": "'c'",
+"split": false
+},
+{
+"call": "first_non_repeating_character('abcabcabcabcabc')",
+"outs": {
+"reference": "None",
+"sft": "'a'",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": true
+},
+{
+"call": "first_non_repeating_character('cbaba')",
+"outs": {
+"reference": "'c'",
+"sft": "'c'",
+"precodefull_aux": "'c'",
+"jepa": "'c'"
+},
+"truth": "'c'",
+"majority": "'c'",
+"split": false
+},
+{
+"call": "first_non_repeating_character('ababcababc')",
+"outs": {
+"reference": "None",
+"sft": "None",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": false
+},
+{
+"call": "first_non_repeating_character('ababcababcababcababcababc')",
+"outs": {
+"reference": "None",
+"sft": "'c'",
+"precodefull_aux": "None",
+"jepa": "None"
+},
+"truth": "None",
+"majority": "None",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert first_non_repeating_character(\"abcabc\") == None",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"abc\") == \"a\"",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"ababc\") == \"c\"",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.8469821621257316,
+0.6011918706160813
+],
+"agree_ref": [
+11,
+13
+],
+"nearest": [
+{
+"task_id": 584,
+"cos": 0.363,
+"desc": "Write a function to find all adverbs and their positions in a given sentence by using regex.",
+"trace": [
+"find_adverbs('Clearly, he has no excuse for such behavior.') -> '0-7: Clearly'",
+"find_adverbs('Please handle the situation carefuly') -> '28-36: carefuly'",
+"find_adverbs('Complete the task quickly') -> '18-25: quickly'",
+"find_adverbs('') -> None",
+"find_adverbs('C') -> None"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert first_non_repeating_character(\"abcabc\") == None",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"abc\") == \"a\"",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"ababc\") == \"c\"",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.7033272567349254,
+0.6811509078614155
+],
+"agree_ref": [
+13,
+13
+],
+"nearest": [
+{
+"task_id": 584,
+"cos": 0.385,
+"desc": "Write a function to find all adverbs and their positions in a given sentence by using regex.",
+"trace": [
+"find_adverbs('Clearly, he has no excuse for such behavior.') -> '0-7: Clearly'",
+"find_adverbs('Please handle the situation carefuly') -> '28-36: carefuly'",
+"find_adverbs('Complete the task quickly') -> '18-25: quickly'",
+"find_adverbs('') -> None",
+"find_adverbs('C') -> None"
+]
+}
+],
+"imagined_vs_actual": 0.122
+},
+"jepa": {
+"tests": [
+{
+"test": "assert first_non_repeating_character(\"abcabc\") == None",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"abc\") == \"a\"",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert first_non_repeating_character(\"ababc\") == \"c\"",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.7033272567349254,
+0.6811509078614155
+],
+"agree_ref": [
+13,
+13
+],
+"nearest": [
+{
+"task_id": 584,
+"cos": 0.385,
+"desc": "Write a function to find all adverbs and their positions in a given sentence by using regex.",
+"trace": [
+"find_adverbs('Clearly, he has no excuse for such behavior.') -> '0-7: Clearly'",
+"find_adverbs('Please handle the situation carefuly') -> '28-36: carefuly'",
+"find_adverbs('Complete the task quickly') -> '18-25: quickly'",
+"find_adverbs('') -> None",
+"find_adverbs('C') -> None"
+]
+}
+]
+}
+},
+"split_count": 2,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

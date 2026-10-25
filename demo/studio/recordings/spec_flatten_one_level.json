@@ -1,0 +1,945 @@
+{
+"task": "Write a function to flatten a list of lists by one level.",
+"tests": [
+"assert flatten([[1, 2], [3]]) == [1, 2, 3]",
+"assert flatten([]) == []",
+"assert flatten([[]]) == []",
+"assert flatten([[1], [], [2, 3]]) == [1, 2, 3]",
+"assert flatten([[[1]], [2]]) == [[1], 2]",
+"assert flatten([['a'], ['b', 'c']]) == ['a', 'b', 'c']",
+"assert flatten([[1, 2, 3]]) == [1, 2, 3]",
+"assert flatten([[0], [0]]) == [0, 0]"
+],
+"reference": "def flatten(xss):\n    return [x for xs in xss for x in xs]",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 750
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 752
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 756
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 847
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 587,
+"cos": 0.244,
+"desc": "Write a function to convert a list to a tuple.",
+"trace": [
+"list_tuple([5, 10, 7, 4, 15, 3]) -> (5, 10, 7, 4, 15, 3)",
+"list_tuple([2, 4, 5, 6, 2, 3, 4, 4, 7]) -> (2, 4, 5, 6, 2, 3, 4, 4, 7)",
+"list_tuple([58, 44, 56]) -> (58, 44, 56)",
+"list_tuple([]) -> ()",
+"list_tuple([5]) -> (5,)"
+]
+},
+{
+"task_id": 580,
+"cos": 0.238,
+"desc": "Write a function to extract the even elements in the nested mixed tuple.",
+"trace": [
+"extract_even((4, 5, (7, 6, (2, 4)), 6, 8)) -> (4, (6, (2, 4)), 6, 8)",
+"extract_even((5, 6, (8, 7, (4, 8)), 7, 9)) -> (6, (8, (4, 8)))",
+"extract_even((5, 6, (9, 8, (4, 6)), 8, 10)) -> (6, (8, (4, 6)), 8, 10)",
+"extract_even(()) -> ()",
+"extract_even((4,)) -> (4,)"
+]
+},
+{
+"task_id": 810,
+"cos": 0.231,
+"desc": "Write a function to iterate over elements repeating each as many times as its count.",
+"trace": [
+"count_variable(4, 2, 0, -2) -> ['p', 'p', 'p', 'p', 'q', 'q']",
+"count_variable(0, 1, 2, 3) -> ['q', 'r', 'r', 's', 's', 's']",
+"count_variable(11, 15, 12, 23) -> ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 's', 's',",
+"count_variable(0, 2, 0, -2) -> ['q', 'q']",
+"count_variable(1, 2, 0, -2) -> ['p', 'q', 'q']"
+]
+}
+],
+"xy": [
+0.4871897346083238,
+0.5015315156862132
+],
+"t": 972
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1062
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1062
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1062
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1062
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1062
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1062
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1062
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1065
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1070
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1074
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1137
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1146
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1151
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1208
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "flatten(list_of_lists):\n",
+"t": 1225
+},
+{
+"type": "token",
+"run": "sft",
+"text": "flatten(list_of_lists):\n",
+"t": 1229
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "flatten(list_of_lists):\n",
+"t": 1289
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1298
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1310
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1361
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1378
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1385
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1439
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 1460
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 1477
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 1548
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1562
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1586
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1645
+},
+{
+"type": "token",
+"run": "sft",
+"text": "[item ",
+"t": 1675
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "[item ",
+"t": 1694
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "[item ",
+"t": 1752
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 1777
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 1797
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 1854
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sublist ",
+"t": 1875
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sublist ",
+"t": 1896
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sublist ",
+"t": 1960
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 1971
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2007
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2052
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2070
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2099
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2133
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2149
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2176
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2222
+},
+{
+"type": "token",
+"run": "sft",
+"text": "list_of_lists ",
+"t": 2247
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list_of_lists ",
+"t": 2273
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list_of_lists ",
+"t": 2320
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2348
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2369
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2400
+},
+{
+"type": "token",
+"run": "sft",
+"text": "item ",
+"t": 2444
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "item ",
+"t": 2456
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "item ",
+"t": 2483
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2528
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2547
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2566
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2621
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2635
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2657
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2711
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sublist]<|file_sep|>",
+"t": 2713
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def flatten(list_of_lists):\n    return [item for sublist in list_of_lists for item in sublist]",
+"ms": 1980,
+"t": 2717
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2725
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sublist]<|repo_name|>",
+"t": 2730
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def flatten(list_of_lists):\n    return [item for sublist in list_of_lists for item in sublist]",
+"ms": 1984,
+"t": 2730
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2734
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sublist]<|repo_name|>",
+"t": 2740
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def flatten(list_of_lists):\n  return [item for sublist in list_of_lists for item in sublist]",
+"ms": 1990,
+"t": 2740
+},
+{
+"type": "end",
+"t": 2740
+}
+],
+"exec": {
+"probes": [
+{
+"call": "flatten([[1, 2], [3]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"sft": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "flatten([])",
+"outs": {
+"reference": "[]",
+"sft": "[]",
+"jepa": "[]",
+"precodefull_aux": "[]"
+},
+"truth": "[]",
+"majority": "[]",
+"split": false
+},
+{
+"call": "flatten([[]])",
+"outs": {
+"reference": "[]",
+"sft": "[]",
+"jepa": "[]",
+"precodefull_aux": "[]"
+},
+"truth": "[]",
+"majority": "[]",
+"split": false
+},
+{
+"call": "flatten([[1], [], [2, 3]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"sft": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "flatten([[[1]], [2]])",
+"outs": {
+"reference": "[[1], 2]",
+"sft": "[[1], 2]",
+"jepa": "[[1], 2]",
+"precodefull_aux": "[[1], 2]"
+},
+"truth": "[[1], 2]",
+"majority": "[[1], 2]",
+"split": false
+},
+{
+"call": "flatten([['a'], ['b', 'c']])",
+"outs": {
+"reference": "['a', 'b', 'c']",
+"sft": "['a', 'b', 'c']",
+"jepa": "['a', 'b', 'c']",
+"precodefull_aux": "['a', 'b', 'c']"
+},
+"truth": "['a', 'b', 'c']",
+"majority": "['a', 'b', 'c']",
+"split": false
+},
+{
+"call": "flatten([[1, 2, 3]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"sft": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "flatten([[0], [0]])",
+"outs": {
+"reference": "[0, 0]",
+"sft": "[0, 0]",
+"jepa": "[0, 0]",
+"precodefull_aux": "[0, 0]"
+},
+"truth": "[0, 0]",
+"majority": "[0, 0]",
+"split": false
+},
+{
+"call": "flatten([[1, 2]])",
+"outs": {
+"reference": "[1, 2]",
+"sft": "[1, 2]",
+"jepa": "[1, 2]",
+"precodefull_aux": "[1, 2]"
+},
+"truth": "[1, 2]",
+"majority": "[1, 2]",
+"split": false
+},
+{
+"call": "flatten([[3], [1, 2]])",
+"outs": {
+"reference": "[3, 1, 2]",
+"sft": "[3, 1, 2]",
+"jepa": "[3, 1, 2]",
+"precodefull_aux": "[3, 1, 2]"
+},
+"truth": "[3, 1, 2]",
+"majority": "[3, 1, 2]",
+"split": false
+},
+{
+"call": "flatten([[1, 2], [3], [1, 2]])",
+"outs": {
+"reference": "[1, 2, 3, 1, 2]",
+"sft": "[1, 2, 3, 1, 2]",
+"jepa": "[1, 2, 3, 1, 2]",
+"precodefull_aux": "[1, 2, 3, 1, 2]"
+},
+"truth": "[1, 2, 3, 1, 2]",
+"majority": "[1, 2, 3, 1, 2]",
+"split": false
+},
+{
+"call": "flatten([[1, 2], [3], [1, 2], [3], [1, 2], [3]])",
+"outs": {
+"reference": "[1, 2, 3, 1, 2, 3, 1, 2, 3]",
+"sft": "[1, 2, 3, 1, 2, 3, 1, 2, 3]",
+"jepa": "[1, 2, 3, 1, 2, 3, 1, 2, 3]",
+"precodefull_aux": "[1, 2, 3, 1, 2, 3, 1, 2, 3]"
+},
+"truth": "[1, 2, 3, 1, 2, 3, 1, 2, 3]",
+"majority": "[1, 2, 3, 1, 2, 3, 1, 2, 3]",
+"split": false
+},
+{
+"call": "flatten([[], []])",
+"outs": {
+"reference": "[]",
+"sft": "[]",
+"jepa": "[]",
+"precodefull_aux": "[]"
+},
+"truth": "[]",
+"majority": "[]",
+"split": false
+},
+{
+"call": "flatten([[], [], []])",
+"outs": {
+"reference": "[]",
+"sft": "[]",
+"jepa": "[]",
+"precodefull_aux": "[]"
+},
+"truth": "[]",
+"majority": "[]",
+"split": false
+},
+{
+"call": "flatten([[1]])",
+"outs": {
+"reference": "[1]",
+"sft": "[1]",
+"jepa": "[1]",
+"precodefull_aux": "[1]"
+},
+"truth": "[1]",
+"majority": "[1]",
+"split": false
+},
+{
+"call": "flatten([[2, 3], [], [1]])",
+"outs": {
+"reference": "[2, 3, 1]",
+"sft": "[2, 3, 1]",
+"jepa": "[2, 3, 1]",
+"precodefull_aux": "[2, 3, 1]"
+},
+"truth": "[2, 3, 1]",
+"majority": "[2, 3, 1]",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert flatten([[1, 2], [3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[]]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1], [], [2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[[1]], [2]]) == [[1], 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([['a'], ['b', 'c']]) == ['a', 'b', 'c']",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1, 2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[0], [0]]) == [0, 0]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.0621965674364271,
+0.7349444595143861
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 893,
+"cos": 0.381,
+"desc": "Write a python function to get the last element of each sublist.",
+"trace": [
+"Extract([[1, 2, 3], [4, 5], [6, 7, 8, 9]]) -> [3, 5, 9]",
+"Extract([['x', 'y', 'z'], ['m'], ['a', 'b'], ['u', 'v']]) -> ['z', 'm', 'b', 'v']",
+"Extract([[1, 2, 3], [4, 5]]) -> [3, 5]",
+"Extract([]) -> []",
+"Extract([[1, 2, 3]]) -> [3]"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert flatten([[1, 2], [3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[]]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1], [], [2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[[1]], [2]]) == [[1], 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([['a'], ['b', 'c']]) == ['a', 'b', 'c']",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1, 2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[0], [0]]) == [0, 0]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.0621965674364271,
+0.7349444595143861
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 893,
+"cos": 0.381,
+"desc": "Write a python function to get the last element of each sublist.",
+"trace": [
+"Extract([[1, 2, 3], [4, 5], [6, 7, 8, 9]]) -> [3, 5, 9]",
+"Extract([['x', 'y', 'z'], ['m'], ['a', 'b'], ['u', 'v']]) -> ['z', 'm', 'b', 'v']",
+"Extract([[1, 2, 3], [4, 5]]) -> [3, 5]",
+"Extract([]) -> []",
+"Extract([[1, 2, 3]]) -> [3]"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert flatten([[1, 2], [3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[]]) == []",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1], [], [2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[[1]], [2]]) == [[1], 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([['a'], ['b', 'c']]) == ['a', 'b', 'c']",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[1, 2, 3]]) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert flatten([[0], [0]]) == [0, 0]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.0621965674364271,
+0.7349444595143861
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 893,
+"cos": 0.381,
+"desc": "Write a python function to get the last element of each sublist.",
+"trace": [
+"Extract([[1, 2, 3], [4, 5], [6, 7, 8, 9]]) -> [3, 5, 9]",
+"Extract([['x', 'y', 'z'], ['m'], ['a', 'b'], ['u', 'v']]) -> ['z', 'm', 'b', 'v']",
+"Extract([[1, 2, 3], [4, 5]]) -> [3, 5]",
+"Extract([]) -> []",
+"Extract([[1, 2, 3]]) -> [3]"
+]
+}
+],
+"imagined_vs_actual": 0.061
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

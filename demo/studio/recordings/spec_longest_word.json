@@ -1,0 +1,1209 @@
+{
+"task": "Write a function to return the longest word in a sentence; if several have the same length, return the first.",
+"tests": [
+"assert longest_word('I love programming') == 'programming'",
+"assert longest_word('') == ''",
+"assert longest_word('cat dog') == 'cat'",
+"assert longest_word('a bb cc') == 'bb'",
+"assert longest_word('hello') == 'hello'",
+"assert longest_word('one three five') == 'three'",
+"assert longest_word('  spaced   out  ') == 'spaced'",
+"assert longest_word('ab cd ef') == 'ab'"
+],
+"reference": "def longest_word(s):\n    best = ''\n    for w in s.split():\n        if len(w) > len(best): best = w\n    return best",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 712
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 717
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 717
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 826
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 830
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 619,
+"cos": 0.366,
+"desc": "Write a function to move all the numbers in it to the given string.",
+"trace": [
+"move_num('I1love143you55three3000thousand') -> 'Iloveyouthreethousand1143553000'",
+"move_num('Avengers124Assemble') -> 'AvengersAssemble124'",
+"move_num('Its11our12path13to14see15things16do17things') -> 'Itsourpathtoseethingsdothings11121314151617'",
+"move_num('') -> ''",
+"move_num('I') -> 'I'"
+]
+},
+{
+"task_id": 829,
+"cos": 0.296,
+"desc": "Write a function to find out the second most repeated (or frequent) string in the given sequence.",
+"trace": [
+"second_frequent(['aaa', 'bbb', 'ccc', 'bbb', 'aaa', 'aaa']) -> 'bbb'",
+"second_frequent(['abc', 'bcd', 'abc', 'bcd', 'bcd', 'bcd']) -> 'abc'",
+"second_frequent(['cdma', 'gsm', 'hspa', 'gsm', 'cdma', 'cdma']) -> 'gsm'",
+"second_frequent([]) -> IndexError",
+"second_frequent(['aaa']) -> IndexError"
+]
+},
+{
+"task_id": 542,
+"cos": 0.278,
+"desc": "Write a function to replace all occurrences of spaces, commas, or dots with a colon in the given string by using regex.",
+"trace": [
+"fill_spaces('Boult Curve Wireless Neckband') -> 'Boult:Curve:Wireless:Neckband'",
+"fill_spaces('Stereo Sound Sweatproof') -> 'Stereo:Sound:Sweatproof'",
+"fill_spaces('Probass Curve Audio') -> 'Probass:Curve:Audio'",
+"fill_spaces('') -> ''",
+"fill_spaces('B') -> 'B'"
+]
+}
+],
+"xy": [
+0.9399336004416465,
+0.5314626481894713
+],
+"t": 1042
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1044
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1045
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1045
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1045
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1045
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1045
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1133
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1136
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1152
+},
+{
+"type": "token",
+"run": "sft",
+"text": "longest_word(sentence):\n",
+"t": 1229
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1232
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "longest_word(sentence):\n",
+"t": 1242
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1332
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "longest_word(sentence):\n",
+"t": 1336
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1348
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1435
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1438
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1455
+},
+{
+"type": "token",
+"run": "sft",
+"text": "words ",
+"t": 1533
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1539
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "words ",
+"t": 1566
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1635
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "words ",
+"t": 1651
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1680
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1740
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1755
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1784
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sentence.split()\n",
+"t": 1835
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1838
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sentence.split()\n",
+"t": 1878
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1918
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sentence.split()\n",
+"t": 1923
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1959
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2006
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2012
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2045
+},
+{
+"type": "token",
+"run": "sft",
+"text": "longest ",
+"t": 2093
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2102
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "longest ",
+"t": 2137
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 2188
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "longest ",
+"t": 2196
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 2227
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2279
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 2289
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2319
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2363
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2379
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2411
+},
+{
+"type": "token",
+"run": "sft",
+"text": "words[0]\n",
+"t": 2454
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2474
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "words[0]\n",
+"t": 2500
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2541
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "max(words, ",
+"t": 2561
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2593
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2634
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2655
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2695
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2740
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "key=len)\n",
+"t": 2752
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2799
+},
+{
+"type": "token",
+"run": "sft",
+"text": "word ",
+"t": 2843
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2858
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "word ",
+"t": 2907
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2947
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2961
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 3019
+},
+{
+"type": "token",
+"run": "sft",
+"text": "words:\n",
+"t": 3057
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 3069
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "words:\n",
+"t": 3126
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3155
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3165
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "longest<|repo_name|>",
+"t": 3169
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def longest_word(sentence):\n    words = sentence.split()\n    longest = max(words, key=len)\n    return longest",
+"ms": 2462,
+"t": 3169
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 3210
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3217
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3258
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 3267
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 3311
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3317
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3365
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3368
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(word) ",
+"t": 3423
+},
+{
+"type": "token",
+"run": "sft",
+"text": "> ",
+"t": 3465
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(word) ",
+"t": 3475
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3517
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "> ",
+"t": 3529
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3569
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3584
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(longest):\n",
+"t": 3621
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3640
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3675
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(longest):\n",
+"t": 3691
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3722
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "           ",
+"t": 3744
+},
+{
+"type": "token",
+"run": "sft",
+"text": "longest ",
+"t": 3766
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3789
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 3812
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "longest ",
+"t": 3841
+},
+{
+"type": "token",
+"run": "sft",
+"text": "word\n",
+"t": 3862
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 3890
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3914
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "word\n",
+"t": 3962
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3981
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 4011
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 4011
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4047
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4059
+},
+{
+"type": "token",
+"run": "sft",
+"text": "longest<|repo_name|>",
+"t": 4067
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def longest_word(sentence):\n    words = sentence.split()\n    longest = words[0]\n    for word in words:\n        if len(word) > len(longest):\n            longest = word\n    return longest",
+"ms": 3358,
+"t": 4067
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 4073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4086
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "longest<|repo_name|>",
+"t": 4093
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def longest_word(sentence):\n    words = sentence.split()\n    longest = words[0]\n    for word in words:\n        if len(word) > len(longest):\n            longest = word\n    return longest",
+"ms": 3383,
+"t": 4093
+},
+{
+"type": "end",
+"t": 4093
+}
+],
+"exec": {
+"probes": [
+{
+"call": "longest_word('I love programming')",
+"outs": {
+"reference": "'programming'",
+"precodefull_aux": "'programming'",
+"sft": "'programming'",
+"jepa": "'programming'"
+},
+"truth": "'programming'",
+"majority": "'programming'",
+"split": false
+},
+{
+"call": "longest_word('')",
+"outs": {
+"reference": "''",
+"precodefull_aux": "ValueError",
+"sft": "IndexError",
+"jepa": "IndexError"
+},
+"truth": "''",
+"majority": "IndexError",
+"split": true
+},
+{
+"call": "longest_word('cat dog')",
+"outs": {
+"reference": "'cat'",
+"precodefull_aux": "'cat'",
+"sft": "'cat'",
+"jepa": "'cat'"
+},
+"truth": "'cat'",
+"majority": "'cat'",
+"split": false
+},
+{
+"call": "longest_word('a bb cc')",
+"outs": {
+"reference": "'bb'",
+"precodefull_aux": "'bb'",
+"sft": "'bb'",
+"jepa": "'bb'"
+},
+"truth": "'bb'",
+"majority": "'bb'",
+"split": false
+},
+{
+"call": "longest_word('hello')",
+"outs": {
+"reference": "'hello'",
+"precodefull_aux": "'hello'",
+"sft": "'hello'",
+"jepa": "'hello'"
+},
+"truth": "'hello'",
+"majority": "'hello'",
+"split": false
+},
+{
+"call": "longest_word('one three five')",
+"outs": {
+"reference": "'three'",
+"precodefull_aux": "'three'",
+"sft": "'three'",
+"jepa": "'three'"
+},
+"truth": "'three'",
+"majority": "'three'",
+"split": false
+},
+{
+"call": "longest_word('  spaced   out  ')",
+"outs": {
+"reference": "'spaced'",
+"precodefull_aux": "'spaced'",
+"sft": "'spaced'",
+"jepa": "'spaced'"
+},
+"truth": "'spaced'",
+"majority": "'spaced'",
+"split": false
+},
+{
+"call": "longest_word('ab cd ef')",
+"outs": {
+"reference": "'ab'",
+"precodefull_aux": "'ab'",
+"sft": "'ab'",
+"jepa": "'ab'"
+},
+"truth": "'ab'",
+"majority": "'ab'",
+"split": false
+},
+{
+"call": "longest_word('I')",
+"outs": {
+"reference": "'I'",
+"precodefull_aux": "'I'",
+"sft": "'I'",
+"jepa": "'I'"
+},
+"truth": "'I'",
+"majority": "'I'",
+"split": false
+},
+{
+"call": "longest_word('gnimmargorp evol I')",
+"outs": {
+"reference": "'gnimmargorp'",
+"precodefull_aux": "'gnimmargorp'",
+"sft": "'gnimmargorp'",
+"jepa": "'gnimmargorp'"
+},
+"truth": "'gnimmargorp'",
+"majority": "'gnimmargorp'",
+"split": false
+},
+{
+"call": "longest_word('I love programmingI love programming')",
+"outs": {
+"reference": "'programmingI'",
+"precodefull_aux": "'programmingI'",
+"sft": "'programmingI'",
+"jepa": "'programmingI'"
+},
+"truth": "'programmingI'",
+"majority": "'programmingI'",
+"split": false
+},
+{
+"call": "longest_word('I love programmingI love programmingI love programmingI love programmingI love programming')",
+"outs": {
+"reference": "'programmingI'",
+"precodefull_aux": "'programmingI'",
+"sft": "'programmingI'",
+"jepa": "'programmingI'"
+},
+"truth": "'programmingI'",
+"majority": "'programmingI'",
+"split": false
+},
+{
+"call": "longest_word('c')",
+"outs": {
+"reference": "'c'",
+"precodefull_aux": "'c'",
+"sft": "'c'",
+"jepa": "'c'"
+},
+"truth": "'c'",
+"majority": "'c'",
+"split": false
+},
+{
+"call": "longest_word('god tac')",
+"outs": {
+"reference": "'god'",
+"precodefull_aux": "'god'",
+"sft": "'god'",
+"jepa": "'god'"
+},
+"truth": "'god'",
+"majority": "'god'",
+"split": false
+},
+{
+"call": "longest_word('cat dogcat dog')",
+"outs": {
+"reference": "'dogcat'",
+"precodefull_aux": "'dogcat'",
+"sft": "'dogcat'",
+"jepa": "'dogcat'"
+},
+"truth": "'dogcat'",
+"majority": "'dogcat'",
+"split": false
+},
+{
+"call": "longest_word('cat dogcat dogcat dogcat dogcat dog')",
+"outs": {
+"reference": "'dogcat'",
+"precodefull_aux": "'dogcat'",
+"sft": "'dogcat'",
+"jepa": "'dogcat'"
+},
+"truth": "'dogcat'",
+"majority": "'dogcat'",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert longest_word('I love programming') == 'programming'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('') == ''",
+"ok": false,
+"why": "ValueError: max() arg is an empty sequence"
+},
+{
+"test": "assert longest_word('cat dog') == 'cat'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('a bb cc') == 'bb'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('hello') == 'hello'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('one three five') == 'three'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('  spaced   out  ') == 'spaced'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('ab cd ef') == 'ab'",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.9492620521650794,
+0.4935648789293414
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 593,
+"cos": 0.361,
+"desc": "Write a function to remove leading zeroes from an ip address.",
+"trace": [
+"removezero_ip('216.08.094.196') -> '216.8.94.196'",
+"removezero_ip('12.01.024') -> '12.1.24'",
+"removezero_ip('216.08.094.0196') -> '216.8.94.196'",
+"removezero_ip('') -> ''",
+"removezero_ip('2') -> '2'"
+]
+}
+],
+"imagined_vs_actual": 0.192
+},
+"sft": {
+"tests": [
+{
+"test": "assert longest_word('I love programming') == 'programming'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('') == ''",
+"ok": false,
+"why": "IndexError: list index out of range"
+},
+{
+"test": "assert longest_word('cat dog') == 'cat'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('a bb cc') == 'bb'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('hello') == 'hello'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('one three five') == 'three'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('  spaced   out  ') == 'spaced'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('ab cd ef') == 'ab'",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.9513257079354194,
+0.5127150467255852
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 877,
+"cos": 0.368,
+"desc": "Write a python function to sort the given string.",
+"trace": [
+"sort_String('cba') -> 'abc'",
+"sort_String('data') -> 'aadt'",
+"sort_String('zxy') -> 'xyz'",
+"sort_String('') -> ''",
+"sort_String('c') -> 'c'"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert longest_word('I love programming') == 'programming'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('') == ''",
+"ok": false,
+"why": "IndexError: list index out of range"
+},
+{
+"test": "assert longest_word('cat dog') == 'cat'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('a bb cc') == 'bb'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('hello') == 'hello'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('one three five') == 'three'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('  spaced   out  ') == 'spaced'",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert longest_word('ab cd ef') == 'ab'",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.9513257079354194,
+0.5127150467255852
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 877,
+"cos": 0.368,
+"desc": "Write a python function to sort the given string.",
+"trace": [
+"sort_String('cba') -> 'abc'",
+"sort_String('data') -> 'aadt'",
+"sort_String('zxy') -> 'xyz'",
+"sort_String('') -> ''",
+"sort_String('c') -> 'c'"
+]
+}
+]
+}
+},
+"split_count": 1,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

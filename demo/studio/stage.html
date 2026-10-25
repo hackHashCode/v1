@@ -147,11 +147,13 @@ async function boot() {
       <div class="delta">+${d.toFixed(1)} points</div>
       <div class="fine">pass@1 on MBPP+ (224 unseen tasks, extended hidden tests) · Qwen2.5-Coder-1.5B · mean of ${o.mbppplus224.n} seeds · ${t ? (t.p < 0.0001 ? "p < 0.0001" : "p = " + t.p.toFixed(3)) : ""}${c ? ` · same training loop with our loss switched off: ${c.mbppplus224.mean.toFixed(1)}%` : ""}</div>`;
   }
-  TASKS = META.examples.filter(e => e.group === "showcase");
-  if (!TASKS.length) TASKS = META.examples;
   const sc = META.showcase || {};
+  const all = META.examples.filter(e => e.group === "showcase");
+  TASKS = (sc.stage && sc.stage.length && !QS.get("all")) ? sc.stage.map(id => all.find(e => e.task_id === id)).filter(Boolean) : all;
+  if (!TASKS.length) TASKS = META.examples;
   $("#foot").innerHTML = `<b>Same base model, same 474 training tasks, same training loop.</b> The only change is one extra objective: from the task description alone, predict an embedding of what the reference solution outputs when run. Inference is unchanged.`
-    + (sc.n_picked ? ` These are real held-out test tasks where PreCode passed in at least 4 of 5 training seeds and SFT failed in at least 4 of 5: <b>${sc.n_picked}</b> tasks go PreCode's way, <b>${sc.n_reverse}</b> go SFT's way, out of ${sc.n_tasks}.` : "");
+    + (sc.n_picked ? ` These are real held-out test tasks where PreCode passed in at least 4 of 5 training seeds and SFT failed in at least 4 of 5: <b>${sc.n_picked}</b> tasks go PreCode's way, <b>${sc.n_reverse}</b> go SFT's way, out of ${sc.n_tasks}.`
+      + (TASKS.length < sc.n_picked ? ` Shown here: the ${TASKS.length} of them where the gap also reproduces in this live run (seed-42 models, MBPP's public asserts; the benchmark adds hidden tests).` : "") : "");
   show(0);
 }
 

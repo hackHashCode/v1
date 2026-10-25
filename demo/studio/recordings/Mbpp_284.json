@@ -1,0 +1,943 @@
+{
+"task": "Write a function to check whether all items of a list are equal to a given string.",
+"tests": [
+"assert check_element([\"green\", \"orange\", \"black\", \"white\"],'blue')==False",
+"assert check_element([1,2,3,4],7)==False",
+"assert check_element([\"green\", \"green\", \"green\", \"green\"],'green')==True"
+],
+"reference": "def check_element(list,element):\r\n  check_element=all(v== element for v in list)\r\n  return check_element",
+"task_id": "Mbpp/284",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 720
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 720
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 720
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 826
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 829
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 872,
+"cos": 0.396,
+"desc": "Write a function to check if a nested list is a subset of another nested list.",
+"trace": [
+"check_subset([[1, 3], [5, 7], [9, 11], [13, 15, 17]], [[1, 3], [13, 15, 17]]) -> True",
+"check_subset([[1, 2], [2, 3], [3, 4], [5, 6]], [[3, 4], [5, 6]]) -> True",
+"check_subset([[[1, 2], [2, 3]], [[3, 4], [5, 7]]], [[[3, 4], [5, 6]]]) -> False",
+"check_subset([], [[1, 3], [13, 15, 17]]) -> False",
+"check_subset([[1, 3]], [[1, 3], [13, 15, 17]]) -> False"
+]
+},
+{
+"task_id": 741,
+"cos": 0.373,
+"desc": "Write a python function to check whether all the characters are same or not.",
+"trace": [
+"all_Characters_Same('python') -> False",
+"all_Characters_Same('aaa') -> True",
+"all_Characters_Same('data') -> False",
+"all_Characters_Same('') -> True",
+"all_Characters_Same('p') -> True"
+]
+},
+{
+"task_id": 759,
+"cos": 0.369,
+"desc": "Write a function to check a decimal with a precision of 2.",
+"trace": [
+"is_decimal('123.11') -> True",
+"is_decimal('e666.86') -> False",
+"is_decimal('3.124587') -> False",
+"is_decimal('') -> False",
+"is_decimal('1') -> True"
+]
+}
+],
+"xy": [
+0.5337949024192454,
+0.03623307498975373
+],
+"t": 1046
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1046
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1046
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1046
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1046
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1046
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1062
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1228
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1237
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1250
+},
+{
+"type": "token",
+"run": "sft",
+"text": "check_element(l,s):\n",
+"t": 1331
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "check_element(l, ",
+"t": 1343
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1355
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1425
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "str):\n",
+"t": 1449
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "check_element(l,s):\n",
+"t": 1454
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1630
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1630
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1630
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 1630
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1652
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1654
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 1719
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 1750
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 1758
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 1818
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 1850
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 1856
+},
+{
+"type": "token",
+"run": "sft",
+"text": "l:\n",
+"t": 2034
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2034
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2034
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2034
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "l:\n",
+"t": 2067
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "l:\n",
+"t": 2067
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2114
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2156
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2165
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2218
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2256
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2274
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2323
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 2359
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 2359
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2422
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2454
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 2460
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i!=s:\n",
+"t": 2524
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2560
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "!= ",
+"t": 2564
+},
+{
+"type": "token",
+"run": "sft",
+"text": "     ",
+"t": 2635
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i!=s:\n",
+"t": 2648
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "str:\n",
+"t": 2653
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2729
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "     ",
+"t": 2753
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 2757
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2826
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2849
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2853
+},
+{
+"type": "token",
+"run": "sft",
+"text": "False\n",
+"t": 2925
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2956
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2959
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3023
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "False\n",
+"t": 3048
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "False\n",
+"t": 3051
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3116
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3142
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3147
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3220
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3243
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3252
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3323
+},
+{
+"type": "token",
+"run": "sft",
+"text": "True<|repo_name|>",
+"t": 3325
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def check_element(l,s):\n  for i in l:\n    if i!=s:\n      return False\n  return True",
+"ms": 2621,
+"t": 3328
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 3339
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 3343
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3391
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "True<|repo_name|>",
+"t": 3396
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def check_element(l,s):\n  for i in l:\n    if i!=s:\n      return False\n  return True",
+"ms": 2683,
+"t": 3397
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3397
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "True<|repo_name|>",
+"t": 3404
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def check_element(l, str):\n  for i in l:\n    if i != str:\n      return False\n  return True",
+"ms": 2690,
+"t": 3404
+},
+{
+"type": "end",
+"t": 3404
+}
+],
+"exec": {
+"probes": [
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], 'blue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element([1, 2, 3, 4], 7)",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'green', 'green', 'green'], 'green')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"precodefull_aux": "True",
+"jepa": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "check_element([], 'blue')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"precodefull_aux": "True",
+"jepa": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "check_element(['green'], 'blue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['white', 'black', 'orange', 'green'], 'blue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white', 'green'], 'blue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white', 'green', 'orange', 'black', 'white', 'green', 'orange', 'black', 'white'], 'blue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], '')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], 'b')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], 'eulb')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], 'blueblue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element(['green', 'orange', 'black', 'white'], 'blueblueblueblueblue')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element([], 7)",
+"outs": {
+"reference": "True",
+"sft": "True",
+"precodefull_aux": "True",
+"jepa": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "check_element([1], 7)",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "check_element([4, 3, 2, 1], 7)",
+"outs": {
+"reference": "False",
+"sft": "False",
+"precodefull_aux": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert check_element([\"green\", \"orange\", \"black\", \"white\"],'blue')==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([1,2,3,4],7)==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([\"green\", \"green\", \"green\", \"green\"],'green')==True",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5340483639681315,
+0.03731433543090157
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 808,
+"cos": 0.566,
+"desc": "Write a function to check if the given tuples contain the k or not.",
+"trace": [
+"check_K((10, 4, 5, 6, 8), 6) -> True",
+"check_K((1, 2, 3, 4, 5, 6), 7) -> False",
+"check_K((7, 8, 9, 44, 11, 12), 11) -> True",
+"check_K((), 6) -> False",
+"check_K((10,), 6) -> False"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert check_element([\"green\", \"orange\", \"black\", \"white\"],'blue')==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([1,2,3,4],7)==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([\"green\", \"green\", \"green\", \"green\"],'green')==True",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5340483639681315,
+0.03731433543090157
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 808,
+"cos": 0.566,
+"desc": "Write a function to check if the given tuples contain the k or not.",
+"trace": [
+"check_K((10, 4, 5, 6, 8), 6) -> True",
+"check_K((1, 2, 3, 4, 5, 6), 7) -> False",
+"check_K((7, 8, 9, 44, 11, 12), 11) -> True",
+"check_K((), 6) -> False",
+"check_K((10,), 6) -> False"
+]
+}
+],
+"imagined_vs_actual": 0.24
+},
+"jepa": {
+"tests": [
+{
+"test": "assert check_element([\"green\", \"orange\", \"black\", \"white\"],'blue')==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([1,2,3,4],7)==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert check_element([\"green\", \"green\", \"green\", \"green\"],'green')==True",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5340483639681315,
+0.03731433543090157
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 808,
+"cos": 0.566,
+"desc": "Write a function to check if the given tuples contain the k or not.",
+"trace": [
+"check_K((10, 4, 5, 6, 8), 6) -> True",
+"check_K((1, 2, 3, 4, 5, 6), 7) -> False",
+"check_K((7, 8, 9, 44, 11, 12), 11) -> True",
+"check_K((), 6) -> False",
+"check_K((10,), 6) -> False"
+]
+}
+]
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:12"
+}

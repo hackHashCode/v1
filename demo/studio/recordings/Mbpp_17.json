@@ -1,0 +1,2923 @@
+{
+"task": "Write a function to find the perimeter of a square.",
+"tests": [
+"assert square_perimeter(10)==40",
+"assert square_perimeter(5)==20",
+"assert square_perimeter(4)==16"
+],
+"reference": "def square_perimeter(a):\r\n  perimeter=4*a\r\n  return perimeter",
+"task_id": "Mbpp/17",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 716
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 720
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 720
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 882,
+"cos": 0.384,
+"desc": "Write a function to caluclate perimeter of a parallelogram.",
+"trace": [
+"parallelogram_perimeter(10, 20) -> 400",
+"parallelogram_perimeter(15, 20) -> 600",
+"parallelogram_perimeter(8, 9) -> 144",
+"parallelogram_perimeter(0, 20) -> 0",
+"parallelogram_perimeter(1, 20) -> 40"
+]
+},
+{
+"task_id": 924,
+"cos": 0.377,
+"desc": "Write a function to find maximum of two numbers.",
+"trace": [
+"max_of_two(10, 20) -> 20",
+"max_of_two(19, 15) -> 19",
+"max_of_two(-10, -20) -> -10",
+"max_of_two(0, 20) -> 20",
+"max_of_two(1, 20) -> 20"
+]
+},
+{
+"task_id": 654,
+"cos": 0.366,
+"desc": "Write a function to find the perimeter of a rectangle.",
+"trace": [
+"rectangle_perimeter(10, 20) -> 60",
+"rectangle_perimeter(10, 5) -> 30",
+"rectangle_perimeter(4, 2) -> 12",
+"rectangle_perimeter(0, 20) -> 40",
+"rectangle_perimeter(1, 20) -> 42"
+]
+}
+],
+"xy": [
+0.5958047092292125,
+0.9202846149371089
+],
+"t": 1741
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1741
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1741
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1741
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1743
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1747
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1782
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1835
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1847
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1869
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1921
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1938
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1964
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2016
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2029
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2058
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "square_perimeter(side):\n",
+"t": 2111
+},
+{
+"type": "token",
+"run": "sft",
+"text": "square_perimeter(side):\n",
+"t": 2128
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2150
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2227
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2227
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "square_perimeter(side_length):\n",
+"t": 2269
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2302
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2304
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2326
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2389
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2390
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2424
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2459
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2471
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2503
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2535
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2573
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2610
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2629
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2657
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "4 ",
+"t": 2699
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2744
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "4*side<|repo_name|>",
+"t": 2744
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def square_perimeter(side):\n  return 4*side",
+"ms": 2014,
+"t": 2744
+},
+{
+"type": "token",
+"run": "sft",
+"text": "4*side\n",
+"t": 2744
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "* ",
+"t": 2784
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2784
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2799
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2855
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "side_length\n",
+"t": 2855
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2938
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2938
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "<|fim_pad|>",
+"t": 2938
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def square_perimeter(side_length):\n    return 4 * side_length",
+"ms": 2189,
+"t": 2938
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2938
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2938
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2945
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2960
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2973
+},
+{
+"type": "token",
+"run": "sft",
+"text": "print(square_perimeter(10)) ",
+"t": 3074
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3074
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3074
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3076
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3076
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3076
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3076
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3083
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3097
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3118
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3124
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3177
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3177
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3177
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3250
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3250
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3250
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3250
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3250
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3252
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3264
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3278
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3295
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3382
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3411
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3411
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3417
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3432
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3447
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3463
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3484
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3549
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3549
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3549
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3549
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3549
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3577
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3578
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3588
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3601
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3614
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3658
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3658
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3658
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3671
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3686
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3719
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3719
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3732
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3767
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3792
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3796
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3812
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3854
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3854
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3887
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3887
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3887
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3900
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3915
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3960
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3960
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3960
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3995
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3995
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4037
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4037
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4037
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4043
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4057
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4071
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4084
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4099
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4112
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4127
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4140
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4163
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4166
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4200
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4200
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4264
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4264
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4264
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4264
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4266
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4279
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4295
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4356
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4356
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4356
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4356
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4391
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4391
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4391
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4405
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4419
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4433
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4447
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4461
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4506
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4506
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4507
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4529
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4529
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4575
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4575
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4575
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4583
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4597
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4613
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4694
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4694
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4694
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4694
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4694
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4697
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4715
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4728
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4742
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4757
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4771
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4786
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4799
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4812
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4828
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4842
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4856
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4871
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4886
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4900
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4922
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4928
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4943
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4956
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4970
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4986
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4998
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5011
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5025
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5039
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5053
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5066
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5089
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5094
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5106
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5121
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5134
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5148
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5162
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5177
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5191
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5205
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5219
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5234
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5247
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5261
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5274
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5289
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5304
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5318
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5332
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5348
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5362
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5378
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5390
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5405
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5419
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5434
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5448
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5464
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5689
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5690
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5690
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5690
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5691
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5701
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5713
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5728
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5741
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5755
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5770
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5785
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5799
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5812
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5826
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5839
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5852
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5877
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5886
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5893
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5916
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5920
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5935
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5949
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5963
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5976
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5990
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6004
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6019
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6034
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6048
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6064
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6078
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6091
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6105
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6120
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6135
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6151
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6165
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6180
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6194
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6209
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6225
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6239
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6254
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6268
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6284
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6298
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6312
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6328
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6342
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6356
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6372
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6386
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6400
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6414
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6430
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6446
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6457
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6472
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6487
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6502
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6516
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6533
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6545
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6558
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6574
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6590
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6602
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6619
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6635
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6650
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6664
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6679
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6694
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6710
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6726
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6742
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6756
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6774
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6787
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6805
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6816
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6832
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6845
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6859
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6873
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6886
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6902
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6917
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6931
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6945
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6959
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6975
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6987
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7003
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7018
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7033
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7051
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7062
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7076
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7090
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7103
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7116
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7130
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7146
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7160
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7175
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7189
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7204
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7219
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7231
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7244
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7258
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7276
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7288
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7303
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7321
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7332
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7346
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7360
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7376
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7390
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7404
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7419
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7434
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7448
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7461
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7476
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7491
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7503
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7517
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7532
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7546
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7561
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7575
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7591
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7603
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7621
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7635
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7649
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7662
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7676
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7696
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7705
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7720
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7733
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7748
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7762
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7777
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7793
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7808
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7819
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7834
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7848
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7863
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7877
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7892
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7905
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7919
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7934
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7954
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7962
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7975
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7990
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8004
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8018
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8034
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8048
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8062
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8075
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8092
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8106
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8121
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8136
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8151
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=",
+"t": 8154
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def square_perimeter(side):\n    return 4*side\nprint(square_perimeter(10)) ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=",
+"ms": 7459,
+"t": 8154
+},
+{
+"type": "end",
+"t": 8154
+}
+],
+"exec": {
+"probes": [
+{
+"call": "square_perimeter(10)",
+"outs": {
+"reference": "40",
+"jepa": "40",
+"precodefull_aux": "40",
+"sft": "DoesNotRun"
+},
+"truth": "40",
+"majority": "40",
+"split": true
+},
+{
+"call": "square_perimeter(5)",
+"outs": {
+"reference": "20",
+"jepa": "20",
+"precodefull_aux": "20",
+"sft": "DoesNotRun"
+},
+"truth": "20",
+"majority": "20",
+"split": true
+},
+{
+"call": "square_perimeter(4)",
+"outs": {
+"reference": "16",
+"jepa": "16",
+"precodefull_aux": "16",
+"sft": "DoesNotRun"
+},
+"truth": "16",
+"majority": "16",
+"split": true
+},
+{
+"call": "square_perimeter(0)",
+"outs": {
+"reference": "0",
+"jepa": "0",
+"precodefull_aux": "0",
+"sft": "DoesNotRun"
+},
+"truth": "0",
+"majority": "0",
+"split": true
+},
+{
+"call": "square_perimeter(1)",
+"outs": {
+"reference": "4",
+"jepa": "4",
+"precodefull_aux": "4",
+"sft": "DoesNotRun"
+},
+"truth": "4",
+"majority": "4",
+"split": true
+},
+{
+"call": "square_perimeter(-1)",
+"outs": {
+"reference": "-4",
+"jepa": "-4",
+"precodefull_aux": "-4",
+"sft": "DoesNotRun"
+},
+"truth": "-4",
+"majority": "-4",
+"split": true
+},
+{
+"call": "square_perimeter(-10)",
+"outs": {
+"reference": "-40",
+"jepa": "-40",
+"precodefull_aux": "-40",
+"sft": "DoesNotRun"
+},
+"truth": "-40",
+"majority": "-40",
+"split": true
+},
+{
+"call": "square_perimeter(11)",
+"outs": {
+"reference": "44",
+"jepa": "44",
+"precodefull_aux": "44",
+"sft": "DoesNotRun"
+},
+"truth": "44",
+"majority": "44",
+"split": true
+},
+{
+"call": "square_perimeter(1007)",
+"outs": {
+"reference": "4028",
+"jepa": "4028",
+"precodefull_aux": "4028",
+"sft": "DoesNotRun"
+},
+"truth": "4028",
+"majority": "4028",
+"split": true
+},
+{
+"call": "square_perimeter(-5)",
+"outs": {
+"reference": "-20",
+"jepa": "-20",
+"precodefull_aux": "-20",
+"sft": "DoesNotRun"
+},
+"truth": "-20",
+"majority": "-20",
+"split": true
+},
+{
+"call": "square_perimeter(6)",
+"outs": {
+"reference": "24",
+"jepa": "24",
+"precodefull_aux": "24",
+"sft": "DoesNotRun"
+},
+"truth": "24",
+"majority": "24",
+"split": true
+},
+{
+"call": "square_perimeter(507)",
+"outs": {
+"reference": "2028",
+"jepa": "2028",
+"precodefull_aux": "2028",
+"sft": "DoesNotRun"
+},
+"truth": "2028",
+"majority": "2028",
+"split": true
+},
+{
+"call": "square_perimeter(-4)",
+"outs": {
+"reference": "-16",
+"jepa": "-16",
+"precodefull_aux": "-16",
+"sft": "DoesNotRun"
+},
+"truth": "-16",
+"majority": "-16",
+"split": true
+},
+{
+"call": "square_perimeter(407)",
+"outs": {
+"reference": "1628",
+"jepa": "1628",
+"precodefull_aux": "1628",
+"sft": "DoesNotRun"
+},
+"truth": "1628",
+"majority": "1628",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"jepa": {
+"tests": [
+{
+"test": "assert square_perimeter(10)==40",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert square_perimeter(5)==20",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert square_perimeter(4)==16",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6176531597941294,
+0.900142650500646
+],
+"agree_ref": [
+14,
+14
+],
+"nearest": [
+{
+"task_id": 716,
+"cos": 1.0,
+"desc": "Write a function to find the perimeter of a rombus.",
+"trace": [
+"rombus_perimeter(10) -> 40",
+"rombus_perimeter(5) -> 20",
+"rombus_perimeter(4) -> 16",
+"rombus_perimeter(0) -> 0",
+"rombus_perimeter(1) -> 4"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert square_perimeter(10)==40",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert square_perimeter(5)==20",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert square_perimeter(4)==16",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6176531597941294,
+0.900142650500646
+],
+"agree_ref": [
+14,
+14
+],
+"nearest": [
+{
+"task_id": 716,
+"cos": 1.0,
+"desc": "Write a function to find the perimeter of a rombus.",
+"trace": [
+"rombus_perimeter(10) -> 40",
+"rombus_perimeter(5) -> 20",
+"rombus_perimeter(4) -> 16",
+"rombus_perimeter(0) -> 0",
+"rombus_perimeter(1) -> 4"
+]
+}
+],
+"imagined_vs_actual": 0.322
+},
+"sft": {
+"tests": [
+{
+"test": "assert square_perimeter(10)==40",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert square_perimeter(5)==20",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert square_perimeter(4)==16",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+}
+],
+"xy": [
+0.7222293644800342,
+0.5721123424753994
+],
+"agree_ref": [
+0,
+14
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.208,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+}
+},
+"split_count": 14,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:10"
+}

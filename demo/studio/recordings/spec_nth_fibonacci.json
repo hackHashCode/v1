@@ -1,0 +1,1359 @@
+{
+"task": "Write a function to return the nth Fibonacci number, where fib(0) = 0 and fib(1) = 1.",
+"tests": [
+"assert fib(5) == 5",
+"assert fib(0) == 0",
+"assert fib(1) == 1",
+"assert fib(2) == 1",
+"assert fib(10) == 55",
+"assert fib(3) == 2",
+"assert fib(20) == 6765",
+"assert fib(7) == 13"
+],
+"reference": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 868
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 873
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 873
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 873,
+"cos": 0.355,
+"desc": "Write a function to solve the fibonacci sequence using recursion.",
+"trace": [
+"fibonacci(7) -> 13",
+"fibonacci(8) -> 21",
+"fibonacci(9) -> 34",
+"fibonacci(0) -> RecursionError",
+"fibonacci(1) -> 1"
+]
+},
+{
+"task_id": 583,
+"cos": 0.297,
+"desc": "Write a function for nth catalan number.",
+"trace": [
+"catalan_number(10) -> 16796",
+"catalan_number(9) -> 4862",
+"catalan_number(7) -> 429",
+"catalan_number(0) -> 1",
+"catalan_number(1) -> 1"
+]
+},
+{
+"task_id": 641,
+"cos": 0.287,
+"desc": "Write a function to find the nth nonagonal number.",
+"trace": [
+"is_nonagonal(10) -> 325",
+"is_nonagonal(15) -> 750",
+"is_nonagonal(18) -> 1089",
+"is_nonagonal(0) -> 0",
+"is_nonagonal(1) -> 1"
+]
+}
+],
+"xy": [
+0.7582046682022008,
+0.8698636062425877
+],
+"t": 1095
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1095
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1095
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1096
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1096
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1096
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "fib(n):\n",
+"t": 1182
+},
+{
+"type": "token",
+"run": "sft",
+"text": "fib(n):\n",
+"t": 1187
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1190
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1257
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1263
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "fib(n):\n",
+"t": 1269
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1331
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1336
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1351
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 1403
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 1413
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1429
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n ",
+"t": 1482
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n ",
+"t": 1491
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 1507
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 1557
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 1567
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "n ",
+"t": 1583
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1632
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1643
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 1659
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0:\n",
+"t": 1709
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0:\n",
+"t": 1718
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1736
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 1783
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 1796
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0:\n",
+"t": 1816
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1864
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1869
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 1893
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 1939
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 1945
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1967
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2020
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2024
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2050
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2091
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 2096
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2120
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2171
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2175
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0\n",
+"t": 2192
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2245
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2250
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "elif ",
+"t": 2322
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "elif ",
+"t": 2331
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2349
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n ",
+"t": 2399
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n ",
+"t": 2410
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "elif ",
+"t": 2423
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 2472
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 2485
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "n ",
+"t": 2499
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2543
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2567
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 2576
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1:\n",
+"t": 2620
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1:\n",
+"t": 2644
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2654
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 2696
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 2717
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1:\n",
+"t": 2733
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2776
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2792
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 2809
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2852
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2868
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2882
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2925
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2944
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2961
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 2999
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 3019
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3037
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3076
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 3093
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 3117
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3150
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3169
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3187
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else:\n",
+"t": 3227
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "else:\n",
+"t": 3249
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3264
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3298
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 3321
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "else:\n",
+"t": 3339
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3374
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3397
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "       ",
+"t": 3416
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3465
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 3492
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3502
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3535
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3562
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 3573
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3624
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3644
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3665
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3708
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3739
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3760
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3795
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3824
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3848
+},
+{
+"type": "token",
+"run": "sft",
+"text": "fib(n-1) ",
+"t": 3883
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "fib(n-1) ",
+"t": 3917
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3928
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+ ",
+"t": 3971
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 4010
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "fib(n-1) ",
+"t": 4017
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4060
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4103
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+ ",
+"t": 4112
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4153
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4193
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4201
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4230
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4274
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4289
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4315
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4353
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4366
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4397
+},
+{
+"type": "token",
+"run": "sft",
+"text": "fib(n-2)<|file_sep|>",
+"t": 4401
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def fib(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fib(n-1) + fib(n-2)",
+"ms": 3540,
+"t": 4401
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4419
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "fib(n-2)<|file_sep|>",
+"t": 4425
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def fib(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fib(n-1) + fib(n-2)",
+"ms": 3560,
+"t": 4425
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4427
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4441
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "fib(n-2)<|repo_name|>",
+"t": 4445
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def fib(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fib(n-1) + fib(n-2)",
+"ms": 3579,
+"t": 4445
+},
+{
+"type": "end",
+"t": 4445
+}
+],
+"exec": {
+"probes": [
+{
+"call": "fib(5)",
+"outs": {
+"reference": "5",
+"sft": "5",
+"jepa": "5",
+"precodefull_aux": "5"
+},
+"truth": "5",
+"majority": "5",
+"split": false
+},
+{
+"call": "fib(0)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"jepa": "0",
+"precodefull_aux": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "fib(1)",
+"outs": {
+"reference": "1",
+"sft": "1",
+"jepa": "1",
+"precodefull_aux": "1"
+},
+"truth": "1",
+"majority": "1",
+"split": false
+},
+{
+"call": "fib(2)",
+"outs": {
+"reference": "1",
+"sft": "1",
+"jepa": "1",
+"precodefull_aux": "1"
+},
+"truth": "1",
+"majority": "1",
+"split": false
+},
+{
+"call": "fib(10)",
+"outs": {
+"reference": "55",
+"sft": "55",
+"jepa": "55",
+"precodefull_aux": "55"
+},
+"truth": "55",
+"majority": "55",
+"split": false
+},
+{
+"call": "fib(3)",
+"outs": {
+"reference": "2",
+"sft": "2",
+"jepa": "2",
+"precodefull_aux": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "fib(20)",
+"outs": {
+"reference": "6765",
+"sft": "6765",
+"jepa": "6765",
+"precodefull_aux": "6765"
+},
+"truth": "6765",
+"majority": "6765",
+"split": false
+},
+{
+"call": "fib(7)",
+"outs": {
+"reference": "13",
+"sft": "13",
+"jepa": "13",
+"precodefull_aux": "13"
+},
+"truth": "13",
+"majority": "13",
+"split": false
+},
+{
+"call": "fib(-1)",
+"outs": {
+"reference": "0",
+"sft": "RecursionError",
+"jepa": "RecursionError",
+"precodefull_aux": "RecursionError"
+},
+"truth": "0",
+"majority": "RecursionError",
+"split": false
+},
+{
+"call": "fib(-5)",
+"outs": {
+"reference": "0",
+"sft": "RecursionError",
+"jepa": "RecursionError",
+"precodefull_aux": "RecursionError"
+},
+"truth": "0",
+"majority": "RecursionError",
+"split": false
+},
+{
+"call": "fib(6)",
+"outs": {
+"reference": "8",
+"sft": "8",
+"jepa": "8",
+"precodefull_aux": "8"
+},
+"truth": "8",
+"majority": "8",
+"split": false
+},
+{
+"call": "fib(507)",
+"outs": {
+"reference": "4048075506598755342460460098432195208198709276580434935765176967026774733585835809797669102696140760835138",
+"sft": "Timeout",
+"jepa": "Timeout",
+"precodefull_aux": "Timeout"
+},
+"truth": "4048075506598755342460460098432195208198709276580434935765176967026774733585835809797669102696140760835138",
+"majority": "Timeout",
+"split": false
+},
+{
+"call": "fib(107)",
+"outs": {
+"reference": "10284720757613717413913",
+"sft": "Timeout",
+"jepa": "Timeout",
+"precodefull_aux": "Timeout"
+},
+"truth": "10284720757613717413913",
+"majority": "Timeout",
+"split": false
+},
+{
+"call": "fib(-2)",
+"outs": {
+"reference": "0",
+"sft": "RecursionError",
+"jepa": "RecursionError",
+"precodefull_aux": "RecursionError"
+},
+"truth": "0",
+"majority": "RecursionError",
+"split": false
+},
+{
+"call": "fib(207)",
+"outs": {
+"reference": "8146227408089084511865756065370647467555938",
+"sft": "Timeout",
+"jepa": "Timeout",
+"precodefull_aux": "Timeout"
+},
+"truth": "8146227408089084511865756065370647467555938",
+"majority": "Timeout",
+"split": false
+},
+{
+"call": "fib(-10)",
+"outs": {
+"reference": "0",
+"sft": "RecursionError",
+"jepa": "RecursionError",
+"precodefull_aux": "RecursionError"
+},
+"truth": "0",
+"majority": "RecursionError",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert fib(5) == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(0) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(1) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(2) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(10) == 55",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(3) == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(20) == 6765",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(7) == 13",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.7706594577447139,
+0.9538383801850838
+],
+"agree_ref": [
+9,
+16
+],
+"nearest": [
+{
+"task_id": 960,
+"cos": 0.745,
+"desc": "Write a function to solve tiling problem.",
+"trace": [
+"get_noOfways(4) -> 3",
+"get_noOfways(3) -> 2",
+"get_noOfways(5) -> 5",
+"get_noOfways(0) -> 0",
+"get_noOfways(1) -> 1"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert fib(5) == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(0) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(1) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(2) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(10) == 55",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(3) == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(20) == 6765",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(7) == 13",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.7706594577447139,
+0.9538383801850838
+],
+"agree_ref": [
+9,
+16
+],
+"nearest": [
+{
+"task_id": 960,
+"cos": 0.745,
+"desc": "Write a function to solve tiling problem.",
+"trace": [
+"get_noOfways(4) -> 3",
+"get_noOfways(3) -> 2",
+"get_noOfways(5) -> 5",
+"get_noOfways(0) -> 0",
+"get_noOfways(1) -> 1"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert fib(5) == 5",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(0) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(1) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(2) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(10) == 55",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(3) == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(20) == 6765",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert fib(7) == 13",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.7706594577447139,
+0.9538383801850838
+],
+"agree_ref": [
+9,
+16
+],
+"nearest": [
+{
+"task_id": 960,
+"cos": 0.745,
+"desc": "Write a function to solve tiling problem.",
+"trace": [
+"get_noOfways(4) -> 3",
+"get_noOfways(3) -> 2",
+"get_noOfways(5) -> 5",
+"get_noOfways(0) -> 0",
+"get_noOfways(1) -> 1"
+]
+}
+],
+"imagined_vs_actual": 0.238
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

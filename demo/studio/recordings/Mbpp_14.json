@@ -1,0 +1,1111 @@
+{
+"task": "Write a python function to find the volume of a triangular prism.",
+"tests": [
+"assert find_Volume(10,8,6) == 240",
+"assert find_Volume(3,2,2) == 6",
+"assert find_Volume(1,2,1) == 1"
+],
+"reference": "def find_Volume(l,b,h) : \r\n    return ((l * b * h) / 2) ",
+"task_id": "Mbpp/14",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 744
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 747
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 751
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 857
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 519,
+"cos": 0.265,
+"desc": "Write a function to calculate volume of a tetrahedron.",
+"trace": [
+"volume_tetrahedron(10) -> 117.85",
+"volume_tetrahedron(15) -> 397.75",
+"volume_tetrahedron(20) -> 942.81",
+"volume_tetrahedron(0) -> 0.0",
+"volume_tetrahedron(1) -> 0.12"
+]
+},
+{
+"task_id": 704,
+"cos": 0.253,
+"desc": "Write a function to calculate the harmonic sum of n-1.",
+"trace": [
+"harmonic_sum(10) -> 2.9289682539682538",
+"harmonic_sum(4) -> 2.083333333333333",
+"harmonic_sum(7) -> 2.5928571428571425",
+"harmonic_sum(0) -> 1",
+"harmonic_sum(1) -> 1"
+]
+},
+{
+"task_id": 935,
+"cos": 0.235,
+"desc": "Write a function to calculate the sum of series 1\u00b2+2\u00b2+3\u00b2+\u2026.+n\u00b2.",
+"trace": [
+"series_sum(6) -> 91.0",
+"series_sum(7) -> 140.0",
+"series_sum(12) -> 650.0",
+"series_sum(0) -> 0.0",
+"series_sum(1) -> 1.0"
+]
+}
+],
+"xy": [
+0.6287065422790539,
+0.7610309331759613
+],
+"t": 966
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 966
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 966
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1073
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1073
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1074
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1078
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1167
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1171
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1339
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1339
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1368
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1377
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1391
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1471
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1475
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1493
+},
+{
+"type": "token",
+"run": "sft",
+"text": "find_Volume(a,b,c):\n",
+"t": 1575
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find_Volume(a,b,c):\n",
+"t": 1578
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1597
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1680
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1683
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "find_Volume(a,b,c):\n",
+"t": 1704
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1783
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1786
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1810
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 1878
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "s ",
+"t": 1895
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1920
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1985
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 2003
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2031
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2088
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2107
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2134
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2193
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "(a ",
+"t": 2206
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2235
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2291
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 2306
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2333
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2394
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "b ",
+"t": 2408
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2433
+},
+{
+"type": "token",
+"run": "sft",
+"text": "(a*b*c)/2\n",
+"t": 2500
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 2511
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2533
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2611
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2613
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "(a*b*c)/2\n",
+"t": 2640
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "c) ",
+"t": 2701
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2712
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2743
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "<|repo_name|>",
+"t": 2747
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def find_Volume(a,b,c):\n    return (a*b*c)/2",
+"ms": 2006,
+"t": 2750
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "/ ",
+"t": 2781
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2791
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2830
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2836
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2\n",
+"t": 2883
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2892
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2932
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2943
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2984
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2998
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 3033
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3046
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3081
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3096
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3128
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3143
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3181
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3197
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3234
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3250
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3292
+},
+{
+"type": "token",
+"run": "sft",
+"text": "print(find_Volume(10,8,6)) ",
+"t": 3301
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3339
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3351
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3416
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3417
+},
+{
+"type": "token",
+"run": "sft",
+"text": "<|fim_pad|>",
+"t": 3417
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def find_Volume(a,b,c):\n  return (a*b*c)/2\nprint(find_Volume(10,8,6)) ;;=",
+"ms": 2666,
+"t": 3417
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3417
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3435
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3443
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3455
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "(s*(s-a)*(s-b)*(s-c)) ",
+"t": 3488
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "** ",
+"t": 3488
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3502
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3516
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3531
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0.5\n",
+"t": 3546
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3562
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3574
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3591
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3605
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3619
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3634
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3649
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3664
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3679
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3694
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3710
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3725
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3741
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "print(find_Volume(10,8,6)).tf\n",
+"t": 3759
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3771
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "<|repo_name|>",
+"t": 3777
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def find_Volume(a,b,c):\n  s = (a + b + c) / 2\n  return (s*(s-a)*(s-b)*(s-c)) ** 0.5\nprint(find_Volume(10,8,6)).tf",
+"ms": 3034,
+"t": 3777
+},
+{
+"type": "end",
+"t": 3777
+}
+],
+"exec": {
+"probes": [
+{
+"call": "find_Volume(10, 8, 6)",
+"outs": {
+"reference": "240.0",
+"precodefull_aux": "240.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "240.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(3, 2, 2)",
+"outs": {
+"reference": "6.0",
+"precodefull_aux": "6.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "6.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(1, 2, 1)",
+"outs": {
+"reference": "1.0",
+"precodefull_aux": "1.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "1.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(0, 8, 6)",
+"outs": {
+"reference": "0.0",
+"precodefull_aux": "0.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "0.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(1, 8, 6)",
+"outs": {
+"reference": "24.0",
+"precodefull_aux": "24.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "24.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(-1, 8, 6)",
+"outs": {
+"reference": "-24.0",
+"precodefull_aux": "-24.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-24.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(-10, 8, 6)",
+"outs": {
+"reference": "-240.0",
+"precodefull_aux": "-240.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-240.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(11, 8, 6)",
+"outs": {
+"reference": "264.0",
+"precodefull_aux": "264.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "264.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(1007, 8, 6)",
+"outs": {
+"reference": "24168.0",
+"precodefull_aux": "24168.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "24168.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, 0, 6)",
+"outs": {
+"reference": "0.0",
+"precodefull_aux": "0.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "0.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, 1, 6)",
+"outs": {
+"reference": "30.0",
+"precodefull_aux": "30.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "30.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, -1, 6)",
+"outs": {
+"reference": "-30.0",
+"precodefull_aux": "-30.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-30.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, -8, 6)",
+"outs": {
+"reference": "-240.0",
+"precodefull_aux": "-240.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-240.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, 9, 6)",
+"outs": {
+"reference": "270.0",
+"precodefull_aux": "270.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "270.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, 807, 6)",
+"outs": {
+"reference": "24210.0",
+"precodefull_aux": "24210.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "24210.0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "find_Volume(10, 8, 0)",
+"outs": {
+"reference": "0.0",
+"precodefull_aux": "0.0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "0.0",
+"majority": "DoesNotRun",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert find_Volume(10,8,6) == 240",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert find_Volume(3,2,2) == 6",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert find_Volume(1,2,1) == 1",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6032253681604054,
+0.600097483907609
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 848,
+"cos": 0.382,
+"desc": "Write a function to find the area of a trapezium.",
+"trace": [
+"area_trapezium(6, 9, 4) -> 30.0",
+"area_trapezium(10, 20, 30) -> 450.0",
+"area_trapezium(15, 25, 35) -> 700.0",
+"area_trapezium(0, 9, 4) -> 18.0",
+"area_trapezium(1, 9, 4) -> 20.0"
+]
+}
+],
+"imagined_vs_actual": 0.134
+},
+"sft": {
+"tests": [
+{
+"test": "assert find_Volume(10,8,6) == 240",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert find_Volume(3,2,2) == 6",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert find_Volume(1,2,1) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+}
+],
+"xy": [
+0.7343878073329739,
+0.5447053768068606
+],
+"agree_ref": [
+0,
+16
+],
+"nearest": [
+{
+"task_id": 653,
+"cos": 0.243,
+"desc": "Write a function to group a sequence of key-value pairs into a dictionary of lists using collections module.",
+"trace": [
+"grouping_dictionary([('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]) -> defaultdict(<class 'list'>, {'yellow': [1, 3], 'blue': [2, 4], 'red': [1]})",
+"grouping_dictionary([('yellow', 10), ('blue', 20), ('yellow', 30), ('blue', 40), ('red', 10)]) -> defaultdict(<class 'list'>, {'yellow': [10, 30], 'blue': [20, 40], 'red': [10]})",
+"grouping_dictionary([('yellow', 15), ('blue', 25), ('yellow', 35), ('blue', 45), ('red', 15)]) -> defaultdict(<class 'list'>, {'yellow': [15, 35], 'blue': [25, 45], 'red': [15]})",
+"grouping_dictionary([]) -> defaultdict(<class 'list'>, {})",
+"grouping_dictionary([('yellow', 1)]) -> defaultdict(<class 'list'>, {'yellow': [1]})"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert find_Volume(10,8,6) == 240",
+"ok": false,
+"why": "does not run (AttributeError: 'NoneType' object has no attribute 'tf')"
+},
+{
+"test": "assert find_Volume(3,2,2) == 6",
+"ok": false,
+"why": "does not run (AttributeError: 'NoneType' object has no attribute 'tf')"
+},
+{
+"test": "assert find_Volume(1,2,1) == 1",
+"ok": false,
+"why": "does not run (AttributeError: 'NoneType' object has no attribute 'tf')"
+}
+],
+"xy": [
+0.7343878073329739,
+0.5447053768068606
+],
+"agree_ref": [
+0,
+16
+],
+"nearest": [
+{
+"task_id": 653,
+"cos": 0.243,
+"desc": "Write a function to group a sequence of key-value pairs into a dictionary of lists using collections module.",
+"trace": [
+"grouping_dictionary([('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]) -> defaultdict(<class 'list'>, {'yellow': [1, 3], 'blue': [2, 4], 'red': [1]})",
+"grouping_dictionary([('yellow', 10), ('blue', 20), ('yellow', 30), ('blue', 40), ('red', 10)]) -> defaultdict(<class 'list'>, {'yellow': [10, 30], 'blue': [20, 40], 'red': [10]})",
+"grouping_dictionary([('yellow', 15), ('blue', 25), ('yellow', 35), ('blue', 45), ('red', 15)]) -> defaultdict(<class 'list'>, {'yellow': [15, 35], 'blue': [25, 45], 'red': [15]})",
+"grouping_dictionary([]) -> defaultdict(<class 'list'>, {})",
+"grouping_dictionary([('yellow', 1)]) -> defaultdict(<class 'list'>, {'yellow': [1]})"
+]
+}
+]
+}
+},
+"split_count": 16,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

@@ -271,12 +271,12 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 @app.get("/")
 def stage():   # the minimal stage demo: one claim, one task, SFT vs PreCode
-    return FileResponse(os.path.join(HERE, "stage.html"))
+    return FileResponse(os.path.join(HERE, "stage.html"), headers={"Cache-Control": "no-cache"})   # always serve the latest page
 
 
 @app.get("/studio")
 def index():   # the full studio: every method, predicted behaviour, probe grid, behaviour map, results
-    return FileResponse(os.path.join(HERE, "index.html"))
+    return FileResponse(os.path.join(HERE, "index.html"), headers={"Cache-Control": "no-cache"})   # always serve the latest page
 
 
 RESULTS_DIR = os.environ.get("RESULTS_DIR", os.path.join(ROOT, "results", "qc15"))
@@ -342,7 +342,7 @@ def meta():
                   "imagines": k in HEADS, "ours": k == OURS}
                  for k in RUNS if MOCK or k in MODELS],
         "examples": show + specs,
-        "showcase": {k: SHOWCASE.get(k) for k in ("rule", "n_picked", "n_reverse", "n_tasks", "source")},
+        "showcase": {k: SHOWCASE.get(k) for k in ("rule", "n_picked", "n_reverse", "n_tasks", "source", "stage")},
         "recordings": recs,
         "map": [{"id": t, "x": round(float(XY[i][0]), 4), "y": round(float(XY[i][1]), 4), "d": DESC.get(t, "")[:110]} for i, t in enumerate(IDS)],
         "results": read_results(),

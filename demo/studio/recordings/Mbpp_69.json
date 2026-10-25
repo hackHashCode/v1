@@ -1,0 +1,1663 @@
+{
+"task": "Write a function to check whether a list contains the given sublist or not.",
+"tests": [
+"assert is_sublist([2,4,3,5,7],[3,7])==False",
+"assert is_sublist([2,4,3,5,7],[4,3])==True",
+"assert is_sublist([2,4,3,5,7],[1,6])==False"
+],
+"reference": "def is_sublist(l, s):\r\n\tsub_set = False\r\n\tif s == []:\r\n\t\tsub_set = True\r\n\telif s == l:\r\n\t\tsub_set = True\r\n\telif len(s) > len(l):\r\n\t\tsub_set = False\r\n\telse:\r\n\t\tfor i in range(len(l)):\r\n\t\t\tif l[i] == s[0]:\r\n\t\t\t\tn = 1\r\n\t\t\t\twhile (n < len(s)) and (l[i+n] == s[n]):\r\n\t\t\t\t\tn += 1\t\t\t\t\r\n\t\t\t\tif n == len(s):\r\n\t\t\t\t\tsub_set = True\r\n\treturn sub_set",
+"task_id": "Mbpp/69",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 935
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 939
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 943
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1053
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1055
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 703,
+"cos": 0.482,
+"desc": "Write a function to check whether the given key is present in the dictionary or not.",
+"trace": [
+"is_key_present({1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60}, 5) -> True",
+"is_key_present({1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60}, 6) -> True",
+"is_key_present({1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60}, 10) -> False",
+"is_key_present({}, 5) -> False",
+"is_key_present({1: 10}, 5) -> False"
+]
+},
+{
+"task_id": 775,
+"cos": 0.434,
+"desc": "Write a python function to check whether every odd index contains odd numbers of a given list.",
+"trace": [
+"odd_position([2, 1, 4, 3, 6, 7, 6, 3]) -> True",
+"odd_position([4, 1, 2]) -> True",
+"odd_position([1, 2, 3]) -> False",
+"odd_position([]) -> True",
+"odd_position([2]) -> True"
+]
+},
+{
+"task_id": 790,
+"cos": 0.432,
+"desc": "Write a python function to check whether every even index contains even numbers of a given list.",
+"trace": [
+"even_position([3, 2, 1]) -> False",
+"even_position([1, 2, 3]) -> False",
+"even_position([2, 1, 4]) -> True",
+"even_position([]) -> True",
+"even_position([3]) -> False"
+]
+}
+],
+"xy": [
+0.5506906787731722,
+0.06882193860986591
+],
+"t": 1269
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1270
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1270
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1270
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1278
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1366
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1375
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1378
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1472
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1478
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1483
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1571
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1575
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1588
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1679
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1685
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1689
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1782
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "is_sublist(sublist, ",
+"t": 1786
+},
+{
+"type": "token",
+"run": "sft",
+"text": "is_sublist(sublist, ",
+"t": 1794
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1885
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "is_sublist(list1, ",
+"t": 1893
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1896
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sublist):\n",
+"t": 1992
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "mainlist):\n",
+"t": 1998
+},
+{
+"type": "token",
+"run": "sft",
+"text": "mainlist):\n",
+"t": 2002
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2100
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2103
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2107
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2202
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2212
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2216
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2367
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2367
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2367
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 2402
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sublist ",
+"t": 2423
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 2430
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2513
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== []:\n",
+"t": 2527
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2533
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2611
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 2634
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2639
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2725
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2740
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2744
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2829
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2849
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2853
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2927
+},
+{
+"type": "token",
+"run": "sft",
+"text": "True\n",
+"t": 2957
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "range(len(mainlist)):\n",
+"t": 2960
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3038
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3060
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 3066
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3135
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3160
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3166
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3239
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 3263
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 3273
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3390
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3390
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3390
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3443
+},
+{
+"type": "token",
+"run": "sft",
+"text": "mainlist ",
+"t": 3476
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3476
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "range(len(list1)-len(sublist)+1):\n",
+"t": 3541
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== []:\n",
+"t": 3566
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3575
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3629
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3659
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "mainlist[i] ",
+"t": 3670
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3728
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3759
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 3767
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 3829
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3860
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3875
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3929
+},
+{
+"type": "token",
+"run": "sft",
+"text": "False\n",
+"t": 3961
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3976
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4033
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 4071
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sublist[0]:\n",
+"t": 4082
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4133
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4169
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "           ",
+"t": 4177
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4222
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 4278
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4286
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4320
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4385
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "j ",
+"t": 4390
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4423
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4488
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 4492
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4531
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4590
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4603
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list1[i:i+len(sublist)] ",
+"t": 4631
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sublist[0] ",
+"t": 4690
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 4709
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 4728
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 4782
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "           ",
+"t": 4799
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sublist:\n",
+"t": 4820
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4882
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4899
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "     ",
+"t": 4916
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4982
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "while ",
+"t": 5001
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 5016
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5089
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "j ",
+"t": 5106
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 5118
+},
+{
+"type": "token",
+"run": "sft",
+"text": "mainlist[0]:\n",
+"t": 5193
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "True\n",
+"t": 5212
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "< ",
+"t": 5222
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 5298
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 5320
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5320
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5400
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 5416
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 5503
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(sublist):\n",
+"t": 5523
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 5526
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5643
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5643
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "False<|repo_name|>",
+"t": 5643
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def is_sublist(list1, sublist):\n  for i in range(len(list1)-len(sublist)+1):\n    if list1[i:i+len(sublist)] == sublist:\n      return True\n  return False",
+"ms": 4689,
+"t": 5643
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "               ",
+"t": 5643
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5670
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 5682
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5720
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 5733
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5776
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5789
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5831
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5839
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5889
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "mainlist[i ",
+"t": 5898
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5947
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 5951
+},
+{
+"type": "token",
+"run": "sft",
+"text": "is_sublist(sublist[1:], ",
+"t": 5999
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6013
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6056
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "j] ",
+"t": 6065
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6109
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "!= ",
+"t": 6118
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6165
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6175
+},
+{
+"type": "token",
+"run": "sft",
+"text": "mainlist[1:])\n",
+"t": 6225
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sublist[j]:\n",
+"t": 6231
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 6280
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "                   ",
+"t": 6286
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6335
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6343
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else:\n",
+"t": 6391
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "break\n",
+"t": 6400
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 6453
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "               ",
+"t": 6458
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6512
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6512
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 6558
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "j ",
+"t": 6592
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6613
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+= ",
+"t": 6618
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6663
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6682
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6721
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 6721
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6765
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "           ",
+"t": 6770
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6824
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6824
+},
+{
+"type": "token",
+"run": "sft",
+"text": "is_sublist(sublist, ",
+"t": 6874
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 6876
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6917
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "j ",
+"t": 6933
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6971
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 6983
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7021
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7035
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7093
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7128
+},
+{
+"type": "token",
+"run": "sft",
+"text": "mainlist[1:])<|repo_name|>",
+"t": 7134
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def is_sublist(sublist, mainlist):\n    if sublist == []:\n        return True\n    if mainlist == []:\n        return False\n    if sublist[0] == mainlist[0]:\n        return is_sublist(sublist[1:], mainlist[1:])\n    else:\n        return is_sublist(sublist, mainlist[1:])",
+"ms": 6200,
+"t": 7134
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(sublist):\n",
+"t": 7139
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "               ",
+"t": 7151
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7165
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 7180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "True\n",
+"t": 7195
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 7209
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7224
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 7240
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7253
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "False<|repo_name|>",
+"t": 7258
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def is_sublist(sublist, mainlist):\n    for i in range(len(mainlist)):\n        if mainlist[i] == sublist[0]:\n            j = 0\n            while j < len(sublist):\n                if mainlist[i + j] != sublist[j]:\n                    break\n                j += 1\n            if j == len(sublist):\n                return True\n    return False",
+"ms": 6324,
+"t": 7258
+},
+{
+"type": "end",
+"t": 7258
+}
+],
+"exec": {
+"probes": [
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [4, 3])",
+"outs": {
+"reference": "True",
+"precodefull_aux": "True",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "True",
+"majority": "False",
+"split": true
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [1, 6])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "True",
+"jepa": "IndexError"
+},
+"truth": "False",
+"majority": "False",
+"split": true
+},
+{
+"call": "is_sublist([2], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([7, 5, 3, 4, 2], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "IndexError"
+},
+"truth": "False",
+"majority": "False",
+"split": true
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7, 2], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7, 2, 4, 3, 5, 7, 2, 4, 3, 5, 7], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([-2, -4, -3, -5, -7], [3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [])",
+"outs": {
+"reference": "True",
+"precodefull_aux": "True",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "True",
+"majority": "False",
+"split": true
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [3])",
+"outs": {
+"reference": "True",
+"precodefull_aux": "True",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "True",
+"majority": "False",
+"split": true
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [7, 3])",
+"outs": {
+"reference": "IndexError",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "IndexError",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [3, 7, 3])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [3, 7, 3, 7, 3, 7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([2, 4, 3, 5, 7], [-3, -7])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "False",
+"jepa": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_sublist([], [4, 3])",
+"outs": {
+"reference": "False",
+"precodefull_aux": "False",
+"sft": "True",
+"jepa": "IndexError"
+},
+"truth": "False",
+"majority": "False",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert is_sublist([2,4,3,5,7],[3,7])==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[4,3])==True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[1,6])==False",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5446474344528358,
+0.059452909315104496
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 808,
+"cos": 0.563,
+"desc": "Write a function to check if the given tuples contain the k or not.",
+"trace": [
+"check_K((10, 4, 5, 6, 8), 6) -> True",
+"check_K((1, 2, 3, 4, 5, 6), 7) -> False",
+"check_K((7, 8, 9, 44, 11, 12), 11) -> True",
+"check_K((), 6) -> False",
+"check_K((10,), 6) -> False"
+]
+}
+],
+"imagined_vs_actual": 0.34
+},
+"sft": {
+"tests": [
+{
+"test": "assert is_sublist([2,4,3,5,7],[3,7])==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[4,3])==True",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[1,6])==False",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5350806903449987,
+0.06408802459521595
+],
+"agree_ref": [
+10,
+16
+],
+"nearest": [
+{
+"task_id": 808,
+"cos": 0.56,
+"desc": "Write a function to check if the given tuples contain the k or not.",
+"trace": [
+"check_K((10, 4, 5, 6, 8), 6) -> True",
+"check_K((1, 2, 3, 4, 5, 6), 7) -> False",
+"check_K((7, 8, 9, 44, 11, 12), 11) -> True",
+"check_K((), 6) -> False",
+"check_K((10,), 6) -> False"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert is_sublist([2,4,3,5,7],[3,7])==False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[4,3])==True",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert is_sublist([2,4,3,5,7],[1,6])==False",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5420697725044468,
+0.08730314118794846
+],
+"agree_ref": [
+9,
+16
+],
+"nearest": [
+{
+"task_id": 650,
+"cos": 0.51,
+"desc": "Write a python function to check whether the given two arrays are equal or not.",
+"trace": [
+"are_Equal([1, 2, 3], [3, 2, 1], 3, 3) -> True",
+"are_Equal([1, 1, 1], [2, 2, 2], 3, 3) -> False",
+"are_Equal([8, 9], [4, 5, 6], 2, 3) -> False",
+"are_Equal([], [3, 2, 1], 3, 3) -> IndexError",
+"are_Equal([1], [3, 2, 1], 3, 3) -> IndexError"
+]
+}
+]
+}
+},
+"split_count": 6,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

@@ -1,0 +1,1579 @@
+{
+"task": "Write a function to replace the last element of the list with another list.",
+"tests": [
+"assert replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8])==[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"assert replace_list([1,2,3,4,5],[5,6,7,8])==[1,2,3,4,5,6,7,8]",
+"assert replace_list([\"red\",\"blue\",\"green\"],[\"yellow\"])==[\"red\",\"blue\",\"yellow\"]"
+],
+"reference": "def replace_list(list1,list2):\r\n list1[-1:] = list2\r\n replace_list=list1\r\n return replace_list\r\n",
+"task_id": "Mbpp/240",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 720
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 724
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 727
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 809
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 814
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 833,
+"cos": 0.329,
+"desc": "Write a function to get dictionary keys as a list.",
+"trace": [
+"get_key({1: 'python', 2: 'java'}) -> [1, 2]",
+"get_key({10: 'red', 20: 'blue', 30: 'black'}) -> [10, 20, 30]",
+"get_key({27: 'language', 39: 'java', 44: 'little'}) -> [27, 39, 44]",
+"get_key({}) -> []",
+"get_key({1: 'python'}) -> [1]"
+]
+},
+{
+"task_id": 769,
+"cos": 0.317,
+"desc": "Write a python function to get the difference between two lists.",
+"trace": [
+"Diff([10, 15, 20, 25, 30, 35, 40], [25, 40, 35]) -> [10, 20, 30, 15]",
+"Diff([1, 2, 3, 4, 5], [6, 7, 1]) -> [2, 3, 4, 5, 6, 7]",
+"Diff([1, 2, 3], [6, 7, 1]) -> [2, 3, 6, 7]",
+"Diff([], [25, 40, 35]) -> [40, 25, 35]",
+"Diff([10], [25, 40, 35]) -> [10, 40, 25, 35]"
+]
+},
+{
+"task_id": 865,
+"cos": 0.316,
+"desc": "Write a function to print n-times a list using map function.",
+"trace": [
+"ntimes_list([1, 2, 3, 4, 5, 6, 7], 3) -> [3, 6, 9, 12, 15, 18, 21]",
+"ntimes_list([1, 2, 3, 4, 5, 6, 7], 4) -> [4, 8, 12, 16, 20, 24, 28]",
+"ntimes_list([1, 2, 3, 4, 5, 6, 7], 10) -> [10, 20, 30, 40, 50, 60, 70]",
+"ntimes_list([], 3) -> []",
+"ntimes_list([1], 3) -> [3]"
+]
+}
+],
+"xy": [
+0.09897991569344478,
+0.7201166844458378
+],
+"t": 1024
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1024
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1024
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1024
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1024
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1024
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1024
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1036
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1040
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1048
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1109
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1118
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1120
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1183
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1190
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1198
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "replace_list(num_list, ",
+"t": 1256
+},
+{
+"type": "token",
+"run": "sft",
+"text": "replace_list(num_list, ",
+"t": 1264
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1271
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1337
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1340
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1346
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "last_list):\n",
+"t": 1407
+},
+{
+"type": "token",
+"run": "sft",
+"text": "last_list):\n",
+"t": 1417
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "replace_list(l1,l2):\n",
+"t": 1422
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1480
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1493
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1497
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1556
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1563
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1570
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1636
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1636
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1649
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1709
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1714
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1724
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1780
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1787
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1799
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1860
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1862
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1870
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "num_list[-1:] ",
+"t": 1935
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "l1[-1:] ",
+"t": 1941
+},
+{
+"type": "token",
+"run": "sft",
+"text": "num_list[-1:] ",
+"t": 1944
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 2012
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 2015
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 2019
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2084
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2090
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2094
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "last_list\n",
+"t": 2159
+},
+{
+"type": "token",
+"run": "sft",
+"text": "last_list\n",
+"t": 2164
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "l2\n",
+"t": 2172
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2233
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2242
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2251
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2312
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2320
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2329
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2383
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2395
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2407
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2459
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2475
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2481
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "num_list\n",
+"t": 2539
+},
+{
+"type": "token",
+"run": "sft",
+"text": "num_list\n",
+"t": 2548
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "l1\n",
+"t": 2557
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2612
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2626
+},
+{
+"type": "token",
+"run": "sft",
+"text": "<|repo_name|>",
+"t": 2628
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def replace_list(num_list, last_list):\n    num_list[-1:] = last_list\n    return num_list",
+"ms": 1917,
+"t": 2628
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2633
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2663
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "user\n",
+"t": 2671
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2700
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2711
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2737
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "Write ",
+"t": 2752
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2777
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "a ",
+"t": 2790
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2812
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "function ",
+"t": 2829
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2848
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "to ",
+"t": 2867
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "print(replace_list([1, ",
+"t": 2888
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "replace ",
+"t": 2907
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2926
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "the ",
+"t": 2945
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2966
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "last ",
+"t": 2984
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 3005
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "element ",
+"t": 3022
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3044
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "of ",
+"t": 3060
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3081
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "the ",
+"t": 3098
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "5, ",
+"t": 3119
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list ",
+"t": 3136
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3158
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "with ",
+"t": 3175
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3195
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "another ",
+"t": 3212
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "7, ",
+"t": 3234
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list.\n",
+"t": 3254
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3274
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3289
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3315
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "assert ",
+"t": 3326
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "9, ",
+"t": 3351
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3365
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3389
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3405
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3426
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3443
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3465
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3482
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3504
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "replace_list([1, ",
+"t": 3521
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3541
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3559
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "10],[2, ",
+"t": 3583
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3596
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3618
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "3, ",
+"t": 3637
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3657
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3675
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "4, ",
+"t": 3696
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3733
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "5, ",
+"t": 3753
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3771
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3792
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "6, ",
+"t": 3812
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3829
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3851
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "7, ",
+"t": 3868
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3891
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3906
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3931
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "8]))<|repo_name|>",
+"t": 3935
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def replace_list(num_list, last_list):\n  num_list[-1:] = last_list\n  return num_list\nprint(replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8]))",
+"ms": 3219,
+"t": 3935
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3938
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "9, ",
+"t": 3953
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3967
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3982
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3992
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4007
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4020
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "10],[2, ",
+"t": 4036
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4047
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4060
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "4, ",
+"t": 4074
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4087
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4102
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "6, ",
+"t": 4113
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4127
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4141
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4153
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4167
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4182
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "8])==[1, ",
+"t": 4195
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4209
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4226
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "3, ",
+"t": 4234
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4252
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4262
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "5, ",
+"t": 4281
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4288
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4305
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "7, ",
+"t": 4316
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4327
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4341
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "9, ",
+"t": 4357
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4367
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4381
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "2, ",
+"t": 4394
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4407
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4421
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "4, ",
+"t": 4442
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4447
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4460
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "6, ",
+"t": 4474
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4490
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4503
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4518
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "8]<|repo_name|>",
+"t": 4523
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def replace_list(l1,l2):\n  l1[-1:] = l2\n  return l1",
+"ms": 3803,
+"t": 4523
+},
+{
+"type": "end",
+"t": 4523
+}
+],
+"exec": {
+"probes": [
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [2, 4, 6, 8])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"sft": "[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"jepa": "[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 2, 4, 6, 8]"
+},
+"truth": "[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"majority": "[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1, 2, 3, 4, 5], [5, 6, 7, 8])",
+"outs": {
+"reference": "[1, 2, 3, 4, 5, 6, 7, 8]",
+"sft": "[1, 2, 3, 4, 5, 6, 7, 8]",
+"jepa": "[1, 2, 3, 4, 5, 6, 7, 8]",
+"precodefull_aux": "[1, 2, 3, 4, 5, 6, 7, 8]"
+},
+"truth": "[1, 2, 3, 4, 5, 6, 7, 8]",
+"majority": "[1, 2, 3, 4, 5, 6, 7, 8]",
+"split": false
+},
+{
+"call": "replace_list(['red', 'blue', 'green'], ['yellow'])",
+"outs": {
+"reference": "['red', 'blue', 'yellow']",
+"sft": "['red', 'blue', 'yellow']",
+"jepa": "['red', 'blue', 'yellow']",
+"precodefull_aux": "['red', 'blue', 'yellow']"
+},
+"truth": "['red', 'blue', 'yellow']",
+"majority": "['red', 'blue', 'yellow']",
+"split": false
+},
+{
+"call": "replace_list([], [2, 4, 6, 8])",
+"outs": {
+"reference": "[2, 4, 6, 8]",
+"sft": "[2, 4, 6, 8]",
+"jepa": "[2, 4, 6, 8]",
+"precodefull_aux": "[2, 4, 6, 8]"
+},
+"truth": "[2, 4, 6, 8]",
+"majority": "[2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1], [2, 4, 6, 8])",
+"outs": {
+"reference": "[2, 4, 6, 8]",
+"sft": "[2, 4, 6, 8]",
+"jepa": "[2, 4, 6, 8]",
+"precodefull_aux": "[2, 4, 6, 8]"
+},
+"truth": "[2, 4, 6, 8]",
+"majority": "[2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([10, 9, 7, 5, 3, 1], [2, 4, 6, 8])",
+"outs": {
+"reference": "[10, 9, 7, 5, 3, 2, 4, 6, 8]",
+"sft": "[10, 9, 7, 5, 3, 2, 4, 6, 8]",
+"jepa": "[10, 9, 7, 5, 3, 2, 4, 6, 8]",
+"precodefull_aux": "[10, 9, 7, 5, 3, 2, 4, 6, 8]"
+},
+"truth": "[10, 9, 7, 5, 3, 2, 4, 6, 8]",
+"majority": "[10, 9, 7, 5, 3, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10, 1], [2, 4, 6, 8])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]",
+"sft": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]",
+"jepa": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]"
+},
+"truth": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]",
+"majority": "[1, 3, 5, 7, 9, 10, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10], [2, 4, 6, 8])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"sft": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"jepa": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]"
+},
+"truth": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"majority": "[1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 10, 1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([-1, -3, -5, -7, -9, -10], [2, 4, 6, 8])",
+"outs": {
+"reference": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]",
+"sft": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]",
+"jepa": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]",
+"precodefull_aux": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]"
+},
+"truth": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]",
+"majority": "[-1, -3, -5, -7, -9, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9]",
+"sft": "[1, 3, 5, 7, 9]",
+"jepa": "[1, 3, 5, 7, 9]",
+"precodefull_aux": "[1, 3, 5, 7, 9]"
+},
+"truth": "[1, 3, 5, 7, 9]",
+"majority": "[1, 3, 5, 7, 9]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [2])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 2]",
+"sft": "[1, 3, 5, 7, 9, 2]",
+"jepa": "[1, 3, 5, 7, 9, 2]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 2]"
+},
+"truth": "[1, 3, 5, 7, 9, 2]",
+"majority": "[1, 3, 5, 7, 9, 2]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [8, 6, 4, 2])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 8, 6, 4, 2]",
+"sft": "[1, 3, 5, 7, 9, 8, 6, 4, 2]",
+"jepa": "[1, 3, 5, 7, 9, 8, 6, 4, 2]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 8, 6, 4, 2]"
+},
+"truth": "[1, 3, 5, 7, 9, 8, 6, 4, 2]",
+"majority": "[1, 3, 5, 7, 9, 8, 6, 4, 2]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [2, 4, 6, 8, 2])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]",
+"sft": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]",
+"jepa": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]"
+},
+"truth": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]",
+"majority": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]",
+"sft": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]",
+"jepa": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]",
+"precodefull_aux": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]"
+},
+"truth": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]",
+"majority": "[1, 3, 5, 7, 9, 2, 4, 6, 8, 2, 4, 6, 8, 2, 4, 6, 8]",
+"split": false
+},
+{
+"call": "replace_list([1, 3, 5, 7, 9, 10], [-2, -4, -6, -8])",
+"outs": {
+"reference": "[1, 3, 5, 7, 9, -2, -4, -6, -8]",
+"sft": "[1, 3, 5, 7, 9, -2, -4, -6, -8]",
+"jepa": "[1, 3, 5, 7, 9, -2, -4, -6, -8]",
+"precodefull_aux": "[1, 3, 5, 7, 9, -2, -4, -6, -8]"
+},
+"truth": "[1, 3, 5, 7, 9, -2, -4, -6, -8]",
+"majority": "[1, 3, 5, 7, 9, -2, -4, -6, -8]",
+"split": false
+},
+{
+"call": "replace_list([], [5, 6, 7, 8])",
+"outs": {
+"reference": "[5, 6, 7, 8]",
+"sft": "[5, 6, 7, 8]",
+"jepa": "[5, 6, 7, 8]",
+"precodefull_aux": "[5, 6, 7, 8]"
+},
+"truth": "[5, 6, 7, 8]",
+"majority": "[5, 6, 7, 8]",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8])==[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([1,2,3,4,5],[5,6,7,8])==[1,2,3,4,5,6,7,8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([\"red\",\"blue\",\"green\"],[\"yellow\"])==[\"red\",\"blue\",\"yellow\"]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.09597232517073795,
+0.7524598887016891
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 629,
+"cos": 0.333,
+"desc": "Write a python function to find even numbers from a mixed list.",
+"trace": [
+"Split([1, 2, 3, 4, 5]) -> [2, 4]",
+"Split([4, 5, 6, 7, 8, 0, 1]) -> [4, 6, 8, 0]",
+"Split([8, 12, 15, 19]) -> [8, 12]",
+"Split([]) -> []",
+"Split([1]) -> []"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8])==[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([1,2,3,4,5],[5,6,7,8])==[1,2,3,4,5,6,7,8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([\"red\",\"blue\",\"green\"],[\"yellow\"])==[\"red\",\"blue\",\"yellow\"]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.09597232517073795,
+0.7524598887016891
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 629,
+"cos": 0.333,
+"desc": "Write a python function to find even numbers from a mixed list.",
+"trace": [
+"Split([1, 2, 3, 4, 5]) -> [2, 4]",
+"Split([4, 5, 6, 7, 8, 0, 1]) -> [4, 6, 8, 0]",
+"Split([8, 12, 15, 19]) -> [8, 12]",
+"Split([]) -> []",
+"Split([1]) -> []"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8])==[1, 3, 5, 7, 9, 2, 4, 6, 8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([1,2,3,4,5],[5,6,7,8])==[1,2,3,4,5,6,7,8]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert replace_list([\"red\",\"blue\",\"green\"],[\"yellow\"])==[\"red\",\"blue\",\"yellow\"]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.09597232517073795,
+0.7524598887016891
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 629,
+"cos": 0.333,
+"desc": "Write a python function to find even numbers from a mixed list.",
+"trace": [
+"Split([1, 2, 3, 4, 5]) -> [2, 4]",
+"Split([4, 5, 6, 7, 8, 0, 1]) -> [4, 6, 8, 0]",
+"Split([8, 12, 15, 19]) -> [8, 12]",
+"Split([]) -> []",
+"Split([1]) -> []"
+]
+}
+],
+"imagined_vs_actual": 0.154
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

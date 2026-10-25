@@ -1,0 +1,1017 @@
+{
+"task": "Write a function to rotate a list to the right by k positions.",
+"tests": [
+"assert rotate([1, 2, 3, 4], 1) == [4, 1, 2, 3]",
+"assert rotate([], 3) == []",
+"assert rotate([1, 2, 3], 3) == [1, 2, 3]",
+"assert rotate([1, 2, 3], 4) == [3, 1, 2]",
+"assert rotate([1, 2, 3], 0) == [1, 2, 3]",
+"assert rotate([5], 2) == [5]",
+"assert rotate([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]",
+"assert rotate([1, 2], 5) == [2, 1]"
+],
+"reference": "def rotate(xs, k):\n    if not xs: return []\n    k %= len(xs)\n    return xs[-k:] + xs[:-k] if k else xs[:]",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 740
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 740
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 743
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 849
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 849
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 591,
+"cos": 0.399,
+"desc": "Write a python function to interchange the first and last elements in a list.",
+"trace": [
+"swap_List([12, 35, 9, 56, 24]) -> [24, 35, 9, 56, 12]",
+"swap_List([1, 2, 3]) -> [3, 2, 1]",
+"swap_List([4, 5, 6]) -> [6, 5, 4]",
+"swap_List([]) -> IndexError",
+"swap_List([12]) -> [12]"
+]
+},
+{
+"task_id": 665,
+"cos": 0.357,
+"desc": "Write a python function to shift first element to the end of given list.",
+"trace": [
+"move_last([1, 2, 3, 4]) -> [2, 3, 4, 1]",
+"move_last([2, 3, 4, 1, 5, 0]) -> [3, 4, 1, 5, 0, 2]",
+"move_last([5, 4, 3, 2, 1]) -> [4, 3, 2, 1, 5]",
+"move_last([]) -> IndexError",
+"move_last([1]) -> [1]"
+]
+},
+{
+"task_id": 743,
+"cos": 0.353,
+"desc": "Write a function to rotate a given list by specified number of items to the right direction.",
+"trace": [
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, 4) -> [8, 9, 10, 1, 2, 3, 4, 5, 6]",
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 2) -> [9, 10, 1, 2, 3, 4, 5, 6, 7, 8]",
+"rotate_right([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5, 2) -> [6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8]",
+"rotate_right([], 3, 4) -> []",
+"rotate_right([1], 3, 4) -> [1]"
+]
+}
+],
+"xy": [
+0.1365644857750552,
+0.785857311057172
+],
+"t": 1072
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1072
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1072
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1073
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1073
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1154
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1160
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1172
+},
+{
+"type": "token",
+"run": "sft",
+"text": "rotate(lst, ",
+"t": 1256
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "rotate(lst, ",
+"t": 1263
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1274
+},
+{
+"type": "token",
+"run": "sft",
+"text": "k):\n",
+"t": 1353
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "k):\n",
+"t": 1359
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "rotate(lst, ",
+"t": 1379
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1455
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1460
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "k):\n",
+"t": 1470
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1546
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1560
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1564
+},
+{
+"type": "token",
+"run": "sft",
+"text": "k ",
+"t": 1642
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1656
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "k ",
+"t": 1663
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1727
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "k ",
+"t": 1745
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1752
+},
+{
+"type": "token",
+"run": "sft",
+"text": "k ",
+"t": 1825
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1841
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "k ",
+"t": 1849
+},
+{
+"type": "token",
+"run": "sft",
+"text": "% ",
+"t": 1932
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "k ",
+"t": 1947
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "% ",
+"t": 1952
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2039
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "% ",
+"t": 2053
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2056
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(lst)\n",
+"t": 2133
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2154
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(lst)\n",
+"t": 2159
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2238
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "len(lst)\n",
+"t": 2252
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2259
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2345
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2356
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2371
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2456
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2461
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2466
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2561
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2566
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2570
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2640
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2651
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2659
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2746
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2749
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2767
+},
+{
+"type": "token",
+"run": "sft",
+"text": "lst[-k:] ",
+"t": 2847
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2853
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-k:] ",
+"t": 2868
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+ ",
+"t": 2949
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "lst[-k:] ",
+"t": 2956
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+ ",
+"t": 2971
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3050
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+ ",
+"t": 3063
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3078
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3154
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3164
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3189
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3255
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3266
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3286
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3355
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3360
+},
+{
+"type": "token",
+"run": "sft",
+"text": "lst[:-k]<|repo_name|>",
+"t": 3365
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def rotate(lst, k):\n    k = k % len(lst)\n    return lst[-k:] + lst[:-k]",
+"ms": 2637,
+"t": 3365
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3377
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[:-k]<|repo_name|>",
+"t": 3380
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def rotate(lst, k):\n    k = k % len(lst)\n    return lst[-k:] + lst[:-k]",
+"ms": 2652,
+"t": 3380
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3391
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "lst[:-k]<|repo_name|>",
+"t": 3396
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def rotate(lst, k):\n    k = k % len(lst)\n    return lst[-k:] + lst[:-k]",
+"ms": 2665,
+"t": 3396
+},
+{
+"type": "end",
+"t": 3399
+}
+],
+"exec": {
+"probes": [
+{
+"call": "rotate([1, 2, 3, 4], 1)",
+"outs": {
+"reference": "[4, 1, 2, 3]",
+"sft": "[4, 1, 2, 3]",
+"jepa": "[4, 1, 2, 3]",
+"precodefull_aux": "[4, 1, 2, 3]"
+},
+"truth": "[4, 1, 2, 3]",
+"majority": "[4, 1, 2, 3]",
+"split": false
+},
+{
+"call": "rotate([], 3)",
+"outs": {
+"reference": "[]",
+"sft": "ZeroDivisionError",
+"jepa": "ZeroDivisionError",
+"precodefull_aux": "ZeroDivisionError"
+},
+"truth": "[]",
+"majority": "ZeroDivisionError",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3], 3)",
+"outs": {
+"reference": "[1, 2, 3]",
+"sft": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3], 4)",
+"outs": {
+"reference": "[3, 1, 2]",
+"sft": "[3, 1, 2]",
+"jepa": "[3, 1, 2]",
+"precodefull_aux": "[3, 1, 2]"
+},
+"truth": "[3, 1, 2]",
+"majority": "[3, 1, 2]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3], 0)",
+"outs": {
+"reference": "[1, 2, 3]",
+"sft": "[1, 2, 3]",
+"jepa": "[1, 2, 3]",
+"precodefull_aux": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": false
+},
+{
+"call": "rotate([5], 2)",
+"outs": {
+"reference": "[5]",
+"sft": "[5]",
+"jepa": "[5]",
+"precodefull_aux": "[5]"
+},
+"truth": "[5]",
+"majority": "[5]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3, 4, 5], 2)",
+"outs": {
+"reference": "[4, 5, 1, 2, 3]",
+"sft": "[4, 5, 1, 2, 3]",
+"jepa": "[4, 5, 1, 2, 3]",
+"precodefull_aux": "[4, 5, 1, 2, 3]"
+},
+"truth": "[4, 5, 1, 2, 3]",
+"majority": "[4, 5, 1, 2, 3]",
+"split": false
+},
+{
+"call": "rotate([1, 2], 5)",
+"outs": {
+"reference": "[2, 1]",
+"sft": "[2, 1]",
+"jepa": "[2, 1]",
+"precodefull_aux": "[2, 1]"
+},
+"truth": "[2, 1]",
+"majority": "[2, 1]",
+"split": false
+},
+{
+"call": "rotate([], 1)",
+"outs": {
+"reference": "[]",
+"sft": "ZeroDivisionError",
+"jepa": "ZeroDivisionError",
+"precodefull_aux": "ZeroDivisionError"
+},
+"truth": "[]",
+"majority": "ZeroDivisionError",
+"split": false
+},
+{
+"call": "rotate([1], 1)",
+"outs": {
+"reference": "[1]",
+"sft": "[1]",
+"jepa": "[1]",
+"precodefull_aux": "[1]"
+},
+"truth": "[1]",
+"majority": "[1]",
+"split": false
+},
+{
+"call": "rotate([4, 3, 2, 1], 1)",
+"outs": {
+"reference": "[1, 4, 3, 2]",
+"sft": "[1, 4, 3, 2]",
+"jepa": "[1, 4, 3, 2]",
+"precodefull_aux": "[1, 4, 3, 2]"
+},
+"truth": "[1, 4, 3, 2]",
+"majority": "[1, 4, 3, 2]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3, 4, 1], 1)",
+"outs": {
+"reference": "[1, 1, 2, 3, 4]",
+"sft": "[1, 1, 2, 3, 4]",
+"jepa": "[1, 1, 2, 3, 4]",
+"precodefull_aux": "[1, 1, 2, 3, 4]"
+},
+"truth": "[1, 1, 2, 3, 4]",
+"majority": "[1, 1, 2, 3, 4]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4], 1)",
+"outs": {
+"reference": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]",
+"sft": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]",
+"jepa": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]",
+"precodefull_aux": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]"
+},
+"truth": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]",
+"majority": "[4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]",
+"split": false
+},
+{
+"call": "rotate([-1, -2, -3, -4], 1)",
+"outs": {
+"reference": "[-4, -1, -2, -3]",
+"sft": "[-4, -1, -2, -3]",
+"jepa": "[-4, -1, -2, -3]",
+"precodefull_aux": "[-4, -1, -2, -3]"
+},
+"truth": "[-4, -1, -2, -3]",
+"majority": "[-4, -1, -2, -3]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3, 4], 0)",
+"outs": {
+"reference": "[1, 2, 3, 4]",
+"sft": "[1, 2, 3, 4]",
+"jepa": "[1, 2, 3, 4]",
+"precodefull_aux": "[1, 2, 3, 4]"
+},
+"truth": "[1, 2, 3, 4]",
+"majority": "[1, 2, 3, 4]",
+"split": false
+},
+{
+"call": "rotate([1, 2, 3, 4], -1)",
+"outs": {
+"reference": "[2, 3, 4, 1]",
+"sft": "[2, 3, 4, 1]",
+"jepa": "[2, 3, 4, 1]",
+"precodefull_aux": "[2, 3, 4, 1]"
+},
+"truth": "[2, 3, 4, 1]",
+"majority": "[2, 3, 4, 1]",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert rotate([1, 2, 3, 4], 1) == [4, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([], 3) == []",
+"ok": false,
+"why": "ZeroDivisionError: integer modulo by zero"
+},
+{
+"test": "assert rotate([1, 2, 3], 3) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 4) == [3, 1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 0) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([5], 2) == [5]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2], 5) == [2, 1]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10984684573889403,
+0.736438673353109
+],
+"agree_ref": [
+14,
+16
+],
+"nearest": [
+{
+"task_id": 712,
+"cos": 0.341,
+"desc": "Write a function to remove duplicates from a list of lists.",
+"trace": [
+"remove_duplicate([[10, 20], [40], [30, 56, 25], [10, 20], [33], [40]]) -> [[10, 20], [30, 56, 25], [33], [40]]",
+"remove_duplicate(['a', 'b', 'a', 'c', 'c']) -> ['a', 'b', 'c']",
+"remove_duplicate([1, 3, 5, 6, 3, 5, 6, 1]) -> [1, 3, 5, 6]",
+"remove_duplicate([]) -> []",
+"remove_duplicate([[10, 20]]) -> [[10, 20]]"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert rotate([1, 2, 3, 4], 1) == [4, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([], 3) == []",
+"ok": false,
+"why": "ZeroDivisionError: integer modulo by zero"
+},
+{
+"test": "assert rotate([1, 2, 3], 3) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 4) == [3, 1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 0) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([5], 2) == [5]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2], 5) == [2, 1]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10984684573889403,
+0.736438673353109
+],
+"agree_ref": [
+14,
+16
+],
+"nearest": [
+{
+"task_id": 712,
+"cos": 0.341,
+"desc": "Write a function to remove duplicates from a list of lists.",
+"trace": [
+"remove_duplicate([[10, 20], [40], [30, 56, 25], [10, 20], [33], [40]]) -> [[10, 20], [30, 56, 25], [33], [40]]",
+"remove_duplicate(['a', 'b', 'a', 'c', 'c']) -> ['a', 'b', 'c']",
+"remove_duplicate([1, 3, 5, 6, 3, 5, 6, 1]) -> [1, 3, 5, 6]",
+"remove_duplicate([]) -> []",
+"remove_duplicate([[10, 20]]) -> [[10, 20]]"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert rotate([1, 2, 3, 4], 1) == [4, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([], 3) == []",
+"ok": false,
+"why": "ZeroDivisionError: integer modulo by zero"
+},
+{
+"test": "assert rotate([1, 2, 3], 3) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 4) == [3, 1, 2]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3], 0) == [1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([5], 2) == [5]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert rotate([1, 2], 5) == [2, 1]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.10984684573889403,
+0.736438673353109
+],
+"agree_ref": [
+14,
+16
+],
+"nearest": [
+{
+"task_id": 712,
+"cos": 0.341,
+"desc": "Write a function to remove duplicates from a list of lists.",
+"trace": [
+"remove_duplicate([[10, 20], [40], [30, 56, 25], [10, 20], [33], [40]]) -> [[10, 20], [30, 56, 25], [33], [40]]",
+"remove_duplicate(['a', 'b', 'a', 'c', 'c']) -> ['a', 'b', 'c']",
+"remove_duplicate([1, 3, 5, 6, 3, 5, 6, 1]) -> [1, 3, 5, 6]",
+"remove_duplicate([]) -> []",
+"remove_duplicate([[10, 20]]) -> [[10, 20]]"
+]
+}
+],
+"imagined_vs_actual": 0.204
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:13"
+}

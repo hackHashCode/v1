@@ -1,0 +1,5259 @@
+{
+"task": "Write a function to find the second largest distinct number in a list.",
+"tests": [
+"assert second_largest([1, 3, 2]) == 2",
+"assert second_largest([5, 5, 4]) == 4",
+"assert second_largest([9, 1, 9, 1]) == 1",
+"assert second_largest([-1, -2, -3]) == -2",
+"assert second_largest([2, 2, 2, 1]) == 1",
+"assert second_largest([10, 9]) == 9",
+"assert second_largest([0, 0, 1]) == 0",
+"assert second_largest([3, 1, 2, 3]) == 2"
+],
+"reference": "def second_largest(xs):\n    return sorted(set(xs))[-2]",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 745
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 745
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 749
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 850
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 863
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 733,
+"cos": 0.412,
+"desc": "Write a function to find the index of the first occurrence of a given number in a sorted array.",
+"trace": [
+"find_first_occurrence([2, 5, 5, 5, 6, 6, 8, 9, 9, 9], 5) -> 1",
+"find_first_occurrence([2, 3, 5, 5, 6, 6, 8, 9, 9, 9], 5) -> 2",
+"find_first_occurrence([2, 4, 1, 5, 6, 6, 8, 9, 9, 9], 6) -> 4",
+"find_first_occurrence([], 5) -> -1",
+"find_first_occurrence([2], 5) -> -1"
+]
+},
+{
+"task_id": 807,
+"cos": 0.34,
+"desc": "Write a python function to find the first odd number in a given list of numbers.",
+"trace": [
+"first_odd([1, 3, 5]) -> 1",
+"first_odd([2, 4, 1, 3]) -> 1",
+"first_odd([8, 9, 1]) -> 9",
+"first_odd([]) -> -1",
+"first_odd([1]) -> 1"
+]
+},
+{
+"task_id": 663,
+"cos": 0.336,
+"desc": "Write a function to find the largest possible value of k such that k modulo x is y.",
+"trace": [
+"find_max_val(15, 10, 5) -> 15",
+"find_max_val(187, 10, 5) -> 185",
+"find_max_val(16, 11, 1) -> 12",
+"find_max_val(0, 10, 5) -> -1",
+"find_max_val(1, 10, 5) -> -1"
+]
+}
+],
+"xy": [
+0.6863379263782821,
+0.859532497939977
+],
+"t": 1087
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1087
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1087
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1087
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1096
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1096
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1096
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1156
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1171
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1182
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1252
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1274
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1288
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 1347
+},
+{
+"type": "token",
+"run": "sft",
+"text": "second_largest(lst):\n",
+"t": 1369
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1383
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1448
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1471
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "second_largest(nums):\n",
+"t": 1480
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1550
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1576
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1580
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1646
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1673
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1676
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 1749
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1774
+},
+{
+"type": "token",
+"run": "sft",
+"text": "lst.sort()\n",
+"t": 1776
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1843
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "nums.sort()\n",
+"t": 1866
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1876
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1940
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1975
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1977
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2041
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2077
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2083
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2249
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2249
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2249
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2253
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2289
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2292
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2365
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2387
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2399
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 2469
+},
+{
+"type": "token",
+"run": "sft",
+"text": "lst[-2] ",
+"t": 2488
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2504
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 2576
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 2592
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2601
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "nums[-2]<|repo_name|>",
+"t": 2609
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def second_largest(nums):\n  nums.sort()\n  return nums[-2]",
+"ms": 1870,
+"t": 2611
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2649
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2662
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 2701
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 2711
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2753
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2762
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 2808
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 2817
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 2861
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2869
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 2911
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 2918
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 2965
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2972
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 3018
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3029
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 3071
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3084
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 3128
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3135
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 3181
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 3236
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3238
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 3300
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3305
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 3335
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3343
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 3387
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3394
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 3441
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3445
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3497
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3501
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 3548
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3609
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3624
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3624
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3664
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3664
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3705
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3710
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3763
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3765
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3810
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3814
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 3865
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3869
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3926
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3927
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3971
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 3973
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4021
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 4026
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4077
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4081
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4126
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4129
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4172
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 4181
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4215
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 4220
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4260
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4265
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4307
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 4313
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4351
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 4356
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4401
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4405
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4450
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 4453
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4500
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4503
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4547
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 4551
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4590
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4604
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4645
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4652
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4694
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4706
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4743
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 4754
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4794
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 4806
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4842
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4853
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4886
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4901
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 4936
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 4946
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4988
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 4997
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5047
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 5049
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5090
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 5098
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5139
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5144
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5182
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5185
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5231
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5235
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 5284
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5288
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 5330
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5338
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 5375
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5384
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 5420
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5430
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5469
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5475
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 5518
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5523
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 5567
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5569
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 5610
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5623
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 5662
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5674
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 5714
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5723
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 5763
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5776
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 5806
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5817
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 5855
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5866
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 5901
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 5928
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 5960
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 5960
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 5997
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6025
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 6044
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6054
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 6119
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6119
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6163
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6163
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 6195
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6209
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6258
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6259
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6293
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6293
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6337
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6342
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6373
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6409
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6441
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6441
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 6494
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6494
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6511
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6520
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6645
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6645
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 6645
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6648
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6648
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6658
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6679
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6688
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 6749
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6749
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 6816
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6816
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6816
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6826
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 6907
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6907
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6913
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 6921
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 6959
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 6972
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 7006
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7133
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7133
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 7133
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7133
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7153
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7169
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7259
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7262
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7262
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7262
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 7290
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7300
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 7329
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7390
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7390
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7390
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7426
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7443
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 7464
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7480
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 7597
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7598
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7598
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7598
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 7598
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7612
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7639
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7733
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7733
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7733
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7733
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7754
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 7776
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7909
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7909
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7909
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 7911
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 7911
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 7930
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 7947
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7983
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8033
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 8033
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8063
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 8074
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8095
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 8165
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8166
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 8182
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8219
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 8231
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8255
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 8284
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8374
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 8374
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8374
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 8383
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8401
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 8489
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8489
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 8489
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8529
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 8529
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8561
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 8678
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8678
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 8678
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8678
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8685
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 8738
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8768
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8790
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8824
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8843
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8881
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8898
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 8933
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8951
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 8985
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9007
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9038
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 9064
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9093
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9114
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9147
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9167
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9199
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 9223
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9251
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9270
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9298
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9322
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9352
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 9374
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9406
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 9423
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9455
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9474
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9507
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 9523
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9557
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9573
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9607
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 9623
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9665
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 9682
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9714
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9731
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9769
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 9785
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9823
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9837
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9877
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9889
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 9932
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9943
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 9986
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 9993
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 10045
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10088
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 10098
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10135
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10150
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10188
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 10203
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10239
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 10255
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10293
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 10307
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10347
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 10356
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10392
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10405
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10445
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10457
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10500
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10510
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10562
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 10568
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10608
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 10616
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10659
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 10674
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 10727
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10766
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10780
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10822
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 10831
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10881
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 10884
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 10930
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 10939
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 10975
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 10984
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11031
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 11040
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11083
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 11097
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11137
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 11149
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11191
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 11208
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11245
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 11257
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11298
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 11312
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11359
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 11366
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11413
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 11420
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11466
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 11478
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11517
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11527
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11570
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 11583
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11625
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11637
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11676
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11693
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11728
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11746
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11780
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11802
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11833
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11851
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11887
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 11906
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 11944
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 11960
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 11993
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12020
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12047
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 12069
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12123
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12159
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12186
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12210
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 12238
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12264
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 12289
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12318
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12336
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12366
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 12390
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12428
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 12444
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12472
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 12495
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12524
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 12552
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12576
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12608
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12631
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 12661
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12686
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12713
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12736
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12771
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12791
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 12823
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12844
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 12874
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 12909
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 12961
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 12961
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 12995
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13011
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 13034
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13062
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 13087
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13115
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 13145
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 13224
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13224
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 13264
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13272
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 13303
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13323
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 13355
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13381
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 13422
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13458
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 13468
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13488
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 13512
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13538
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 13564
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13593
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 13614
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13641
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 13673
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13692
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 13718
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13747
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 13768
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13801
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 13824
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13853
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 13879
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 13910
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 13936
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 13964
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 13987
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14013
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 14035
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14069
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 14090
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14127
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 14145
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14183
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 14200
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14238
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 14256
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14293
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 14303
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14342
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 14354
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14393
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14406
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14448
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 14460
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14502
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14512
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14552
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14563
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14605
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14617
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14660
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14673
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14711
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14725
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14765
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 14775
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14817
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14830
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14872
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14885
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 14924
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 14942
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 14981
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 14994
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15031
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15043
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15084
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 15093
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15138
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 15145
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15192
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15197
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15249
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 15254
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15304
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 15307
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15354
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 15361
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15407
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 15416
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15458
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15465
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15510
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 15523
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15566
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15579
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15622
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15629
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15668
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15679
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15718
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 15734
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15775
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 15789
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15830
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 15844
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15877
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 15895
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 15933
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 15948
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 15987
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 16003
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16036
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 16048
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16088
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 16102
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16144
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 16158
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16192
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 16202
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16242
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 16253
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16294
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 16305
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16347
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 16356
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16402
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 16408
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16453
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 16466
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16509
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 16528
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16559
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 16570
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16612
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 16625
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16663
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 16673
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16716
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 16725
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16769
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 16779
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16825
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 16837
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16874
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 16882
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 16926
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 16937
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 16966
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 16977
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17018
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 17031
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17070
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 17086
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17122
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 17138
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17178
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 17194
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17230
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17247
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17282
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 17300
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17339
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17354
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17391
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17406
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17446
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17461
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17499
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17515
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17552
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17570
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17605
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 17623
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17658
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17679
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17709
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17729
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17759
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 17782
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17812
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17838
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17865
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 17893
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 17915
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 17945
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 17970
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 17996
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18021
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18052
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18077
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 18108
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18129
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 18161
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18184
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 18213
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18232
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 18262
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18288
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18318
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18339
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 18369
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18393
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18424
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18452
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18478
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18501
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18529
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18554
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 18582
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18606
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 18633
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18658
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 18689
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18710
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 18746
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18759
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst.sort()\n",
+"t": 18789
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18815
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 18844
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18863
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 18901
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 18917
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 18952
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 18969
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 19003
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19020
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 19060
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19076
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 19114
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19131
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "lst[-2] ",
+"t": 19166
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 19218
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19235
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 19273
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19285
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 19328
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 19383
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19397
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Write ",
+"t": 19437
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19450
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 19492
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19506
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "function ",
+"t": 19545
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19556
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "to ",
+"t": 19600
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19607
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "find ",
+"t": 19649
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19656
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "the ",
+"t": 19705
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19710
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second ",
+"t": 19760
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19775
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "largest ",
+"t": 19812
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19821
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 19869
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "distinct ",
+"t": 19873
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 19921
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "number ",
+"t": 19924
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20002
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 20002
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20038
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "a ",
+"t": 20038
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20084
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "list.\n",
+"t": 20084
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20124
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20162
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20208
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "assert ",
+"t": 20209
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20243
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20253
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20289
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20325
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20359
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20359
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20400
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20409
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20449
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20469
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20527
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest([1, ",
+"t": 20528
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20560
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20573
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20602
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20674
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20674
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "3, ",
+"t": 20676
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20717
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20722
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20772
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20782
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20865
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2]) ",
+"t": 20865
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20865
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 20880
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 20981
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 20981
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 20981
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 21027
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 21027
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 21045
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 21070
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 21149
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 21149
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sanction\n",
+"t": 21149
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 21183
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 21200
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 21340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 21340
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 21340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 21340
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 21340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 21352
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 21391
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 21506
+},
+{
+"type": "token",
+"run": "sft",
+"text": ";;=\n",
+"t": 21506
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 21506
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=\n ;;=",
+"ms": 20710,
+"t": 21509
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "second_largest(lst):\n",
+"t": 21509
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 21509
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):\n    lst.sort()\n    return lst[-2] ;;=\n sanction\nWrite a function to find the second largest distinct number in a list.\nassert second_largest([1, 3, 2]) == 2 ;;=\n sanction\ndef second_largest(lst):",
+"ms": 20714,
+"t": 21509
+},
+{
+"type": "end",
+"t": 21509
+}
+],
+"exec": {
+"probes": [
+{
+"call": "second_largest([1, 3, 2])",
+"outs": {
+"reference": "2",
+"precodefull_aux": "2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([5, 5, 4])",
+"outs": {
+"reference": "4",
+"precodefull_aux": "5",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "4",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([9, 1, 9, 1])",
+"outs": {
+"reference": "1",
+"precodefull_aux": "9",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "1",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([-1, -2, -3])",
+"outs": {
+"reference": "-2",
+"precodefull_aux": "-2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([2, 2, 2, 1])",
+"outs": {
+"reference": "1",
+"precodefull_aux": "2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "1",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([10, 9])",
+"outs": {
+"reference": "9",
+"precodefull_aux": "9",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "9",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([0, 0, 1])",
+"outs": {
+"reference": "0",
+"precodefull_aux": "0",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "0",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([3, 1, 2, 3])",
+"outs": {
+"reference": "2",
+"precodefull_aux": "3",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([])",
+"outs": {
+"reference": "IndexError",
+"precodefull_aux": "IndexError",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "IndexError",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([1])",
+"outs": {
+"reference": "IndexError",
+"precodefull_aux": "IndexError",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "IndexError",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([2, 3, 1])",
+"outs": {
+"reference": "2",
+"precodefull_aux": "2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([1, 3, 2, 1])",
+"outs": {
+"reference": "2",
+"precodefull_aux": "2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([1, 3, 2, 1, 3, 2, 1, 3, 2])",
+"outs": {
+"reference": "2",
+"precodefull_aux": "3",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([-1, -3, -2])",
+"outs": {
+"reference": "-2",
+"precodefull_aux": "-2",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "-2",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([5])",
+"outs": {
+"reference": "IndexError",
+"precodefull_aux": "IndexError",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "IndexError",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "second_largest([4, 5, 5])",
+"outs": {
+"reference": "4",
+"precodefull_aux": "5",
+"sft": "DoesNotRun",
+"jepa": "DoesNotRun"
+},
+"truth": "4",
+"majority": "DoesNotRun",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert second_largest([1, 3, 2]) == 2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert second_largest([5, 5, 4]) == 4",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert second_largest([9, 1, 9, 1]) == 1",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert second_largest([-1, -2, -3]) == -2",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert second_largest([2, 2, 2, 1]) == 1",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert second_largest([10, 9]) == 9",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert second_largest([0, 0, 1]) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert second_largest([3, 1, 2, 3]) == 2",
+"ok": false,
+"why": "wrong answer"
+}
+],
+"xy": [
+0.8583375940948947,
+0.8489219300454129
+],
+"agree_ref": [
+10,
+16
+],
+"nearest": [
+{
+"task_id": 550,
+"cos": 0.504,
+"desc": "Write a python function to find the maximum element in a sorted and rotated array.",
+"trace": [
+"find_Max([2, 3, 5, 6, 9], 0, 4) -> 9",
+"find_Max([3, 4, 5, 2, 1], 0, 4) -> 5",
+"find_Max([1, 2, 3], 0, 2) -> 3",
+"find_Max([], 0, 4) -> IndexError",
+"find_Max([2], 0, 4) -> IndexError"
+]
+}
+],
+"imagined_vs_actual": 0.187
+},
+"sft": {
+"tests": [
+{
+"test": "assert second_largest([1, 3, 2]) == 2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([5, 5, 4]) == 4",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([9, 1, 9, 1]) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([-1, -2, -3]) == -2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([2, 2, 2, 1]) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([10, 9]) == 9",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([0, 0, 1]) == 0",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([3, 1, 2, 3]) == 2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+}
+],
+"xy": [
+0.7197217554296889,
+0.5464778123177012
+],
+"agree_ref": [
+0,
+16
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.271,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert second_largest([1, 3, 2]) == 2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([5, 5, 4]) == 4",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([9, 1, 9, 1]) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([-1, -2, -3]) == -2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([2, 2, 2, 1]) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([10, 9]) == 9",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([0, 0, 1]) == 0",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+},
+{
+"test": "assert second_largest([3, 1, 2, 3]) == 2",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 3))"
+}
+],
+"xy": [
+0.7197217554296889,
+0.5464778123177012
+],
+"agree_ref": [
+0,
+16
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.271,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+}
+},
+"split_count": 16,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:12"
+}

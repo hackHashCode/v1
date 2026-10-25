@@ -1,0 +1,3295 @@
+{
+"task": "Write a python function to find the sum of fifth power of first n even natural numbers.",
+"tests": [
+"assert even_Power_Sum(2) == 1056",
+"assert even_Power_Sum(3) == 8832",
+"assert even_Power_Sum(1) == 32"
+],
+"reference": "def even_Power_Sum(n): \r\n    sum = 0; \r\n    for i in range(1,n+1): \r\n        j = 2*i; \r\n        sum = sum + (j*j*j*j*j); \r\n    return sum; ",
+"task_id": "Mbpp/271",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 700
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 705
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 705
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 804
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 810
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 634,
+"cos": 0.488,
+"desc": "Write a python function to find the sum of fourth power of first n even natural numbers.",
+"trace": [
+"even_Power_Sum(2) -> 272",
+"even_Power_Sum(3) -> 1568",
+"even_Power_Sum(4) -> 5664",
+"even_Power_Sum(0) -> 0",
+"even_Power_Sum(1) -> 16"
+]
+},
+{
+"task_id": 655,
+"cos": 0.416,
+"desc": "Write a python function to find the sum of fifth power of n natural numbers.",
+"trace": [
+"fifth_Power_Sum(2) -> 33",
+"fifth_Power_Sum(4) -> 1300",
+"fifth_Power_Sum(3) -> 276",
+"fifth_Power_Sum(0) -> 0",
+"fifth_Power_Sum(1) -> 1"
+]
+},
+{
+"task_id": 770,
+"cos": 0.41,
+"desc": "Write a python function to find the sum of fourth power of first n odd natural numbers.",
+"trace": [
+"odd_Num_Sum(2) -> 82",
+"odd_Num_Sum(3) -> 707",
+"odd_Num_Sum(4) -> 3108",
+"odd_Num_Sum(0) -> 0",
+"odd_Num_Sum(1) -> 1"
+]
+}
+],
+"xy": [
+0.6089073192530612,
+0.8609778671266368
+],
+"t": 1016
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1016
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1016
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1016
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1019
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1027
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1039
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1125
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1132
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1144
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1227
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1235
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1251
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1333
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1336
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1350
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1434
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1439
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1448
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "even_Power_Sum(n):\n",
+"t": 1540
+},
+{
+"type": "token",
+"run": "sft",
+"text": "even_Power_Sum(n):\n",
+"t": 1542
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1550
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1641
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1646
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "even_Power_Sum(n):\n",
+"t": 1656
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1749
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1750
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1753
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sum ",
+"t": 1845
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sum ",
+"t": 1856
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1860
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1970
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sum ",
+"t": 1970
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1970
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 2051
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2056
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2071
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2151
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 2156
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2178
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0\n",
+"t": 2248
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2261
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2282
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2343
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2366
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2379
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2431
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2461
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2473
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2527
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 2561
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 2570
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 2631
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2671
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2675
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2749
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2784
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2784
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2865
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2935
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2935
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2935
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2982
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2990
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3063
+},
+{
+"type": "token",
+"run": "sft",
+"text": "range(1, ",
+"t": 3101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "range(1, ",
+"t": 3101
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "range(1, ",
+"t": 3129
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3208
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3208
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3241
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3279
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3290
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3425
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n+1):\n",
+"t": 3425
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n+1):\n",
+"t": 3425
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "n+1):\n",
+"t": 3429
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 3497
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3497
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3581
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3581
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3581
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3622
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sum ",
+"t": 3701
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sum ",
+"t": 3701
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sum ",
+"t": 3721
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+= ",
+"t": 3773
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3890
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+= ",
+"t": 3890
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3892
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3892
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3913
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4071
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4071
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4071
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4081
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4084
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4112
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4243
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4243
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4244
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "(2*i)**5\n",
+"t": 4291
+},
+{
+"type": "token",
+"run": "sft",
+"text": "(2*i)**5\n",
+"t": 4334
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "(2*i)**5\n",
+"t": 4334
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4407
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 4426
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4513
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4561
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4562
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 4644
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 4644
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 4644
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "sum ",
+"t": 4704
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "sum\n",
+"t": 4723
+},
+{
+"type": "token",
+"run": "sft",
+"text": "sum\n",
+"t": 4727
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 4845
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4845
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4845
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4949
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "<|repo_name|>",
+"t": 4949
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def even_Power_Sum(n):\n  sum = 0\n  for i in range(1, n+1):\n    sum += (2*i)**5\n  return sum ;;=",
+"ms": 4229,
+"t": 4949
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4949
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4949
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5022
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5023
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5035
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5050
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5107
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5107
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5153
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5188
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5194
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5212
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5257
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5283
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5287
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5316
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5337
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5370
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "XCTAssert(even_Power_Sum(2) ",
+"t": 5389
+},
+{
+"type": "token",
+"run": "sft",
+"text": "print(even_Power_Sum(2)) #\n",
+"t": 5425
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 5440
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5477
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5492
+},
+{
+"type": "token",
+"run": "sft",
+"text": ":NSMakeRange\n",
+"t": 5529
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5540
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5590
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5592
+},
+{
+"type": "token",
+"run": "sft",
+"text": ":NSMakeRange\n",
+"t": 5636
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5643
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5692
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 5697
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1056<|repo_name|>",
+"t": 5697
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def even_Power_Sum(n):\n  sum = 0\n  for i in range(1, n+1):\n    sum += (2*i)**5\n  return sum\n XCTAssert(even_Power_Sum(2) == 1056",
+"ms": 5002,
+"t": 5699
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5713
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5728
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5741
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5754
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5770
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5785
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5799
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5814
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5827
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5841
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5855
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5871
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5886
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5903
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5918
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5934
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5948
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5962
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5976
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5993
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6007
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6022
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6035
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6050
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6065
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6079
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6096
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6110
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6124
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6145
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6152
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6168
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6183
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6199
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6213
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6226
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6241
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6256
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6285
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6300
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6331
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6345
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6359
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6373
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6389
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6401
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6415
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6428
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6443
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6458
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6477
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6486
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6500
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6514
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6530
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6543
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6560
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6573
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6589
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6601
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6616
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6630
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6646
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6658
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6672
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6685
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6699
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6712
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6726
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6739
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6752
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6766
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6780
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6794
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6807
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6820
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6834
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6848
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6861
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6875
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6889
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6902
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6917
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6929
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6942
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6956
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6970
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 6984
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7001
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7011
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7026
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7037
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7051
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7065
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7080
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7092
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7105
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7121
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7133
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7145
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7159
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7172
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7186
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7200
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7215
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7229
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7244
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7256
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7270
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7287
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7300
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7313
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7327
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7343
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7357
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7371
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7386
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7401
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7414
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7428
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7444
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7456
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7470
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7483
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7498
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7514
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7527
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7538
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7551
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7565
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7578
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7592
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7607
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7626
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7639
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7653
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7675
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7691
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7708
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7723
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7740
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7754
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7771
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7787
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7802
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7815
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7828
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7843
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7856
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7871
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7886
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7902
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7914
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7928
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7942
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7957
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7974
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 7985
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8000
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8014
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8028
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8043
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8059
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8071
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8087
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8102
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8116
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8132
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8146
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8162
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8179
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8193
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8207
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8221
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8236
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8316
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8323
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8336
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8353
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8366
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8380
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8394
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8408
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8421
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8434
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8452
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8465
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8481
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8496
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8512
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8526
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8541
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8556
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8571
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8584
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8599
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8614
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8630
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8644
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8658
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8673
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8688
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8706
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8718
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8735
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8749
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8765
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8779
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8795
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8810
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8825
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8842
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8856
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8872
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8886
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8904
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8918
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8934
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8949
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8963
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8979
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 8993
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9008
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9023
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9037
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9051
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9066
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9080
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9095
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9109
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9123
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9137
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9154
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9169
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9183
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9199
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9214
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9229
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9243
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9261
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9275
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9289
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9306
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9320
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9337
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9351
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9366
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9380
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9395
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9410
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9430
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9440
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9455
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9470
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9484
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9500
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9513
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9527
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9542
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9559
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9573
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9585
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9600
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9614
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9630
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9645
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9661
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9674
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9688
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9702
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9716
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9731
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9746
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9763
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9777
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9791
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9807
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9820
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9835
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9851
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9863
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9880
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9894
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9911
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9927
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9941
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9955
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9970
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 9986
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10000
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10015
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10037
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10045
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10062
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10074
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10090
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10109
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10119
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10134
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10148
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10162
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10178
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10193
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10207
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10223
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10237
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10252
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10266
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10282
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10297
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10308
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10322
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10335
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10348
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10363
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10375
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10389
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10403
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10435
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10450
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10464
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 10480
+},
+{
+"type": "token",
+"run": "sft",
+"text": ":NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange",
+"t": 10486
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def even_Power_Sum(n):\n    sum = 0\n    for i in range(1, n+1):\n        sum += (2*i)**5\n    return sum\nprint(even_Power_Sum(2)) #\n:NSMakeRange\n:NSMakeRange\n:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange:NSMakeRange",
+"ms": 9798,
+"t": 10487
+},
+{
+"type": "end",
+"t": 10487
+}
+],
+"exec": {
+"probes": [
+{
+"call": "even_Power_Sum(2)",
+"outs": {
+"reference": "1056",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "1056",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(3)",
+"outs": {
+"reference": "8832",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "8832",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(1)",
+"outs": {
+"reference": "32",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "32",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(0)",
+"outs": {
+"reference": "0",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "0",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(-1)",
+"outs": {
+"reference": "0",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "0",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(-2)",
+"outs": {
+"reference": "0",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "0",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(207)",
+"outs": {
+"reference": "425691252320256",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "425691252320256",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(-3)",
+"outs": {
+"reference": "0",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "0",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(4)",
+"outs": {
+"reference": "41600",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "41600",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(307)",
+"outs": {
+"reference": "4508828404336256",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "4508828404336256",
+"majority": "DoesNotRun",
+"split": false
+},
+{
+"call": "even_Power_Sum(107)",
+"outs": {
+"reference": "8230051184256",
+"jepa": "DoesNotRun",
+"precodefull_aux": "DoesNotRun",
+"sft": "DoesNotRun"
+},
+"truth": "8230051184256",
+"majority": "DoesNotRun",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"jepa": {
+"tests": [
+{
+"test": "assert even_Power_Sum(2) == 1056",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 5))"
+},
+{
+"test": "assert even_Power_Sum(3) == 8832",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 5))"
+},
+{
+"test": "assert even_Power_Sum(1) == 32",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 5))"
+}
+],
+"xy": [
+0.7587819520647391,
+0.5595691636712361
+],
+"agree_ref": [
+0,
+11
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.246,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert even_Power_Sum(2) == 1056",
+"ok": false,
+"why": "does not run (IndentationError: unindent does not match any outer indentation level (<model>, line 6))"
+},
+{
+"test": "assert even_Power_Sum(3) == 8832",
+"ok": false,
+"why": "does not run (IndentationError: unindent does not match any outer indentation level (<model>, line 6))"
+},
+{
+"test": "assert even_Power_Sum(1) == 32",
+"ok": false,
+"why": "does not run (IndentationError: unindent does not match any outer indentation level (<model>, line 6))"
+}
+],
+"xy": [
+0.7587819520647391,
+0.5595691636712361
+],
+"agree_ref": [
+0,
+11
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.246,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+],
+"imagined_vs_actual": -0.008
+},
+"sft": {
+"tests": [
+{
+"test": "assert even_Power_Sum(2) == 1056",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 7))"
+},
+{
+"test": "assert even_Power_Sum(3) == 8832",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 7))"
+},
+{
+"test": "assert even_Power_Sum(1) == 32",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 7))"
+}
+],
+"xy": [
+0.7587819520647391,
+0.5595691636712361
+],
+"agree_ref": [
+0,
+11
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.246,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:12"
+}

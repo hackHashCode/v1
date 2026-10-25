@@ -1,0 +1,1177 @@
+{
+"task": "Write a python function to find the sublist having maximum length.",
+"tests": [
+"assert Find_Max([['A'],['A','B'],['A','B','C']]) == ['A','B','C']",
+"assert Find_Max([[1],[1,2],[1,2,3]]) == [1,2,3]",
+"assert Find_Max([[1,1],[1,2,3],[1,5,6,1]]) == [1,5,6,1]"
+],
+"reference": "def Find_Max(lst): \r\n    maxList = max((x) for x in lst) \r\n    return maxList",
+"task_id": "Mbpp/418",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 742
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 749
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 756
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 853
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 825,
+"cos": 0.305,
+"desc": "Write a python function to access multiple elements of specified index from a given list.",
+"trace": [
+"access_elements([2, 3, 8, 4, 7, 9], [0, 3, 5]) -> [2, 4, 9]",
+"access_elements([1, 2, 3, 4, 5], [1, 2]) -> [2, 3]",
+"access_elements([1, 0, 2, 3], [0, 1]) -> [1, 0]",
+"access_elements([], [0, 3, 5]) -> IndexError",
+"access_elements([2], [0, 3, 5]) -> IndexError"
+]
+},
+{
+"task_id": 923,
+"cos": 0.23,
+"desc": "Write a function to find the length of the shortest string that has both str1 and str2 as subsequences.",
+"trace": [
+"super_seq('AGGTAB', 'GXTXAYB', 6, 7) -> 9",
+"super_seq('feek', 'eke', 4, 3) -> 5",
+"super_seq('PARRT', 'RTA', 5, 3) -> 6",
+"super_seq('', 'GXTXAYB', 6, 7) -> IndexError",
+"super_seq('A', 'GXTXAYB', 6, 7) -> IndexError"
+]
+},
+{
+"task_id": 836,
+"cos": 0.217,
+"desc": "Write a function to find length of the subarray having maximum sum.",
+"trace": [
+"max_sub_array_sum([-2, -3, 4, -1, -2, 1, 5, -3], 8) -> 5",
+"max_sub_array_sum([1, -2, 1, 1, -2, 1], 6) -> 2",
+"max_sub_array_sum([-1, -2, 3, 4, 5], 5) -> 3",
+"max_sub_array_sum([], 8) -> IndexError",
+"max_sub_array_sum([-2], 8) -> IndexError"
+]
+}
+],
+"xy": [
+0.5036372997900869,
+0.8105185760028222
+],
+"t": 979
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 979
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 979
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1074
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1074
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1074
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1074
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1074
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1152
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1157
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1161
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1300
+},
+{
+"type": "token",
+"run": "sft",
+"text": "Find_Max(List):\n",
+"t": 1300
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "Find_Max(List):\n",
+"t": 1300
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1345
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1350
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1354
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "Find_Max(list1):\n",
+"t": 1435
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1445
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1451
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1529
+},
+{
+"type": "token",
+"run": "sft",
+"text": "max ",
+"t": 1537
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "max ",
+"t": 1542
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1608
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1617
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1620
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "max ",
+"t": 1684
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1692
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1698
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1779
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 1787
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 1789
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1871
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1880
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1890
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0\n",
+"t": 1967
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1974
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1986
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2058
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2071
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2077
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2152
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 2163
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 2168
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2244
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2253
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2267
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 2342
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "List:\n",
+"t": 2348
+},
+{
+"type": "token",
+"run": "sft",
+"text": "List:\n",
+"t": 2372
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2424
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2435
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2454
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2522
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2531
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2552
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "list1:\n",
+"t": 2610
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 2629
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2651
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2691
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2710
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2741
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2780
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2805
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2829
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 2871
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(i) ",
+"t": 2894
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(i) ",
+"t": 2920
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2963
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "> ",
+"t": 2987
+},
+{
+"type": "token",
+"run": "sft",
+"text": "> ",
+"t": 3016
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3052
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "max:\n",
+"t": 3080
+},
+{
+"type": "token",
+"run": "sft",
+"text": "max:\n",
+"t": 3105
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "len(i) ",
+"t": 3152
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 3175
+},
+{
+"type": "token",
+"run": "sft",
+"text": "     ",
+"t": 3204
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "> ",
+"t": 3241
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3273
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3302
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "max:\n",
+"t": 3335
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "max ",
+"t": 3369
+},
+{
+"type": "token",
+"run": "sft",
+"text": "max ",
+"t": 3398
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "     ",
+"t": 3424
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 3457
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 3492
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3511
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3555
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3593
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "max ",
+"t": 3604
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "len(i)\n",
+"t": 3644
+},
+{
+"type": "token",
+"run": "sft",
+"text": "len(i)\n",
+"t": 3695
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 3697
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 3742
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3780
+},
+{
+"type": "token",
+"run": "sft",
+"text": "     ",
+"t": 3785
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3840
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "len(i)\n",
+"t": 3873
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3882
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "res ",
+"t": 3937
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3970
+},
+{
+"type": "token",
+"run": "sft",
+"text": "res ",
+"t": 3980
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 4046
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4071
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 4089
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i\n",
+"t": 4147
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 4172
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i\n",
+"t": 4193
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4252
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "max\n",
+"t": 4268
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4295
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4347
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4360
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "<|repo_name|>",
+"t": 4364
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def Find_Max(list1):\n  max = 0\n  for i in list1:\n    if len(i) > max:\n      max = len(i)\n  return max",
+"ms": 3622,
+"t": 4364
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4381
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 4411
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 4432
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4464
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "res<|file_sep|>",
+"t": 4470
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def Find_Max(List):\n  max = 0\n  for i in List:\n    if len(i) > max:\n      max = len(i)\n      res = i\n  return res",
+"ms": 3728,
+"t": 4474
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4478
+},
+{
+"type": "token",
+"run": "sft",
+"text": "res<|repo_name|>",
+"t": 4483
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def Find_Max(List):\n  max = 0\n  for i in List:\n    if len(i) > max:\n      max = len(i)\n      res = i\n  return res",
+"ms": 3742,
+"t": 4483
+},
+{
+"type": "end",
+"t": 4483
+}
+],
+"exec": {
+"probes": [
+{
+"call": "Find_Max([['A'], ['A', 'B'], ['A', 'B', 'C']])",
+"outs": {
+"reference": "['A', 'B', 'C']",
+"precodefull_aux": "3",
+"jepa": "['A', 'B', 'C']",
+"sft": "['A', 'B', 'C']"
+},
+"truth": "['A', 'B', 'C']",
+"majority": "['A', 'B', 'C']",
+"split": true
+},
+{
+"call": "Find_Max([[1], [1, 2], [1, 2, 3]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"precodefull_aux": "3",
+"jepa": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 1], [1, 2, 3], [1, 5, 6, 1]])",
+"outs": {
+"reference": "[1, 5, 6, 1]",
+"precodefull_aux": "4",
+"jepa": "[1, 5, 6, 1]",
+"sft": "[1, 5, 6, 1]"
+},
+"truth": "[1, 5, 6, 1]",
+"majority": "[1, 5, 6, 1]",
+"split": true
+},
+{
+"call": "Find_Max([])",
+"outs": {
+"reference": "ValueError",
+"precodefull_aux": "0",
+"jepa": "UnboundLocalError",
+"sft": "UnboundLocalError"
+},
+"truth": "ValueError",
+"majority": "UnboundLocalError",
+"split": true
+},
+{
+"call": "Find_Max([['A']])",
+"outs": {
+"reference": "['A']",
+"precodefull_aux": "1",
+"jepa": "['A']",
+"sft": "['A']"
+},
+"truth": "['A']",
+"majority": "['A']",
+"split": true
+},
+{
+"call": "Find_Max([['A', 'B', 'C'], ['A', 'B'], ['A']])",
+"outs": {
+"reference": "['A', 'B', 'C']",
+"precodefull_aux": "3",
+"jepa": "['A', 'B', 'C']",
+"sft": "['A', 'B', 'C']"
+},
+"truth": "['A', 'B', 'C']",
+"majority": "['A', 'B', 'C']",
+"split": true
+},
+{
+"call": "Find_Max([['A'], ['A', 'B'], ['A', 'B', 'C'], ['A']])",
+"outs": {
+"reference": "['A', 'B', 'C']",
+"precodefull_aux": "3",
+"jepa": "['A', 'B', 'C']",
+"sft": "['A', 'B', 'C']"
+},
+"truth": "['A', 'B', 'C']",
+"majority": "['A', 'B', 'C']",
+"split": true
+},
+{
+"call": "Find_Max([['A'], ['A', 'B'], ['A', 'B', 'C'], ['A'], ['A', 'B'], ['A', 'B', 'C'], ['A'], ['A', 'B'], ['A', 'B', 'C']])",
+"outs": {
+"reference": "['A', 'B', 'C']",
+"precodefull_aux": "3",
+"jepa": "['A', 'B', 'C']",
+"sft": "['A', 'B', 'C']"
+},
+"truth": "['A', 'B', 'C']",
+"majority": "['A', 'B', 'C']",
+"split": true
+},
+{
+"call": "Find_Max([[1]])",
+"outs": {
+"reference": "[1]",
+"precodefull_aux": "1",
+"jepa": "[1]",
+"sft": "[1]"
+},
+"truth": "[1]",
+"majority": "[1]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 2, 3], [1, 2], [1]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"precodefull_aux": "3",
+"jepa": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": true
+},
+{
+"call": "Find_Max([[1], [1, 2], [1, 2, 3], [1]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"precodefull_aux": "3",
+"jepa": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": true
+},
+{
+"call": "Find_Max([[1], [1, 2], [1, 2, 3], [1], [1, 2], [1, 2, 3], [1], [1, 2], [1, 2, 3]])",
+"outs": {
+"reference": "[1, 2, 3]",
+"precodefull_aux": "3",
+"jepa": "[1, 2, 3]",
+"sft": "[1, 2, 3]"
+},
+"truth": "[1, 2, 3]",
+"majority": "[1, 2, 3]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 1]])",
+"outs": {
+"reference": "[1, 1]",
+"precodefull_aux": "2",
+"jepa": "[1, 1]",
+"sft": "[1, 1]"
+},
+"truth": "[1, 1]",
+"majority": "[1, 1]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 5, 6, 1], [1, 2, 3], [1, 1]])",
+"outs": {
+"reference": "[1, 5, 6, 1]",
+"precodefull_aux": "4",
+"jepa": "[1, 5, 6, 1]",
+"sft": "[1, 5, 6, 1]"
+},
+"truth": "[1, 5, 6, 1]",
+"majority": "[1, 5, 6, 1]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 1], [1, 2, 3], [1, 5, 6, 1], [1, 1]])",
+"outs": {
+"reference": "[1, 5, 6, 1]",
+"precodefull_aux": "4",
+"jepa": "[1, 5, 6, 1]",
+"sft": "[1, 5, 6, 1]"
+},
+"truth": "[1, 5, 6, 1]",
+"majority": "[1, 5, 6, 1]",
+"split": true
+},
+{
+"call": "Find_Max([[1, 1], [1, 2, 3], [1, 5, 6, 1], [1, 1], [1, 2, 3], [1, 5, 6, 1], [1, 1], [1, 2, 3], [1, 5, 6, 1]])",
+"outs": {
+"reference": "[1, 5, 6, 1]",
+"precodefull_aux": "4",
+"jepa": "[1, 5, 6, 1]",
+"sft": "[1, 5, 6, 1]"
+},
+"truth": "[1, 5, 6, 1]",
+"majority": "[1, 5, 6, 1]",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert Find_Max([['A'],['A','B'],['A','B','C']]) == ['A','B','C']",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert Find_Max([[1],[1,2],[1,2,3]]) == [1,2,3]",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert Find_Max([[1,1],[1,2,3],[1,5,6,1]]) == [1,5,6,1]",
+"ok": false,
+"why": "wrong answer"
+}
+],
+"xy": [
+0.6916748937732589,
+0.8964567377801993
+],
+"agree_ref": [
+0,
+16
+],
+"nearest": [
+{
+"task_id": 941,
+"cos": 0.5,
+"desc": "Write a function to count the elements in a list until an element is a tuple.",
+"trace": [
+"count_elim([10, 20, 30, (10, 20), 40]) -> 3",
+"count_elim([10, (20, 30), (10, 20), 40]) -> 1",
+"count_elim([(10, (20, 30, (10, 20), 40))]) -> 0",
+"count_elim([]) -> 0",
+"count_elim([10]) -> 1"
+]
+}
+],
+"imagined_vs_actual": 0.009
+},
+"jepa": {
+"tests": [
+{
+"test": "assert Find_Max([['A'],['A','B'],['A','B','C']]) == ['A','B','C']",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert Find_Max([[1],[1,2],[1,2,3]]) == [1,2,3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert Find_Max([[1,1],[1,2,3],[1,5,6,1]]) == [1,5,6,1]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.05585152219595729,
+0.7545579277490093
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 708,
+"cos": 0.331,
+"desc": "Write a python function to convert a string to a list.",
+"trace": [
+"Convert('python program') -> ['python', 'program']",
+"Convert('Data Analysis') -> ['Data', 'Analysis']",
+"Convert('Hadoop Training') -> ['Hadoop', 'Training']",
+"Convert('') -> ['']",
+"Convert('p') -> ['p']"
+]
+}
+]
+},
+"sft": {
+"tests": [
+{
+"test": "assert Find_Max([['A'],['A','B'],['A','B','C']]) == ['A','B','C']",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert Find_Max([[1],[1,2],[1,2,3]]) == [1,2,3]",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert Find_Max([[1,1],[1,2,3],[1,5,6,1]]) == [1,5,6,1]",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.05585152219595729,
+0.7545579277490093
+],
+"agree_ref": [
+15,
+16
+],
+"nearest": [
+{
+"task_id": 708,
+"cos": 0.331,
+"desc": "Write a python function to convert a string to a list.",
+"trace": [
+"Convert('python program') -> ['python', 'program']",
+"Convert('Data Analysis') -> ['Data', 'Analysis']",
+"Convert('Hadoop Training') -> ['Hadoop', 'Training']",
+"Convert('') -> ['']",
+"Convert('p') -> ['p']"
+]
+}
+]
+}
+},
+"split_count": 16,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

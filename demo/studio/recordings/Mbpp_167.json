@@ -1,0 +1,3331 @@
+{
+"task": "Write a python function to find smallest power of 2 greater than or equal to n.",
+"tests": [
+"assert next_Power_Of_2(0) == 1",
+"assert next_Power_Of_2(5) == 8",
+"assert next_Power_Of_2(17) == 32"
+],
+"reference": "def next_Power_Of_2(n): \r\n    count = 0; \r\n    if (n and not(n & (n - 1))): \r\n        return n   \r\n    while( n != 0): \r\n        n >>= 1\r\n        count += 1\r\n    return 1 << count; ",
+"task_id": "Mbpp/167",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 767
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 774
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 780
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 663,
+"cos": 0.311,
+"desc": "Write a function to find the largest possible value of k such that k modulo x is y.",
+"trace": [
+"find_max_val(15, 10, 5) -> 15",
+"find_max_val(187, 10, 5) -> 185",
+"find_max_val(16, 11, 1) -> 12",
+"find_max_val(0, 10, 5) -> -1",
+"find_max_val(1, 10, 5) -> -1"
+]
+},
+{
+"task_id": 3,
+"cos": 0.296,
+"desc": "Write a python function to identify non-prime numbers.",
+"trace": [
+"is_not_prime(2) -> False",
+"is_not_prime(10) -> True",
+"is_not_prime(35) -> True",
+"is_not_prime(0) -> False",
+"is_not_prime(1) -> False"
+]
+},
+{
+"task_id": 681,
+"cos": 0.291,
+"desc": "Write a python function to find the smallest prime divisor of a number.",
+"trace": [
+"smallest_Divisor(10) -> 2",
+"smallest_Divisor(25) -> 5",
+"smallest_Divisor(31) -> 31",
+"smallest_Divisor(0) -> 2",
+"smallest_Divisor(1) -> 1"
+]
+}
+],
+"xy": [
+0.6735127438423922,
+0.6794971799451646
+],
+"t": 1008
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1008
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1008
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1008
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1008
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1008
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1059
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1106
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1106
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1158
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1175
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1179
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1343
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1343
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1343
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1353
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1375
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1380
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1455
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1471
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1476
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1543
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1550
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1555
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "next_Power_Of_2(n):\n",
+"t": 1704
+},
+{
+"type": "token",
+"run": "sft",
+"text": "next_Power_Of_2(n):\n",
+"t": 1704
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1704
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1726
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1732
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "next_Power_Of_2(n):\n",
+"t": 1744
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1824
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1824
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1849
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 1909
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1946
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 1946
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 2019
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n ",
+"t": 2019
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n ",
+"t": 2019
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 2101
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "n ",
+"t": 2101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 2101
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2181
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 2181
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2185
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2323
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0:\n",
+"t": 2324
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0:\n",
+"t": 2324
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 2371
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0:\n",
+"t": 2377
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 2387
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2524
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2524
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2524
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 2577
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2585
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 2705
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2705
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 2705
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2705
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 2770
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2859
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 2859
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2862
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 2868
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2888
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2976
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2976
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3014
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3048
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else:\n",
+"t": 3053
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "else:\n",
+"t": 3163
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "else:\n",
+"t": 3164
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 3164
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "       ",
+"t": 3180
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3326
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3326
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3326
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3326
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3332
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 3378
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 3448
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3448
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3480
+},
+{
+"type": "token",
+"run": "sft",
+"text": "2 ",
+"t": 3508
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3511
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 3564
+},
+{
+"type": "token",
+"run": "sft",
+"text": "** ",
+"t": 3616
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "2 ",
+"t": 3616
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "** ",
+"t": 3645
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "** ",
+"t": 3800
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3801
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3801
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3806
+},
+{
+"type": "token",
+"run": "sft",
+"text": "(n ",
+"t": 3812
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "(n ",
+"t": 3896
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "(n ",
+"t": 3955
+},
+{
+"type": "token",
+"run": "sft",
+"text": "- ",
+"t": 3955
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "- ",
+"t": 4114
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4114
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "- ",
+"t": 4114
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4125
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4174
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4180
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4217
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4263
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1) ",
+"t": 4270
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1) ",
+"t": 4309
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4357
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 4366
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 4399
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4439
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4452
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4482
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4520
+},
+{
+"type": "token",
+"run": "sft",
+"text": "2 ",
+"t": 4536
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 4570
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4618
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1).bit_length()<|repo_name|>",
+"t": 4622
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def next_Power_Of_2(n):\n  if n == 0:\n    return 1\n  else:\n    return 2 ** (n - 1).bit_length()",
+"ms": 3856,
+"t": 4622
+},
+{
+"type": "token",
+"run": "sft",
+"text": "** ",
+"t": 4625
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "** ",
+"t": 4645
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n ",
+"t": 4675
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n ",
+"t": 4696
+},
+{
+"type": "token",
+"run": "sft",
+"text": "<= ",
+"t": 4727
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "<= ",
+"t": 4750
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n ",
+"t": 4780
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n ",
+"t": 4804
+},
+{
+"type": "token",
+"run": "sft",
+"text": "else ",
+"t": 4838
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "else ",
+"t": 4857
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4892
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4910
+},
+{
+"type": "token",
+"run": "sft",
+"text": "2 ",
+"t": 4948
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 4968
+},
+{
+"type": "token",
+"run": "sft",
+"text": "** ",
+"t": 4997
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "** ",
+"t": 5017
+},
+{
+"type": "token",
+"run": "sft",
+"text": "n\n",
+"t": 5049
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "n\n",
+"t": 5069
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5122
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5153
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5175
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5208
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5231
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5260
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5282
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5312
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5337
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5366
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5388
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5415
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5439
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5467
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5494
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5519
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5550
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5576
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5602
+},
+{
+"type": "token",
+"run": "sft",
+"text": "print(next_Power_Of_2(0)) ",
+"t": 5629
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "print(next_Power_Of_2(0)) ",
+"t": 5654
+},
+{
+"type": "token",
+"run": "sft",
+"text": "# ",
+"t": 5680
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 5706
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5733
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5761
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 5788
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1<|repo_name|>",
+"t": 5792
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def next_Power_Of_2(n):\n    if n == 0:\n        return 1\n    else:\n        return 2 ** (n - 1) if 2 ** n <= n else 2 ** n\nprint(next_Power_Of_2(0)) # 1",
+"ms": 5030,
+"t": 5792
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0 ",
+"t": 5799
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 5813
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5829
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5846
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5857
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5870
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1, ",
+"t": 5885
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5902
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5915
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2) ",
+"t": 5930
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 5944
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 5958
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 5972
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 5987
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6001
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6015
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6029
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6041
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6056
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(16, ",
+"t": 6071
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6084
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6098
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6111
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "32) ",
+"t": 6128
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6138
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6155
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6167
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "32 ",
+"t": 6182
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6195
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6209
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6223
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6238
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6253
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6267
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6281
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(128, ",
+"t": 6297
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6310
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6325
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6337
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6359
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "256) ",
+"t": 6366
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6382
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6394
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6409
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6423
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "256 ",
+"t": 6437
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6450
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6464
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6477
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6492
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6508
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6521
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6534
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6546
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 6560
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6574
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6587
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6600
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6614
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6628
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2048) ",
+"t": 6643
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6661
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6673
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6689
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6700
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2048 ",
+"t": 6727
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6742
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6756
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6769
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6784
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6800
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6811
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6824
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6837
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 6852
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6871
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6879
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6894
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6908
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6921
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1024) ",
+"t": 6934
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 6949
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6964
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6979
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 6991
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7008
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1024 ",
+"t": 7027
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7032
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7049
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7067
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7087
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7111
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7125
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7138
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 7158
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7160
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7170
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7182
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7196
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "512) ",
+"t": 7212
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7227
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7241
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7254
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7269
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "512 ",
+"t": 7282
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7298
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7311
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7326
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7353
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7368
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7382
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7396
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 7411
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7425
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7440
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7453
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7467
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "256) ",
+"t": 7483
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7500
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7513
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7528
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7543
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "256 ",
+"t": 7558
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7574
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7586
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7602
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7616
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7631
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7647
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7661
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7675
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 7691
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7708
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7721
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7736
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7753
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "128) ",
+"t": 7767
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7781
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7795
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7810
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7825
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "128 ",
+"t": 7839
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 7855
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7870
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7884
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7900
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7914
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7930
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7944
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7961
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 7975
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 7990
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8005
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8019
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "64) ",
+"t": 8034
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8049
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8063
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8077
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "64 ",
+"t": 8092
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8107
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8187
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8200
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8212
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 8226
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8242
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8258
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8271
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "32) ",
+"t": 8286
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8299
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8315
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8329
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "32 ",
+"t": 8343
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8360
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8377
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8392
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8406
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8420
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8437
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8450
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8465
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 8480
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8495
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8508
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8524
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "16) ",
+"t": 8539
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8554
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8573
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8590
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "16 ",
+"t": 8603
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8617
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8631
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8645
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8660
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8676
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8692
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8706
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8723
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 8737
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8753
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8767
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "8) ",
+"t": 8782
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8796
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8813
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "8 ",
+"t": 8825
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 8837
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8850
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8866
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8882
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8896
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8911
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8926
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8939
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 8955
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8971
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 8986
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "4) ",
+"t": 9000
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9016
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9029
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "4 ",
+"t": 9044
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9059
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9073
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9087
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9101
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9118
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9134
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9149
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9163
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 9177
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9190
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9205
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2) ",
+"t": 9219
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9236
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9250
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "2 ",
+"t": 9265
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9279
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9296
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9308
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9322
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9353
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9369
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9384
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 9396
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9410
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9429
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1) ",
+"t": 9441
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9454
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9472
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1 ",
+"t": 9492
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9500
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9514
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9531
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9542
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9555
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9570
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9585
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9601
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 9614
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9627
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9642
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0) ",
+"t": 9656
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9673
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9684
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1 ",
+"t": 9698
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9728
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9740
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9756
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9771
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9784
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9799
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9814
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 9827
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9841
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9856
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "-1) ",
+"t": 9872
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9887
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9901
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1 ",
+"t": 9918
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 9931
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9946
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9961
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9974
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 9989
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10005
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10018
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10033
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 10048
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10064
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10077
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "-2) ",
+"t": 10093
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 10107
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10121
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1 ",
+"t": 10135
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 10149
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10165
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10178
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10193
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10205
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10220
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10237
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10253
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024, ",
+"t": 10267
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10282
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10295
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "-3) ",
+"t": 10310
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 10324
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10340
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1 ",
+"t": 10355
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ";;=\n",
+"t": 10369
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10383
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10399
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10412
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10426
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10441
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 10454
+},
+{
+"type": "token",
+"run": "jepa",
+"text": ":NSMakeRange(1024",
+"t": 10463
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def next_Power_Of_2(n):\n    if n == 0:\n        return 1\n    else:\n        return 2 ** (n - 1) if 2 ** n <= n else 2 ** n\nprint(next_Power_Of_2(0)) ;;=\n0 ;;=\n:NSMakeRange(1, 2) ;;=\n2 ;;=\n:NSMakeRange(16, 32) ;;=\n32 ;;=\n:NSMakeRange(128, 256) ;;=\n256 ;;=\n:NSMakeRange(1024, 2048) ;;=\n2048 ;;=\n:NSMakeRange(1024, 1024) ;;=\n1024 ;;=\n:NSMakeRange(1024, 512) ;;=\n512 ;;=\n:NSMakeRange(1024, 256) ;;=\n256 ;;=\n:NSMakeRange(1024, 128) ;;=\n128 ;;=\n:NSMakeRange(1024, 64) ;;=\n64 ;;=\n:NSMakeRange(1024, 32) ;;=\n32 ;;=\n:NSMakeRange(1024, 16) ;;=\n16 ;;=\n:NSMakeRange(1024, 8) ;;=\n8 ;;=\n:NSMakeRange(1024, 4) ;;=\n4 ;;=\n:NSMakeRange(1024, 2) ;;=\n2 ;;=\n:NSMakeRange(1024, 1) ;;=\n1 ;;=\n:NSMakeRange(1024, 0) ;;=\n1 ;;=\n:NSMakeRange(1024, -1) ;;=\n1 ;;=\n:NSMakeRange(1024, -2) ;;=\n1 ;;=\n:NSMakeRange(1024, -3) ;;=\n1 ;;=\n:NSMakeRange(1024",
+"ms": 9695,
+"t": 10463
+},
+{
+"type": "end",
+"t": 10465
+}
+],
+"exec": {
+"probes": [
+{
+"call": "next_Power_Of_2(0)",
+"outs": {
+"reference": "1",
+"precodefull_aux": "1",
+"sft": "1",
+"jepa": "DoesNotRun"
+},
+"truth": "1",
+"majority": "1",
+"split": true
+},
+{
+"call": "next_Power_Of_2(5)",
+"outs": {
+"reference": "8",
+"precodefull_aux": "8",
+"sft": "32",
+"jepa": "DoesNotRun"
+},
+"truth": "8",
+"majority": "32",
+"split": true
+},
+{
+"call": "next_Power_Of_2(17)",
+"outs": {
+"reference": "32",
+"precodefull_aux": "32",
+"sft": "131072",
+"jepa": "DoesNotRun"
+},
+"truth": "32",
+"majority": "131072",
+"split": true
+},
+{
+"call": "next_Power_Of_2(1)",
+"outs": {
+"reference": "1",
+"precodefull_aux": "1",
+"sft": "2",
+"jepa": "DoesNotRun"
+},
+"truth": "1",
+"majority": "1",
+"split": true
+},
+{
+"call": "next_Power_Of_2(-1)",
+"outs": {
+"reference": "Timeout",
+"precodefull_aux": "4",
+"sft": "0.5",
+"jepa": "DoesNotRun"
+},
+"truth": "Timeout",
+"majority": "0.5",
+"split": true
+},
+{
+"call": "next_Power_Of_2(7)",
+"outs": {
+"reference": "8",
+"precodefull_aux": "8",
+"sft": "128",
+"jepa": "DoesNotRun"
+},
+"truth": "8",
+"majority": "128",
+"split": true
+},
+{
+"call": "next_Power_Of_2(-5)",
+"outs": {
+"reference": "Timeout",
+"precodefull_aux": "8",
+"sft": "0.03125",
+"jepa": "DoesNotRun"
+},
+"truth": "Timeout",
+"majority": "0.03125",
+"split": true
+},
+{
+"call": "next_Power_Of_2(6)",
+"outs": {
+"reference": "8",
+"precodefull_aux": "8",
+"sft": "64",
+"jepa": "DoesNotRun"
+},
+"truth": "8",
+"majority": "DoesNotRun",
+"split": true
+},
+{
+"call": "next_Power_Of_2(507)",
+"outs": {
+"reference": "512",
+"precodefull_aux": "512",
+"sft": "418993997810706159361688281193932691483730181893512293053861295116305125939798343025058571817715732115313495568327689089179808837873330310826051531440128",
+"jepa": "DoesNotRun"
+},
+"truth": "512",
+"majority": "418993997810706159361688281193932691483730181893512293053861295116305125939798343025058571817715732115313495568327689089179808837873330310826051531440128",
+"split": true
+},
+{
+"call": "next_Power_Of_2(-17)",
+"outs": {
+"reference": "Timeout",
+"precodefull_aux": "32",
+"sft": "7.62939453125e-06",
+"jepa": "DoesNotRun"
+},
+"truth": "Timeout",
+"majority": "32",
+"split": true
+},
+{
+"call": "next_Power_Of_2(18)",
+"outs": {
+"reference": "32",
+"precodefull_aux": "32",
+"sft": "262144",
+"jepa": "DoesNotRun"
+},
+"truth": "32",
+"majority": "262144",
+"split": true
+},
+{
+"call": "next_Power_Of_2(1707)",
+"outs": {
+"reference": "2048",
+"precodefull_aux": "2048",
+"sft": "72144395436525801754438931414362273169959634446218643123715101975819890802007494855643365877629113821955852900177596838216507394495811250745561405996416238722204919209739651065480865757775509856721062",
+"jepa": "DoesNotRun"
+},
+"truth": "2048",
+"majority": "72144395436525801754438931414362273169959634446218643123715101975819890802007494855643365877629113821955852900177596838216507394495811250745561405996416238722204919209739651065480865757775509856721062",
+"split": true
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert next_Power_Of_2(0) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert next_Power_Of_2(5) == 8",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert next_Power_Of_2(17) == 32",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6500922056014709,
+0.8600727121517542
+],
+"agree_ref": [
+9,
+12
+],
+"nearest": [
+{
+"task_id": 547,
+"cos": 0.501,
+"desc": "Write a python function to find the sum of hamming distances of all consecutive numbers from o to n.",
+"trace": [
+"Total_Hamming_Distance(4) -> 7",
+"Total_Hamming_Distance(2) -> 3",
+"Total_Hamming_Distance(5) -> 8",
+"Total_Hamming_Distance(0) -> 0",
+"Total_Hamming_Distance(1) -> 1"
+]
+}
+],
+"imagined_vs_actual": 0.145
+},
+"sft": {
+"tests": [
+{
+"test": "assert next_Power_Of_2(0) == 1",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert next_Power_Of_2(5) == 8",
+"ok": false,
+"why": "wrong answer"
+},
+{
+"test": "assert next_Power_Of_2(17) == 32",
+"ok": false,
+"why": "wrong answer"
+}
+],
+"xy": [
+0.6726997262866421,
+0.8495356611559739
+],
+"agree_ref": [
+1,
+12
+],
+"nearest": [
+{
+"task_id": 905,
+"cos": 0.367,
+"desc": "Write a python function to find the sum of squares of binomial co-efficients.",
+"trace": [
+"sum_of_square(4) -> 70",
+"sum_of_square(5) -> 252",
+"sum_of_square(2) -> 6",
+"sum_of_square(0) -> 1",
+"sum_of_square(1) -> 2"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert next_Power_Of_2(0) == 1",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 6))"
+},
+{
+"test": "assert next_Power_Of_2(5) == 8",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 6))"
+},
+{
+"test": "assert next_Power_Of_2(17) == 32",
+"ok": false,
+"why": "does not run (SyntaxError: invalid syntax (<model>, line 6))"
+}
+],
+"xy": [
+0.7337321445269961,
+0.5472333820359038
+],
+"agree_ref": [
+0,
+12
+],
+"nearest": [
+{
+"task_id": 902,
+"cos": 0.234,
+"desc": "Write a function to combine two dictionaries by adding values for common keys.",
+"trace": [
+"add_dict({'a': 100, 'b': 200, 'c': 300}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'b': 400, 'd': 400, 'c': 300})",
+"add_dict({'a': 500, 'b': 700, 'c': 900}, {'a': 500, 'b': 600, 'd': 900}) -> Counter({'b': 1300, 'a': 1000, 'c': 900, 'd': 900})",
+"add_dict({'a': 900, 'b': 900, 'd': 900}, {'a': 900, 'b': 900, 'd': 900}) -> Counter({'a': 1800, 'b': 1800, 'd': 1800})",
+"add_dict({}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'d': 400, 'a': 300, 'b': 200})",
+"add_dict({'a': 100}, {'a': 300, 'b': 200, 'd': 400}) -> Counter({'a': 400, 'd': 400, 'b': 200})"
+]
+}
+]
+}
+},
+"split_count": 12,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:11"
+}

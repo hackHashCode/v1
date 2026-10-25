@@ -1,0 +1,1105 @@
+{
+"task": "Write a python function to find the frequency of a number in a given array.",
+"tests": [
+"assert frequency([1,2,3],4) == 0",
+"assert frequency([1,2,2,3,3,3,4],3) == 3",
+"assert frequency([0,1,2,3,1,2],1) == 2"
+],
+"reference": "def frequency(a,x): \r\n    count = 0  \r\n    for i in a: \r\n        if i == x: count += 1\r\n    return count ",
+"task_id": "Mbpp/168",
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 933
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 933
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 933
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 968
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 793,
+"cos": 0.311,
+"desc": "Write a python function to find the last position of an element in a sorted array.",
+"trace": [
+"last([1, 2, 3], 1, 3) -> 0",
+"last([1, 1, 1, 2, 3, 4], 1, 6) -> 2",
+"last([2, 3, 2, 3, 6, 8, 9], 3, 8) -> 3",
+"last([], 1, 3) -> IndexError",
+"last([1], 1, 3) -> IndexError"
+]
+},
+{
+"task_id": 970,
+"cos": 0.276,
+"desc": "Write a function to find minimum of two numbers.",
+"trace": [
+"min_of_two(10, 20) -> 10",
+"min_of_two(19, 15) -> 15",
+"min_of_two(-10, -20) -> -20",
+"min_of_two(0, 20) -> 0",
+"min_of_two(1, 20) -> 1"
+]
+},
+{
+"task_id": 786,
+"cos": 0.264,
+"desc": "Write a function to locate the right insertion point for a specified value in sorted order.",
+"trace": [
+"right_insertion([1, 2, 4, 5], 6) -> 4",
+"right_insertion([1, 2, 4, 5], 3) -> 2",
+"right_insertion([1, 2, 4, 5], 7) -> 4",
+"right_insertion([], 6) -> 0",
+"right_insertion([1], 6) -> 1"
+]
+}
+],
+"xy": [
+0.7019796245690113,
+0.8648448717643902
+],
+"t": 1198
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1198
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1198
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1198
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1198
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1198
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1198
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1198
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1268
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1268
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1268
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1420
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "frequency(arr, ",
+"t": 1420
+},
+{
+"type": "token",
+"run": "sft",
+"text": "frequency(arr, ",
+"t": 1420
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "frequency(arr, ",
+"t": 1451
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "num):\n",
+"t": 1462
+},
+{
+"type": "token",
+"run": "sft",
+"text": "num):\n",
+"t": 1535
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "num):\n",
+"t": 1574
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1574
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1574
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1653
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1655
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1730
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count ",
+"t": 1757
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count ",
+"t": 1762
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1767
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1847
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1887
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count ",
+"t": 1887
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2008
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 2008
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2008
+},
+{
+"type": "token",
+"run": "sft",
+"text": "0\n",
+"t": 2041
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2045
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "0\n",
+"t": 2056
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 2197
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "0\n",
+"t": 2197
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2198
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2257
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2257
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 2305
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2338
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2354
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2365
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 2436
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2461
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "i ",
+"t": 2529
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2541
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 2546
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2646
+},
+{
+"type": "token",
+"run": "sft",
+"text": "arr:\n",
+"t": 2646
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2683
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2683
+},
+{
+"type": "token",
+"run": "sft",
+"text": "       ",
+"t": 2837
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "arr:\n",
+"t": 2837
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2837
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 2845
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 2855
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "range(len(arr)):\n",
+"t": 2876
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 2973
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2973
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 2992
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 3064
+},
+{
+"type": "token",
+"run": "sft",
+"text": "i ",
+"t": 3070
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3082
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "i ",
+"t": 3152
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 3176
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 3183
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 3253
+},
+{
+"type": "token",
+"run": "sft",
+"text": "num:\n",
+"t": 3279
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3289
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "num:\n",
+"t": 3365
+},
+{
+"type": "token",
+"run": "sft",
+"text": "           ",
+"t": 3385
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3397
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "     ",
+"t": 3468
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3492
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "arr[i] ",
+"t": 3499
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3594
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count ",
+"t": 3595
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 3598
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count ",
+"t": 3663
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "num:\n",
+"t": 3699
+},
+{
+"type": "token",
+"run": "sft",
+"text": "+= ",
+"t": 3712
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "+= ",
+"t": 3768
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "     ",
+"t": 3809
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3821
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3870
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3916
+},
+{
+"type": "token",
+"run": "sft",
+"text": "1\n",
+"t": 3930
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "1\n",
+"t": 3974
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count ",
+"t": 4028
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 4040
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4083
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "+= ",
+"t": 4132
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 4145
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 4183
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4247
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 4255
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 4292
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "1\n",
+"t": 4406
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 4406
+},
+{
+"type": "token",
+"run": "sft",
+"text": "count<|repo_name|>",
+"t": 4406
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def frequency(arr, num):\n    count = 0\n    for i in arr:\n        if i == num:\n            count += 1\n    return count",
+"ms": 3521,
+"t": 4406
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4406
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "count<|repo_name|>",
+"t": 4406
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def frequency(arr, num):\n  count = 0\n  for i in arr:\n    if i == num:\n      count += 1\n  return count",
+"ms": 3536,
+"t": 4406
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4406
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 4416
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 4431
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 4446
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "count<|repo_name|>",
+"t": 4450
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def frequency(arr, num):\n  count = 0\n  for i in range(len(arr)):\n    if arr[i] == num:\n      count += 1\n  return count",
+"ms": 3597,
+"t": 4450
+},
+{
+"type": "end",
+"t": 4450
+}
+],
+"exec": {
+"probes": [
+{
+"call": "frequency([1, 2, 3], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 2, 3, 3, 3, 4], 3)",
+"outs": {
+"reference": "3",
+"sft": "3",
+"precodefull_aux": "3",
+"jepa": "3"
+},
+"truth": "3",
+"majority": "3",
+"split": false
+},
+{
+"call": "frequency([0, 1, 2, 3, 1, 2], 1)",
+"outs": {
+"reference": "2",
+"sft": "2",
+"precodefull_aux": "2",
+"jepa": "2"
+},
+"truth": "2",
+"majority": "2",
+"split": false
+},
+{
+"call": "frequency([], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([3, 2, 1], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3, 1], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3, 1, 2, 3, 1, 2, 3], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([-1, -2, -3], 4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], 0)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], 1)",
+"outs": {
+"reference": "1",
+"sft": "1",
+"precodefull_aux": "1",
+"jepa": "1"
+},
+"truth": "1",
+"majority": "1",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], -1)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], -4)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], 5)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([1, 2, 3], 407)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+},
+{
+"call": "frequency([], 3)",
+"outs": {
+"reference": "0",
+"sft": "0",
+"precodefull_aux": "0",
+"jepa": "0"
+},
+"truth": "0",
+"majority": "0",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert frequency([1,2,3],4) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([1,2,2,3,3,3,4],3) == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([0,1,2,3,1,2],1) == 2",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6335458512775958,
+0.8709778467668556
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 929,
+"cos": 0.52,
+"desc": "Write a function to count repeated items of a tuple.",
+"trace": [
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 4) -> 3",
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 2) -> 2",
+"count_tuplex((2, 4, 7, 7, 7, 3, 4, 4, 7), 7) -> 4",
+"count_tuplex((), 4) -> 0",
+"count_tuplex((2,), 4) -> 0"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert frequency([1,2,3],4) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([1,2,2,3,3,3,4],3) == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([0,1,2,3,1,2],1) == 2",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6335458512775958,
+0.8709778467668556
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 929,
+"cos": 0.52,
+"desc": "Write a function to count repeated items of a tuple.",
+"trace": [
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 4) -> 3",
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 2) -> 2",
+"count_tuplex((2, 4, 7, 7, 7, 3, 4, 4, 7), 7) -> 4",
+"count_tuplex((), 4) -> 0",
+"count_tuplex((2,), 4) -> 0"
+]
+}
+],
+"imagined_vs_actual": 0.157
+},
+"jepa": {
+"tests": [
+{
+"test": "assert frequency([1,2,3],4) == 0",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([1,2,2,3,3,3,4],3) == 3",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert frequency([0,1,2,3,1,2],1) == 2",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.6335458512775958,
+0.8709778467668556
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 929,
+"cos": 0.52,
+"desc": "Write a function to count repeated items of a tuple.",
+"trace": [
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 4) -> 3",
+"count_tuplex((2, 4, 5, 6, 2, 3, 4, 4, 7), 2) -> 2",
+"count_tuplex((2, 4, 7, 7, 7, 3, 4, 4, 7), 7) -> 4",
+"count_tuplex((), 4) -> 0",
+"count_tuplex((2,), 4) -> 0"
+]
+}
+]
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:10"
+}

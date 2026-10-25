@@ -1,0 +1,1113 @@
+{
+"task": "Write a function to check whether a string is a palindrome, ignoring case and non-alphanumeric characters.",
+"tests": [
+"assert is_pal('racecar') == True",
+"assert is_pal('Racecar') == True",
+"assert is_pal('A man, a plan, a canal: Panama') == True",
+"assert is_pal('') == True",
+"assert is_pal('ab') == False",
+"assert is_pal('No lemon, no melon') == True",
+"assert is_pal('abca') == False",
+"assert is_pal('Was it a car or a cat I saw?') == True"
+],
+"reference": "def is_pal(s):\n    t = [c.lower() for c in s if c.isalnum()]\n    return t == t[::-1]",
+"task_id": null,
+"runs": [
+"sft",
+"jepa",
+"precodefull_aux"
+],
+"runs_meta": [
+{
+"id": "sft",
+"name": "SFT",
+"blurb": "next-token loss only",
+"ours": false
+},
+{
+"id": "jepa",
+"name": "LLM-JEPA",
+"blurb": "predicts its own code-text embedding",
+"ours": false
+},
+{
+"id": "precodefull_aux",
+"name": "PreCode",
+"blurb": "behaviour head (InfoNCE), trained predictor (ours)",
+"ours": true
+}
+],
+"events": [
+{
+"type": "start",
+"run": "sft",
+"t": 789
+},
+{
+"type": "start",
+"run": "jepa",
+"t": 789
+},
+{
+"type": "start",
+"run": "precodefull_aux",
+"t": 792
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 899
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 901
+},
+{
+"type": "imagined",
+"run": "precodefull_aux",
+"nearest": [
+{
+"task_id": 913,
+"cos": 0.488,
+"desc": "Write a function to check for a number at the end of a string.",
+"trace": [
+"end_num('abcdef') -> False",
+"end_num('abcdef7') -> True",
+"end_num('abc') -> False",
+"end_num('') -> False",
+"end_num('a') -> False"
+]
+},
+{
+"task_id": 532,
+"cos": 0.462,
+"desc": "Write a function to check if the two given strings are permutations of each other.",
+"trace": [
+"check_permutation('abc', 'cba') -> True",
+"check_permutation('test', 'ttew') -> False",
+"check_permutation('xxyz', 'yxzx') -> True",
+"check_permutation('', 'cba') -> False",
+"check_permutation('a', 'cba') -> False"
+]
+},
+{
+"task_id": 759,
+"cos": 0.448,
+"desc": "Write a function to check a decimal with a precision of 2.",
+"trace": [
+"is_decimal('123.11') -> True",
+"is_decimal('e666.86') -> False",
+"is_decimal('3.124587') -> False",
+"is_decimal('') -> False",
+"is_decimal('1') -> True"
+]
+}
+],
+"xy": [
+0.5270309124942436,
+0.046731777861681534
+],
+"t": 1111
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "def ",
+"t": 1111
+},
+{
+"type": "token",
+"run": "sft",
+"text": "def ",
+"t": 1111
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1112
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1112
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1113
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "def ",
+"t": 1125
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1214
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1216
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1227
+},
+{
+"type": "token",
+"run": "sft",
+"text": "is_pal(s):\n",
+"t": 1327
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "is_pal(s):\n",
+"t": 1327
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1327
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 1429
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 1429
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 1431
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 1516
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 1519
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "is_palindrome(s):\n",
+"t": 1536
+},
+{
+"type": "token",
+"run": "sft",
+"text": "s ",
+"t": 1612
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "s ",
+"t": 1629
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 1642
+},
+{
+"type": "token",
+"run": "sft",
+"text": "= ",
+"t": 1713
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "= ",
+"t": 1728
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 1745
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1821
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1834
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "s ",
+"t": 1848
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 1940
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 1940
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "= ",
+"t": 1954
+},
+{
+"type": "token",
+"run": "sft",
+"text": "''.join(c ",
+"t": 2042
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "''.join(c ",
+"t": 2042
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2055
+},
+{
+"type": "token",
+"run": "sft",
+"text": "for ",
+"t": 2114
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "for ",
+"t": 2147
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2168
+},
+{
+"type": "token",
+"run": "sft",
+"text": "c ",
+"t": 2216
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "c ",
+"t": 2250
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "''.join(c ",
+"t": 2275
+},
+{
+"type": "token",
+"run": "sft",
+"text": "in ",
+"t": 2316
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "in ",
+"t": 2348
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "for ",
+"t": 2377
+},
+{
+"type": "token",
+"run": "sft",
+"text": "s ",
+"t": 2415
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "s ",
+"t": 2443
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "c ",
+"t": 2474
+},
+{
+"type": "token",
+"run": "sft",
+"text": "if ",
+"t": 2522
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "if ",
+"t": 2548
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "in ",
+"t": 2572
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2622
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2656
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "s ",
+"t": 2672
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2719
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2754
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "if ",
+"t": 2776
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2820
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2852
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2878
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 2920
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 2953
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 2988
+},
+{
+"type": "token",
+"run": "sft",
+"text": "c.isalnum()).lower()\n",
+"t": 3019
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "c.isalnum()).lower()\n",
+"t": 3056
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3093
+},
+{
+"type": "token",
+"run": "sft",
+"text": "   ",
+"t": 3119
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "   ",
+"t": 3160
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3201
+},
+{
+"type": "token",
+"run": "sft",
+"text": " ",
+"t": 3220
+},
+{
+"type": "token",
+"run": "jepa",
+"text": " ",
+"t": 3269
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "c.isalnum()).lower()\n",
+"t": 3305
+},
+{
+"type": "token",
+"run": "sft",
+"text": "return ",
+"t": 3320
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "return ",
+"t": 3376
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "   ",
+"t": 3400
+},
+{
+"type": "token",
+"run": "sft",
+"text": "s ",
+"t": 3426
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "s ",
+"t": 3476
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": " ",
+"t": 3506
+},
+{
+"type": "token",
+"run": "sft",
+"text": "== ",
+"t": 3520
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "== ",
+"t": 3579
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "return ",
+"t": 3607
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3624
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3688
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "s ",
+"t": 3704
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3730
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3792
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "== ",
+"t": 3807
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3845
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3920
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3921
+},
+{
+"type": "token",
+"run": "sft",
+"text": "",
+"t": 3931
+},
+{
+"type": "token",
+"run": "sft",
+"text": "s[::-1]<|file_sep|>",
+"t": 3936
+},
+{
+"type": "done",
+"run": "sft",
+"code": "def is_pal(s):\n    s = ''.join(c for c in s if c.isalnum()).lower()\n    return s == s[::-1]",
+"ms": 3162,
+"t": 3940
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "",
+"t": 3968
+},
+{
+"type": "token",
+"run": "jepa",
+"text": "s[::-1]<|repo_name|>",
+"t": 3980
+},
+{
+"type": "done",
+"run": "jepa",
+"code": "def is_pal(s):\n    s = ''.join(c for c in s if c.isalnum()).lower()\n    return s == s[::-1]",
+"ms": 3191,
+"t": 3980
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3980
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 3998
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "",
+"t": 4005
+},
+{
+"type": "token",
+"run": "precodefull_aux",
+"text": "s[::-1]<|repo_name|>",
+"t": 4009
+},
+{
+"type": "done",
+"run": "precodefull_aux",
+"code": "def is_palindrome(s):\n    s = ''.join(c for c in s if c.isalnum()).lower()\n    return s == s[::-1]",
+"ms": 3224,
+"t": 4009
+},
+{
+"type": "end",
+"t": 4009
+}
+],
+"exec": {
+"probes": [
+{
+"call": "is_pal('racecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('Racecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('A man, a plan, a canal: Panama')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('ab')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"jepa": "False",
+"precodefull_aux": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_pal('No lemon, no melon')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('abca')",
+"outs": {
+"reference": "False",
+"sft": "False",
+"jepa": "False",
+"precodefull_aux": "False"
+},
+"truth": "False",
+"majority": "False",
+"split": false
+},
+{
+"call": "is_pal('Was it a car or a cat I saw?')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('r')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('racecarracecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('racecarracecarracecarracecarracecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('R')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('racecaR')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('RacecarRacecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('RacecarRacecarRacecarRacecarRacecar')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+},
+{
+"call": "is_pal('A')",
+"outs": {
+"reference": "True",
+"sft": "True",
+"jepa": "True",
+"precodefull_aux": "True"
+},
+"truth": "True",
+"majority": "True",
+"split": false
+}
+],
+"probe_note": "derived from your tests: originals, then one argument changed at a time",
+"results": {
+"sft": {
+"tests": [
+{
+"test": "assert is_pal('racecar') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('Racecar') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('A man, a plan, a canal: Panama') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('ab') == False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('No lemon, no melon') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('abca') == False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('Was it a car or a cat I saw?') == True",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5446821524946976,
+0.03352593188938238
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 744,
+"cos": 0.532,
+"desc": "Write a function to check if the given tuple has any none value or not.",
+"trace": [
+"check_none((10, 4, 5, 6, None)) -> True",
+"check_none((7, 8, 9, 11, 14)) -> False",
+"check_none((1, 2, 3, 4, None)) -> True",
+"check_none(()) -> False",
+"check_none((10,)) -> False"
+]
+}
+]
+},
+"jepa": {
+"tests": [
+{
+"test": "assert is_pal('racecar') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('Racecar') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('A man, a plan, a canal: Panama') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('ab') == False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('No lemon, no melon') == True",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('abca') == False",
+"ok": true,
+"why": ""
+},
+{
+"test": "assert is_pal('Was it a car or a cat I saw?') == True",
+"ok": true,
+"why": ""
+}
+],
+"xy": [
+0.5446821524946976,
+0.03352593188938238
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 744,
+"cos": 0.532,
+"desc": "Write a function to check if the given tuple has any none value or not.",
+"trace": [
+"check_none((10, 4, 5, 6, None)) -> True",
+"check_none((7, 8, 9, 11, 14)) -> False",
+"check_none((1, 2, 3, 4, None)) -> True",
+"check_none(()) -> False",
+"check_none((10,)) -> False"
+]
+}
+]
+},
+"precodefull_aux": {
+"tests": [
+{
+"test": "assert is_pal('racecar') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('Racecar') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('A man, a plan, a canal: Panama') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('ab') == False",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('No lemon, no melon') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('abca') == False",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+},
+{
+"test": "assert is_pal('Was it a car or a cat I saw?') == True",
+"ok": false,
+"why": "NameError: name 'is_pal' is not defined"
+}
+],
+"xy": [
+0.5446821524946976,
+0.03352593188938238
+],
+"agree_ref": [
+16,
+16
+],
+"nearest": [
+{
+"task_id": 744,
+"cos": 0.532,
+"desc": "Write a function to check if the given tuple has any none value or not.",
+"trace": [
+"check_none((10, 4, 5, 6, None)) -> True",
+"check_none((7, 8, 9, 11, 14)) -> False",
+"check_none((1, 2, 3, 4, None)) -> True",
+"check_none(()) -> False",
+"check_none((10,)) -> False"
+]
+}
+],
+"imagined_vs_actual": 0.319
+}
+},
+"split_count": 0,
+"has_reference": true
+},
+"gpu": "NVIDIA L40S",
+"recorded_at": "2026-10-25 06:12"
+}
